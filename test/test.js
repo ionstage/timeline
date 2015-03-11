@@ -1,0 +1,1 @@
+var assert = this.assert || require('assert');
