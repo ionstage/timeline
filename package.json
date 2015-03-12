@@ -12,6 +12,9 @@
     "coffee-script": "*",
     "mocha": "*"
   },
+  "dependencies": {
+    "mithril": "^0.1.30"
+  },
   "license": "MIT",
   "private": true
 }
