@@ -5,9 +5,19 @@
 
   var document = global.document;
 
-  app.controller = function() {};
+  app.controller = function() {
+    var HeaderController = app.HeaderController;
 
-  app.view = function(ctrl) {};
+    this.headerController = new HeaderController();
+  };
+
+  app.view = function(ctrl) {
+    var headerView = app.headerView;
+
+    return [
+      headerView(this.headerController)
+    ];
+  };
 
   m.module(document.getElementById('container'), app);
   global.app = app;

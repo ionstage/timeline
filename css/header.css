@@ -1,0 +1,37 @@
+.header {
+  background-color: lightgray;
+  display: table;
+  height: 42px;
+  padding: 0 16px;
+  width: 100%;
+}
+
+.header > * {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.header .icon {
+  cursor: default;
+  white-space: nowrap;
+}
+
+.header .scale {
+  margin: 0 8px;
+  width: 160px;
+}
+
+.header .spacer {
+  width: 100%;
+}
+
+.header .button {
+  color: #333;
+  padding: 0 16px;
+  text-decoration: none;
+}
+
+.header .button:hover {
+  opacity: 0.6;
+}
