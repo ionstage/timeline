@@ -6,11 +6,31 @@
   var headerView = function(ctrl) {
     return m('div.header.unselectable', [
       m('div.icon', ['||||']),
-      m('input.scale', {type: 'range'}),
+      m('input.scale', {
+        type: 'range',
+        onchange: m.withAttr('value', ctrl.scale),
+        value: ctrl.scale()
+      }),
       m('div.icon', ['| |']),
       m('div.spacer'),
-      m('a.button.today', {href: '#'}, 'Today'),
-      m('a.button.edit', {href: '#'}, 'Edit')
+      m('a.button.today', {
+        href: '#',
+        onclick: function() {
+          ctrl.dispatchEvent({
+            type: 'click',
+            name: 'today'
+          });
+        }
+      }, 'Today'),
+      m('a.button.edit', {
+        href: '#',
+        onclick: function() {
+          ctrl.dispatchEvent({
+            type: 'click',
+            name: 'edit'
+          });
+        }
+      }, 'Edit')
     ]);
   };
 
