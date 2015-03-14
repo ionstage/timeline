@@ -15,7 +15,7 @@
     var headerView = app.headerView;
 
     return [
-      headerView(this.headerController)
+      headerView(ctrl.headerController)
     ];
   };
 
