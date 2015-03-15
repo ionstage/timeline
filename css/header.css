@@ -18,6 +18,7 @@
 
 .header .scale {
   margin: 0 8px;
+  padding: 0;
   width: 160px;
 }
 
@@ -31,6 +32,6 @@
   text-decoration: none;
 }
 
-.header .button:hover {
-  opacity: 0.6;
+.header .button:active {
+  opacity: 0.3;
 }
