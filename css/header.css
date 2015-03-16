@@ -2,7 +2,8 @@
   background-color: lightgray;
   display: table;
   height: 42px;
-  padding: 0 16px;
+  padding: 0 8px;
+  width: 100%;
 }
 
 .header > * {
@@ -16,10 +17,42 @@
   white-space: nowrap;
 }
 
+.header .time-span {
+  white-space: nowrap;
+}
+
+.header .time-span > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header .time-span select {
+  padding: 0 8px;
+}
+
+.header .time-span .icon {
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+  font-family: Courier;
+  padding: 4px;
+}
+
 .header .scale {
-  margin: 0 8px;
+  padding: 0 16px;
+  white-space: nowrap;
+}
+
+.header .scale > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header .scale input {
+  margin: 0 4px;
   padding: 0;
-  width: 160px;
+  width: 192px;
 }
 
 .header .spacer {

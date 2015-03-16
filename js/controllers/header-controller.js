@@ -4,6 +4,8 @@
   var m = global.m;
 
   var HeaderController = function() {
+    this.daysAgo = m.prop(-183);
+    this.daysAfter = m.prop(183);
     this.scale = m.prop(50);
   };
 
