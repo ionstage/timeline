@@ -39,17 +39,17 @@
   padding: 4px;
 }
 
-.header .scale {
+.header .pixels-per-day {
   padding: 0 16px;
   white-space: nowrap;
 }
 
-.header .scale > * {
+.header .pixels-per-day > * {
   display: inline-block;
   vertical-align: middle;
 }
 
-.header .scale input {
+.header .pixels-per-day input {
   margin: 0 4px;
   padding: 0;
   width: 192px;

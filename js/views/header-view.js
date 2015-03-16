@@ -28,12 +28,17 @@
           m('option', {value: '730'}, ['2 year after'])
         ])
       ]),
-      m('div.scale', [
+      m('div.pixels-per-day', [
         m('div.icon', ['||||']),
         m('input', {
           type: 'range',
-          onchange: m.withAttr('value', ctrl.scale),
-          value: ctrl.scale()
+          min: '1.5',
+          max: '30',
+          step: '0.5',
+          onchange: m.withAttr('value', function(value) {
+            ctrl.pixelsPerDay(+value);
+          }),
+          value: ctrl.pixelsPerDay().toString()
         }),
         m('div.icon', ['| |'])
       ]),

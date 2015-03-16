@@ -6,7 +6,7 @@
   var HeaderController = function() {
     this.daysAgo = m.prop(-183);
     this.daysAfter = m.prop(183);
-    this.scale = m.prop(50);
+    this.pixelsPerDay = m.prop(8);
   };
 
   HeaderController.prototype.dispatchEvent = function(event) {
