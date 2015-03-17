@@ -7,15 +7,19 @@
 
   app.controller = function() {
     var HeaderController = app.HeaderController;
+    var TimeAxisController = app.TimeAxisController;
 
     this.headerController = new HeaderController();
+    this.timeAxisController = new TimeAxisController();
   };
 
   app.view = function(ctrl) {
     var headerView = app.headerView;
+    var timeAxisView = app.timeAxisView;
 
     return [
-      headerView(ctrl.headerController)
+      headerView(ctrl.headerController),
+      timeAxisView(ctrl.timeAxisController)
     ];
   };
 

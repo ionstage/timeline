@@ -1,0 +1,14 @@
+.time-axis {
+  border-bottom: 1px solid gray;
+  border-top: 1px solid gray;
+  height: 32px;
+  overflow: hidden;
+}
+
+.time-axis pattern line {
+  stroke: gray;
+}
+
+.time-axis .background {
+  fill: url(#time-axis-pattern);
+}
