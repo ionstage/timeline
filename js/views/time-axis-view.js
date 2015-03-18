@@ -32,6 +32,12 @@
             })
           ])
         ]),
+        m('rect.today', {
+          x: -daysAgo * pixelsPerDay,
+          y: 0,
+          width: pixelsPerDay,
+          height: height
+        }),
         m('rect.background', {
           x: 0,
           y: 0,
