@@ -6,7 +6,7 @@
 }
 
 .time-axis pattern line {
-  stroke: gray;
+  stroke: lightgray;
 }
 
 .time-axis .background {
