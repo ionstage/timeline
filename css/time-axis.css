@@ -16,3 +16,18 @@
 .time-axis .today {
   fill: orangered;
 }
+
+.time-axis .month line {
+  stroke: lightgray;
+  stroke-width: 2px;
+}
+
+.time-axis .month rect {
+  fill: lightgray;
+}
+
+.time-axis .month text {
+  dominant-baseline: middle;
+  font-size: 14px;
+  text-anchor: middle;
+}
