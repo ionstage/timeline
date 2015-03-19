@@ -13,10 +13,6 @@
   fill: url(#time-axis-pattern);
 }
 
-.time-axis .today {
-  fill: orangered;
-}
-
 .time-axis .month line {
   stroke: lightgray;
   stroke-width: 2px;
@@ -30,4 +26,9 @@
   dominant-baseline: middle;
   font-size: 14px;
   text-anchor: middle;
+}
+
+.time-axis .today {
+  fill: orangered;
+  opacity: 0.6;
 }

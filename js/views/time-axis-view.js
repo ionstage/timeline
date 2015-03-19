@@ -65,19 +65,19 @@
             })
           ])
         ]),
-        m('rect.today', {
-          x: -daysAgo * pixelsPerDay,
-          y: 0,
-          width: pixelsPerDay,
-          height: height
-        }),
         m('rect.background', {
           x: 0,
           y: 0,
           width: '100%',
           height: height
         }),
-        monthMarkerViews
+        monthMarkerViews,
+        m('rect.today', {
+          x: -daysAgo * pixelsPerDay,
+          y: 0,
+          width: pixelsPerDay,
+          height: height
+        })
       ])
     ]);
   };
