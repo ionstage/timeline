@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   color: #333;
   font-family: sans-serif;
@@ -47,4 +51,8 @@ input[type=range]::-ms-fill-lower {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+}
+
+#container {
+  height: 100%;
 }
