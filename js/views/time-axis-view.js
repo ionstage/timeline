@@ -43,7 +43,7 @@
       ]));
     }
 
-    return m('div.time-axis', [
+    return m('div.time-axis.unselectable', [
       m('svg', {
         width: (daysAfter - daysAgo + 1) * pixelsPerDay + 1,
         height: height
