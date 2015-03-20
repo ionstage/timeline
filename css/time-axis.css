@@ -23,7 +23,6 @@
 }
 
 .time-axis .month text {
-  dominant-baseline: middle;
   font-size: 14px;
   text-anchor: middle;
 }
