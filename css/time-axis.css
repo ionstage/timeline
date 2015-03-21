@@ -24,6 +24,7 @@
 
 .time-axis .month text {
   cursor: default;
+  fill: gray;
   font-size: 14px;
   text-anchor: middle;
 }
