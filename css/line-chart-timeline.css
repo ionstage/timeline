@@ -1,0 +1,39 @@
+.timeline.line-chart .graph line {
+  pointer-events: none;
+  stroke: gray;
+}
+
+.timeline.line-chart .graph circle {
+  fill: gray;
+  stroke: transparent;
+  stroke-width: 8px;
+}
+
+.timeline.line-chart .graph circle.selected {
+  fill: lightgray;
+}
+
+.timeline.line-chart .graph .tooltip {
+  pointer-events: none;
+}
+
+.timeline.line-chart .graph .tooltip rect {
+  fill: gray;
+  stroke: white;
+  stroke-width: 1px;
+}
+
+.timeline.line-chart .graph .tooltip text {
+  fill: white;
+  font-family: Courier;
+  font-size: 14px;
+  text-anchor: middle;
+}
+
+.timeline.line-chart .graph .tooltip.show {
+  display: inline;
+}
+
+.timeline.line-chart .graph .tooltip.hide {
+  display: none;
+}

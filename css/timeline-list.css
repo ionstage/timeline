@@ -1,3 +1,4 @@
 .timeline-list {
   height: calc(100% - 74px);
+  overflow: auto;
 }

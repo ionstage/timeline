@@ -3,8 +3,15 @@
   var app = global.app || {};
   var m = global.m;
 
+  var LineChartTimelineController = app.LineChartTimelineController;
+  var lineChartTimelineView = app.lineChartTimelineView;
+
   var timelineListView = function(ctrl) {
-    return m('div.timeline-list');
+    var timelineControllers = ctrl.timelineControllers();
+    return m('div.timeline-list', timelineControllers.map(function(controller) {
+      if (controller.constructor === LineChartTimelineController)
+        return lineChartTimelineView(controller)
+    }));
   };
 
   app.timelineListView = timelineListView;

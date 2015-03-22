@@ -1,0 +1,13 @@
+.timeline {
+  border-bottom: 1px solid gray;
+  position: relative;
+}
+
+.timeline .title {
+  color: gray;
+  position: absolute;
+}
+
+.timeline .graph {
+  vertical-align: bottom;
+}
