@@ -17,7 +17,7 @@
     var pixelsPerDay = ctrl.pixelsPerDay();
     var selectedIndex = ctrl.selectedIndex();
 
-    var width = (daysAfter - daysAgo + 1) * pixelsPerDay + 1;
+    var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
     var height = 160;
     var points = calcPoints(data, daysAgo, pixelsPerDay, height);
 
@@ -76,7 +76,7 @@
     var dataLength = data.length;
     var min = dataLength > 0 ? dataSortedByValue[0].value : 0;
     var max = dataLength > 0 ? dataSortedByValue[dataLength - 1].value : 0;
-    var beginDate = addDays(startOfDay(), daysAgo);
+    var beginDate = addDays(startOfDay(), -daysAgo);
 
     return sortBy(data, 'date').map(function(item) {
       return {

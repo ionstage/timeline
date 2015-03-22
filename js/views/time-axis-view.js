@@ -12,13 +12,13 @@
 
     var monthMarkerViews = [];
     var now = Date.now();
-    for (var di = daysAgo, dlen = daysAfter + 1; di < dlen; di++) {
+    for (var di = -daysAgo, dlen = daysAfter + 1; di < dlen; di++) {
       var date = new Date(now + di * 86400000);
       if (date.getDate() !== 1)
         continue;
       var month = date.getMonth() + 1;
       var showYear = (month === 1 || month === 4 || month === 7 || month === 10);
-      var x = (di - daysAgo) * pixelsPerDay;
+      var x = (di + daysAgo) * pixelsPerDay;
       var width = showYear ? 60 : 20;
       var text = showYear ? date.getFullYear() + '/' + month : month;
       monthMarkerViews.push(m('g.month', [
@@ -45,7 +45,7 @@
 
     return m('div.time-axis.unselectable', [
       m('svg', {
-        width: (daysAfter - daysAgo + 1) * pixelsPerDay + 1,
+        width: (daysAfter + daysAgo + 1) * pixelsPerDay + 1,
         height: height
       }, [
         m('defs',[
@@ -73,7 +73,7 @@
         }),
         monthMarkerViews,
         m('rect.today', {
-          x: -daysAgo * pixelsPerDay,
+          x: daysAgo * pixelsPerDay,
           y: 0,
           width: pixelsPerDay,
           height: height

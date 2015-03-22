@@ -12,9 +12,9 @@
           }),
           value: ctrl.daysAgo().toString()
         },[
-          m('option', {value: '-183'}, ['6 months ago']),
-          m('option', {value: '-365'}, ['1 year ago']),
-          m('option', {value: '-730'}, ['2 year ago'])
+          m('option', {value: '183'}, ['6 months ago']),
+          m('option', {value: '365'}, ['1 year ago']),
+          m('option', {value: '730'}, ['2 year ago'])
         ]),
         m('div.icon', ['I']),
         m('select', {
