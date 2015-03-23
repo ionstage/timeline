@@ -22,7 +22,16 @@
     var points = calcPoints(data, daysAgo, pixelsPerDay, height);
 
     return m('div.timeline.line-chart', {style: 'width: ' + width + 'px;'}, [
-      m('div.title', title),
+      m('div.title', {
+        config: function(element, isInitialized) {
+          if (!isInitialized)
+            return;
+          ctrl.dispatchEvent({
+            type: 'init',
+            titleElement: element
+          });
+        }
+      }, title),
       m('svg.graph', {
         height: height,
         width: width,

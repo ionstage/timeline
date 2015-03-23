@@ -43,7 +43,16 @@
       ]));
     }
 
-    return m('div.time-axis.unselectable', [
+    return m('div.time-axis.unselectable', {
+      config: function(element, isInitialized) {
+        if (!isInitialized)
+          return;
+        ctrl.dispatchEvent({
+          type: 'init',
+          element: element
+        });
+      }
+    }, [
       m('svg', {
         width: (daysAfter + daysAgo + 1) * pixelsPerDay + 1,
         height: height

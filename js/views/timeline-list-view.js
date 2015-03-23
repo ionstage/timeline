@@ -8,7 +8,14 @@
 
   var timelineListView = function(ctrl) {
     var timelineControllers = ctrl.timelineControllers();
-    return m('div.timeline-list', timelineControllers.map(function(controller) {
+    return m('div.timeline-list', {
+      onscroll: function(event) {
+        ctrl.dispatchEvent({
+          type: 'scroll',
+          scrollLeft: this.scrollLeft
+        });
+      }
+    }, timelineControllers.map(function(controller) {
       if (controller.constructor === LineChartTimelineController)
         return lineChartTimelineView(controller)
     }));

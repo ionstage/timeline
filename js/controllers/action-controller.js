@@ -11,8 +11,10 @@
 
   ActionController.prototype.start = function() {
     var headerController = this.headerController();
+    var timelineListController = this.timelineListController();
 
     headerController.onchange = onChangeHeaderController.bind(this);
+    timelineListController.onscroll = onScrollTimelineListController.bind(this);
   };
 
   var onChangeHeaderController = function(event) {
@@ -24,6 +26,11 @@
 
     timeAxisController[name](value);
     timelineListController[name](value);
+  };
+
+  var onScrollTimelineListController = function(event) {
+    var timeAxisController = this.timeAxisController();
+    timeAxisController.scrollLeft(event.scrollLeft);
   };
 
   app.ActionController = ActionController;
