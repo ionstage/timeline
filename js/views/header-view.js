@@ -8,7 +8,13 @@
       m('div.time-span', [
         m('select', {
           onchange: m.withAttr('value', function(value) {
-            ctrl.daysAgo(+value);
+            value = +value;
+            ctrl.daysAgo(value);
+            ctrl.dispatchEvent({
+              type: 'change',
+              name: 'daysAgo',
+              value: value
+            });
           }),
           value: ctrl.daysAgo().toString()
         },[
@@ -19,7 +25,13 @@
         m('div.icon', ['I']),
         m('select', {
           onchange: m.withAttr('value', function(value) {
+            value = +value;
             ctrl.daysAfter(+value);
+            ctrl.dispatchEvent({
+              type: 'change',
+              name: 'daysAfter',
+              value: value
+            });
           }),
           value: ctrl.daysAfter().toString()
         }, [
@@ -36,7 +48,13 @@
           max: '30',
           step: '0.5',
           onchange: m.withAttr('value', function(value) {
+            value = +value;
             ctrl.pixelsPerDay(+value);
+            ctrl.dispatchEvent({
+              type: 'change',
+              name: 'pixelsPerDay',
+              value: value
+            });
           }),
           value: ctrl.pixelsPerDay().toString()
         }),
