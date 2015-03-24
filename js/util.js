@@ -15,6 +15,13 @@
     return ctor;
   };
 
+  util.invoke = function(array, methodName) {
+    var args = Array.prototype.slice.call(arguments, 2);
+    return array.map(function(value) {
+      return value[methodName].apply(value, args);
+    });
+  };
+
   util.sortBy = function(array, key) {
     return array.concat().sort(function(a, b) {
       return a[key] - b[key];
