@@ -26,7 +26,7 @@
         m('select', {
           onchange: m.withAttr('value', function(value) {
             value = +value;
-            ctrl.daysAfter(+value);
+            ctrl.daysAfter(value);
             ctrl.dispatchEvent({
               type: 'change',
               name: 'daysAfter',
@@ -49,7 +49,7 @@
           step: '0.5',
           onchange: m.withAttr('value', function(value) {
             value = +value;
-            ctrl.pixelsPerDay(+value);
+            ctrl.pixelsPerDay(value);
             ctrl.dispatchEvent({
               type: 'change',
               name: 'pixelsPerDay',
