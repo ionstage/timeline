@@ -14,6 +14,14 @@
           type: 'scroll',
           scrollLeft: this.scrollLeft
         });
+      },
+      config: function(element, isInitialized) {
+        if (!isInitialized)
+          return;
+        ctrl.dispatchEvent({
+          type: 'init',
+          element: element
+        });
       }
     }, timelineControllers.map(function(controller) {
       if (controller.constructor === LineChartTimelineController)

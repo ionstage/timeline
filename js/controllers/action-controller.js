@@ -2,8 +2,11 @@
   'use strict';
   var app = global.app || {};
   var m = global.m;
+  var util = global.util;
 
   var LineChartTimelineController = app.LineChartTimelineController;
+
+  var windowWidth = util.windowWidth;
 
   var ActionController = function(option) {
     this.headerController = m.prop(option.headerController);
@@ -50,11 +53,30 @@
     var timeAxisController = this.timeAxisController();
     var timelineListController = this.timelineListController();
 
+    // get values before change
+    var daysAgo = timeAxisController.daysAgo();
+    var pixelsPerDay = timeAxisController.pixelsPerDay();
+    var scrollLeft = timelineListController.scrollLeft();
+
     var name = event.name;
     var value = event.value;
 
     timeAxisController[name](value);
     timelineListController[name](value);
+
+    m.redraw();
+
+    // adjust scroll position after redraw
+    if (name === 'daysAgo') {
+      scrollLeft += (value - daysAgo) * pixelsPerDay;
+    } else if (name === 'pixelsPerDay') {
+      var scrollDays = (scrollLeft + windowWidth() / 2) / pixelsPerDay;
+      scrollLeft += scrollDays * (value - pixelsPerDay);
+    }
+
+    // need only adjust timeline list scroll position
+    // timeline list scroll event transferred to time axis
+    timelineListController.scrollLeft(scrollLeft);
   };
 
   var onScrollTimelineListController = function(event) {

@@ -9,6 +9,7 @@
   var TimelineListController = function() {
     var noop = function() {};
     this.timelineControllers = m.prop([]);
+    this.element = m.prop(null);
     this.onscroll = noop;
   };
 
@@ -24,10 +25,22 @@
     invoke(this.timelineControllers(), 'pixelsPerDay', value);
   };
 
+  TimelineListController.prototype.scrollLeft = function(value) {
+    var element = this.element();
+    if (!element)
+      return;
+    if (typeof value === 'undefined')
+      return element.scrollLeft;
+    element.scrollLeft = value;
+  };
+
   TimelineListController.prototype.dispatchEvent = function(event) {
     var timelineControllers = this.timelineControllers();
 
     switch (event.type) {
+    case 'init':
+      this.element(event.element);
+      break;
     case 'scroll':
       m.redraw.strategy('none');
       invoke(timelineControllers, 'scrollLeft', event.scrollLeft);

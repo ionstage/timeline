@@ -2,6 +2,8 @@
   'use strict';
   var util = {};
 
+  var window = global.window;
+
   util.inherits = function(ctor, superCtor) {
     ctor.super_ = superCtor;
     ctor.prototype = Object.create(superCtor.prototype, {
@@ -39,6 +41,10 @@
 
   util.diffDays = function(date0, date1) {
     return (date0.getTime() - date1.getTime()) / 86400000;
+  };
+
+  util.windowWidth = function() {
+    return window.innerWidth;
   };
 
   if (typeof module !== 'undefined' && module.exports)
