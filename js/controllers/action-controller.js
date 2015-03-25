@@ -3,6 +3,8 @@
   var app = global.app || {};
   var m = global.m;
 
+  var LineChartTimelineController = app.LineChartTimelineController;
+
   var ActionController = function(option) {
     this.headerController = m.prop(option.headerController);
     this.timeAxisController = m.prop(option.timeAxisController);
@@ -13,8 +15,35 @@
     var headerController = this.headerController();
     var timelineListController = this.timelineListController();
 
+    timelineListController.timelineControllers(defaultTimelineListControllers({
+      daysAgo: headerController.daysAgo(),
+      daysAfter: headerController.daysAfter(),
+      pixelsPerDay: headerController.pixelsPerDay()
+    }));
+
     headerController.onchange = onChangeHeaderController.bind(this);
     timelineListController.onscroll = onScrollTimelineListController.bind(this);
+  };
+
+  var defaultTimelineListControllers = function(option) {
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = now.getMonth();
+
+    return [
+      new LineChartTimelineController({
+        title: 'Line Chart',
+        data: [
+          {'date': new Date(year, month, 1), 'value': 500},
+          {'date': new Date(year, month, 5), 'value': 100},
+          {'date': new Date(year, month, 17), 'value': 2000},
+          {'date': new Date(year, month, 31), 'value': 700}
+        ],
+        daysAgo: option.daysAgo,
+        daysAfter: option.daysAfter,
+        pixelsPerDay: option.pixelsPerDay
+      })
+    ];
   };
 
   var onChangeHeaderController = function(event) {
