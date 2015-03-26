@@ -50,6 +50,14 @@
     ];
   };
 
+  var updateScrollLeftPosition = function(ctrl, value) {
+    var timelineListController = ctrl.timelineListController();
+
+    // need only adjust timeline list scroll position
+    // timeline list scroll event transferred to time axis
+    timelineListController.scrollLeft(value);
+  };
+
   var onChangeHeaderController = function(event) {
     var timeAxisController = this.timeAxisController();
     var timelineListController = this.timelineListController();
@@ -75,9 +83,7 @@
       scrollLeft += scrollDays * (value - pixelsPerDay);
     }
 
-    // need only adjust timeline list scroll position
-    // timeline list scroll event transferred to time axis
-    timelineListController.scrollLeft(scrollLeft);
+    updateScrollLeftPosition(this, scrollLeft);
   };
 
   var onTodayHeaderController = function() {
@@ -88,9 +94,7 @@
     var pixelsPerDay = headerController.pixelsPerDay();
     var scrollLeft = (daysAgo + 0.5) * pixelsPerDay - windowWidth() / 2;
 
-    // need only adjust timeline list scroll position
-    // timeline list scroll event transferred to time axis
-    timelineListController.scrollLeft(scrollLeft);
+    updateScrollLeftPosition(this, scrollLeft);
   };
 
   var onScrollTimelineListController = function(event) {
