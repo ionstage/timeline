@@ -25,6 +25,7 @@
     }));
 
     headerController.onchange = onChangeHeaderController.bind(this);
+    headerController.ontoday = onTodayHeaderController.bind(this);
     timelineListController.onscroll = onScrollTimelineListController.bind(this);
   };
 
@@ -73,6 +74,19 @@
       var scrollDays = (scrollLeft + windowWidth() / 2) / pixelsPerDay;
       scrollLeft += scrollDays * (value - pixelsPerDay);
     }
+
+    // need only adjust timeline list scroll position
+    // timeline list scroll event transferred to time axis
+    timelineListController.scrollLeft(scrollLeft);
+  };
+
+  var onTodayHeaderController = function() {
+    var headerController = this.headerController();
+    var timelineListController = this.timelineListController();
+
+    var daysAgo = headerController.daysAgo();
+    var pixelsPerDay = headerController.pixelsPerDay();
+    var scrollLeft = (daysAgo + 0.5) * pixelsPerDay - windowWidth() / 2;
 
     // need only adjust timeline list scroll position
     // timeline list scroll event transferred to time axis

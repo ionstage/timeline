@@ -9,6 +9,7 @@
     this.daysAfter = m.prop(183);
     this.pixelsPerDay = m.prop(8);
     this.onchange = noop;
+    this.ontoday = noop;
   };
 
   HeaderController.prototype.dispatchEvent = function(event) {
@@ -20,7 +21,7 @@
     case 'click':
       switch(event.name) {
       case 'today':
-        // TODO: click "today" button
+        this.ontoday();
         break;
       case 'edit':
         // TODO: click "edit" button
