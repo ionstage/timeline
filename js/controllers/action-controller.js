@@ -26,6 +26,7 @@
 
     headerController.onchange = onChangeHeaderController.bind(this);
     headerController.ontoday = onTodayHeaderController.bind(this);
+    timelineListController.oninit = onInitTimelineListController.bind(this);
     timelineListController.onscroll = onScrollTimelineListController.bind(this);
   };
 
@@ -95,6 +96,10 @@
     var scrollLeft = (daysAgo + 0.5) * pixelsPerDay - windowWidth() / 2;
 
     updateScrollLeftPosition(this, scrollLeft);
+  };
+
+  var onInitTimelineListController = function() {
+    onTodayHeaderController.call(this);
   };
 
   var onScrollTimelineListController = function(event) {

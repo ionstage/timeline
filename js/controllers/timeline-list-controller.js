@@ -10,6 +10,7 @@
     var noop = function() {};
     this.timelineControllers = m.prop([]);
     this.element = m.prop(null);
+    this.oninit = noop;
     this.onscroll = noop;
   };
 
@@ -40,6 +41,7 @@
     switch (event.type) {
     case 'init':
       this.element(event.element);
+      this.oninit();
       break;
     case 'scroll':
       m.redraw.strategy('none');
