@@ -24,7 +24,7 @@
     return m('div.timeline.line-chart', {style: 'width: ' + width + 'px;'}, [
       m('div.title', {
         config: function(element, isInitialized) {
-          if (!isInitialized)
+          if (isInitialized)
             return;
           ctrl.dispatchEvent({
             type: 'init',

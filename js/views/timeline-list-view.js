@@ -16,7 +16,7 @@
         });
       },
       config: function(element, isInitialized) {
-        if (!isInitialized)
+        if (isInitialized)
           return;
         ctrl.dispatchEvent({
           type: 'init',
