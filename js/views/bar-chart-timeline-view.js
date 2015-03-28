@@ -60,7 +60,7 @@
           return m('rect', {
             x: point.x,
             y: point.y,
-            width: pixelsPerDay,
+            width: pixelsPerDay + 0.5,
             height: height - point.y,
             className: 'index-' + index + (selectedIndex === index ? ' selected' : '')
           });
