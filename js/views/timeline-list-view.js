@@ -25,7 +25,7 @@
       }
     }, timelineControllers.map(function(controller) {
       if (controller.constructor === LineChartTimelineController)
-        return lineChartTimelineView(controller)
+        return lineChartTimelineView(controller);
     }));
   };
 
