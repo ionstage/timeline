@@ -83,7 +83,7 @@
   var calcPoints = function(data, daysAgo, pixelsPerDay, height) {
     var dataSortedByValue = sortBy(data, 'value');
     var dataLength = data.length;
-    var min = dataLength > 0 ? dataSortedByValue[0].value : 0;
+    var min = dataLength > 0 ? Math.min(dataSortedByValue[0].value, 0) : 0;
     var max = dataLength > 0 ? dataSortedByValue[dataLength - 1].value : 0;
     var beginDate = addDays(startOfDay(), -daysAgo);
 
