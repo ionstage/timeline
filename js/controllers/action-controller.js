@@ -5,6 +5,7 @@
   var util = global.util;
 
   var LineChartTimelineController = app.LineChartTimelineController;
+  var BarChartTimelineController = app.BarChartTimelineController;
 
   var windowWidth = util.windowWidth;
 
@@ -43,6 +44,18 @@
           {'date': new Date(year, month, 5), 'value': 100},
           {'date': new Date(year, month, 17), 'value': 2000},
           {'date': new Date(year, month, 31), 'value': 700}
+        ],
+        daysAgo: option.daysAgo,
+        daysAfter: option.daysAfter,
+        pixelsPerDay: option.pixelsPerDay
+      }),
+      new BarChartTimelineController({
+        title: 'Bar Chart',
+        data: [
+          {'date': new Date(year, month, 1), 'value': 100},
+          {'date': new Date(year, month, 2), 'value': 200},
+          {'date': new Date(year, month, 3), 'value': 500},
+          {'date': new Date(year, month, 8), 'value': 200}
         ],
         daysAgo: option.daysAgo,
         daysAfter: option.daysAfter,
