@@ -26,10 +26,14 @@
         });
       }
     }, timelineControllers.map(function(controller) {
-      if (controller.constructor === LineChartTimelineController)
+      switch (controller.constructor) {
+      case LineChartTimelineController:
         return lineChartTimelineView(controller);
-      else if (controller.constructor === BarChartTimelineController)
+      case BarChartTimelineController:
         return barChartTimelineView(controller);
+      default:
+        return;
+      }
     }));
   };
 
