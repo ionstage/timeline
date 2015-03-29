@@ -87,7 +87,7 @@
   var tooltipView = function(index, data, points, pixelsPerDay) {
     var value = index !== -1 ? data[index].value : '';
     var point = index !== -1 ? points[index] : {x: 0, y: 0};
-    var width = value.toString().length * 8 + 8;
+    var width = value.toString().length * 8.4 + 8;
     return m('g.tooltip.unselectable', {className: index !== -1 ? 'show' : 'hide'}, [
       m('rect', {
         x: point.x + (pixelsPerDay - width) / 2,

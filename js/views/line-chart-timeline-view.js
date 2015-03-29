@@ -102,13 +102,13 @@
       m('rect', {
         x: point.x + 12,
         y: point.y - 8,
-        width: value.toString().length * 8 + 8,
+        width: value.toString().length * 8.4 + 8,
         height: 16,
         rx: 5,
         ry: 5
       }, value),
       m('text', {
-        x: point.x + 16 + value.toString().length * 4,
+        x: point.x + 16 + value.toString().length * 4.2,
         y: point.y + 4
       }, value)
     ]);
