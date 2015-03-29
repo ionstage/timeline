@@ -6,6 +6,7 @@
 
   var LineChartTimelineController = app.LineChartTimelineController;
   var BarChartTimelineController = app.BarChartTimelineController;
+  var ScheduleTimelineController = app.ScheduleTimelineController;
 
   var windowWidth = util.windowWidth;
 
@@ -56,6 +57,24 @@
           {'date': new Date(year, month, 2), 'value': 200},
           {'date': new Date(year, month, 3), 'value': 500},
           {'date': new Date(year, month, 8), 'value': 200}
+        ],
+        daysAgo: option.daysAgo,
+        daysAfter: option.daysAfter,
+        pixelsPerDay: option.pixelsPerDay
+      }),
+      new ScheduleTimelineController({
+        title: 'Schedule',
+        data: [
+          {'date': new Date(year, month - 1, 26), 'value': month + '/26 A', 'link': '#'},
+          {'date': new Date(year, month, 1), 'value': (month + 1) + '/1 B'},
+          {'date': new Date(year, month, 4), 'value': (month + 1) + '/4 C'},
+          {'date': new Date(year, month, 7), 'value': (month + 1) + '/7 D'},
+          {'date': new Date(year, month, 10), 'value': (month + 1) + '/10 E'},
+          {'date': new Date(year, month, 17), 'value': (month + 1) + '/17 F'},
+          {'date': new Date(year, month, 18), 'value': (month + 1) + '/18 G'},
+          {'date': new Date(year, month, 19), 'duration': 6, 'value': (month + 1) + '/19-24 H'},
+          {'date': new Date(year, month, 24), 'value': (month + 1) + '/24 I'},
+          {'date': new Date(year, month, 29), 'value': (month + 1) + '/29 J'}
         ],
         daysAgo: option.daysAgo,
         daysAfter: option.daysAfter,

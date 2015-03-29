@@ -5,8 +5,10 @@
 
   var LineChartTimelineController = app.LineChartTimelineController;
   var BarChartTimelineController = app.BarChartTimelineController;
+  var ScheduleTimelineController = app.ScheduleTimelineController;
   var lineChartTimelineView = app.lineChartTimelineView;
   var barChartTimelineView = app.barChartTimelineView;
+  var scheduleTimelineView = app.scheduleTimelineView;
 
   var timelineListView = function(ctrl) {
     var timelineControllers = ctrl.timelineControllers();
@@ -31,6 +33,8 @@
         return lineChartTimelineView(controller);
       case BarChartTimelineController:
         return barChartTimelineView(controller);
+      case ScheduleTimelineController:
+        return scheduleTimelineView(controller);
       default:
         return;
       }

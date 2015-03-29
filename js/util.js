@@ -47,6 +47,10 @@
     return window.innerWidth;
   };
 
+  util.openWindow = function(url) {
+    window.open(url, '_blank');
+  };
+
   if (typeof module !== 'undefined' && module.exports)
     module.exports = util;
   else

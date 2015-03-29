@@ -1,0 +1,16 @@
+.timeline.schedule .graph line {
+  stroke: gray;
+  stroke-linecap: round;
+  stroke-width: 8;
+}
+
+.timeline.schedule .graph text {
+  fill: gray;
+  font-family: Courier;
+  font-size: 14px;
+}
+
+.timeline.schedule .graph text.link {
+  cursor: pointer;
+  fill: blue;
+}
