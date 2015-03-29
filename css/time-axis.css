@@ -10,7 +10,7 @@
 }
 
 .time-axis .background {
-  fill: url(#time-axis-pattern);
+  fill: url(../#time-axis-pattern);
 }
 
 .time-axis .month line {
