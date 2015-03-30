@@ -87,7 +87,7 @@
                 className : 'index-' + index + '-' + subIndex + (isSelected ? ' selected' : ''),
                 x: ganttChartItem.x + 1,
                 y: ganttChartItem.y,
-                width: (duration ? pixelsPerDay * duration - 2 : pixelsPerDay),
+                width: (duration ? pixelsPerDay * duration - 2 : pixelsPerDay) + 0.5,
                 height: 18,
                 fill: ganttChartItem.color || 'gray'
               });
