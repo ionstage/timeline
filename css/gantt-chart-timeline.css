@@ -1,0 +1,35 @@
+.timeline.gantt-chart .graph rect.selected {
+  opacity: 0.4;
+}
+
+.timeline.gantt-chart .graph text {
+  fill: gray;
+  font-family: Courier;
+  font-size: 14px;
+}
+
+.timeline.gantt-chart .graph text.link {
+  cursor: pointer;
+  fill: blue;
+}
+
+.timeline.gantt-chart .graph .tooltip rect {
+  fill: gray;
+  stroke: white;
+  stroke-width: 1px;
+}
+
+.timeline.gantt-chart .graph .tooltip text {
+  fill: white;
+  font-family: Courier;
+  font-size: 14px;
+  text-anchor: middle;
+}
+
+.timeline.gantt-chart .graph .tooltip.show {
+  display: inline;
+}
+
+.timeline.gantt-chart .graph .tooltip.hide {
+  display: none;
+}

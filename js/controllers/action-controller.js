@@ -7,6 +7,7 @@
   var LineChartTimelineController = app.LineChartTimelineController;
   var BarChartTimelineController = app.BarChartTimelineController;
   var ScheduleTimelineController = app.ScheduleTimelineController;
+  var GanttChartTimelineController = app.GanttChartTimelineController;
 
   var windowWidth = util.windowWidth;
 
@@ -75,6 +76,47 @@
           {'date': new Date(year, month, 19), 'duration': 6, 'value': (month + 1) + '/19-24 H'},
           {'date': new Date(year, month, 24), 'value': (month + 1) + '/24 I'},
           {'date': new Date(year, month, 29), 'value': (month + 1) + '/29 J'}
+        ],
+        daysAgo: option.daysAgo,
+        daysAfter: option.daysAfter,
+        pixelsPerDay: option.pixelsPerDay
+      }),
+      new GanttChartTimelineController({
+        title: 'Gantt Chart',
+        data: [
+          {
+            data: [
+              {'date': new Date(year, month, 16), 'duration': 5, 'value': 'a', 'color': 'pink'},
+              {'date': new Date(year, month, 21), 'duration': 3, 'value': 'b', 'color': 'gold'},
+              {'date': new Date(year, month, 24), 'duration': 3, 'value': 'c', 'color': 'lime'}
+            ],
+            value: 'A',
+            link: '#'
+          },
+          {
+            data: [
+              {'date': new Date(year, month, 10), 'duration': 5, 'value': 'a'},
+              {'date': new Date(year, month, 15), 'duration': 3, 'value': 'b'},
+              {'date': new Date(year, month, 18), 'duration': 3, 'value': 'c'}
+            ],
+            value: 'B'
+          },
+          {
+            data: [
+              {'date': new Date(year, month, 1), 'duration': 5, 'value': 'a'},
+              {'date': new Date(year, month, 6), 'duration': 3, 'value': 'b'},
+              {'date': new Date(year, month, 9), 'duration': 3, 'value': 'c'}
+            ],
+            value: 'C'
+          },
+          {
+            data: [
+              {'date': new Date(year, month - 1, 21), 'duration': 5, 'value': 'a'},
+              {'date': new Date(year, month - 1, 26), 'duration': 3, 'value': 'b'},
+              {'date': new Date(year, month - 1, 29), 'duration': 3, 'value': 'c'}
+            ],
+            value: 'D'
+          }
         ],
         daysAgo: option.daysAgo,
         daysAfter: option.daysAfter,

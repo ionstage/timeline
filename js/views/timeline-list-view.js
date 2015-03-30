@@ -6,9 +6,11 @@
   var LineChartTimelineController = app.LineChartTimelineController;
   var BarChartTimelineController = app.BarChartTimelineController;
   var ScheduleTimelineController = app.ScheduleTimelineController;
+  var GanttChartTimelineController = app.GanttChartTimelineController;
   var lineChartTimelineView = app.lineChartTimelineView;
   var barChartTimelineView = app.barChartTimelineView;
   var scheduleTimelineView = app.scheduleTimelineView;
+  var ganttChartTimelineView = app.ganttChartTimelineView;
 
   var timelineListView = function(ctrl) {
     var timelineControllers = ctrl.timelineControllers();
@@ -35,6 +37,8 @@
         return barChartTimelineView(controller);
       case ScheduleTimelineController:
         return scheduleTimelineView(controller);
+      case GanttChartTimelineController:
+        return ganttChartTimelineView(controller);
       default:
         return;
       }
