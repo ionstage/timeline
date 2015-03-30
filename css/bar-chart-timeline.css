@@ -3,7 +3,7 @@
 }
 
 .timeline.bar-chart .graph rect.selected {
-  fill: lightgray;
+  opacity: 0.4;
 }
 
 .timeline.bar-chart .graph .tooltip {
