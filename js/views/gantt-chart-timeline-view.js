@@ -128,8 +128,9 @@
     var index = indexes[0];
     var subIndex = indexes[1];
     var subData = sortBy(data[index].data, 'date');
-    var value = (typeof subIndex !== 'undefined') ? subData[subIndex].value : '';
-    var width = value.toString().length * 8.4 + 8;
+    var value = (typeof subIndex !== 'undefined') ? subData[subIndex].value.toString() : '';
+    var wideText = (encodeURI(value).length - value.length) / 8;
+    var width = value.length * 8.4 + 8 + wideText * 5.6;
     var point = {x: 0, y: (index + 1) * 24};
     if (typeof subIndex !== 'undefined') {
       var ganttChartItems = calcGanttChartItems(subData, daysAgo, pixelsPerDay);
@@ -140,9 +141,9 @@
     return m('g.tooltip.unselectable', {className: index === -1 ? 'hide' : ''}, [
       m('rect', {
         x: point.x - width / 2,
-        y: point.y - 18,
+        y: point.y - 18 + (wideText ? -2 : 0),
         width: width,
-        height: 16,
+        height: 16 + (wideText ? 2 : 0),
         rx: 5,
         ry: 5
       }, value),

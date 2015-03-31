@@ -79,7 +79,8 @@
       var x = (diffDays(item.date, beginDate) + 0.5) * pixelsPerDay;
       var duration = item.duration;
       var value = item.value.toString();
-      var width = x + (duration ? pixelsPerDay * (duration - 1) : 0) + 8 + value.length * 8.4;
+      var wideText = (encodeURI(value).length - value.length) / 8;
+      var width = x + (duration ? pixelsPerDay * (duration - 1) : 0) + 8 + value.length * 8.4 + wideText * 5.6;
 
       for (var step = 0, len = stepWidthList.length; step < len; step++) {
         var stepWidth = stepWidthList[step];
