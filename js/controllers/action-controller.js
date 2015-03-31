@@ -90,6 +90,7 @@
               {'date': new Date(year, month, 21), 'duration': 3, 'value': 'b', 'color': 'gold'},
               {'date': new Date(year, month, 24), 'duration': 3, 'value': 'c', 'color': 'lime'}
             ],
+            deadline: new Date(year, month, 30),
             value: 'A',
             link: '#'
           },

@@ -33,3 +33,27 @@
 .timeline.gantt-chart .graph .tooltip.hide {
   display: none;
 }
+
+.timeline.gantt-chart .graph .deadline {
+  pointer-events: none;
+}
+
+.timeline.gantt-chart .graph .deadline .range {
+  stroke: lightgray;
+  stroke-dasharray: 4px;
+  stroke-width: 1px;
+}
+
+.timeline.gantt-chart .graph .deadline .range.hide {
+  display: none;
+}
+
+.timeline.gantt-chart .graph .deadline .date {
+  stroke: red;
+  stroke-width: 2px;
+}
+
+.timeline.gantt-chart .graph .deadline polygon {
+  fill: red;
+  stroke: red;
+}

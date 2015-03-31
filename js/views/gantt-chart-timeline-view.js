@@ -78,7 +78,13 @@
           var ganttChartLastItem = sortBy(ganttChartItems, 'date')[ganttChartItemsLength - 1];
           var ganttChartLastItemDuration = ganttChartLastItem.duration;
           var ganttChartLastItemWidth = ganttChartLastItemDuration ? pixelsPerDay * ganttChartLastItemDuration : pixelsPerDay;
-          var textX = ganttChartLastItem.x + ganttChartLastItemWidth;
+          var lastX = ganttChartLastItem.x + ganttChartLastItemWidth;
+          var deadline = item.deadline;
+          var deadlineX = 0;
+          if (deadline) {
+            var beginDate = addDays(startOfDay(), -daysAgo);
+            deadlineX = Math.max((diffDays(deadline, beginDate) + 1) * pixelsPerDay - lastX, 0);
+          }
           return m('g', [
             ganttChartItems.map(function(ganttChartItem, subIndex) {
               var duration = ganttChartItem.duration;
@@ -94,9 +100,10 @@
             }),
             m('text', {
               className : item.link ? 'link ' + 'index-' + index : '',
-              x: textX + 8,
+              x: lastX + deadlineX + 8,
               y: (index + 1) * 24 + 13
-            }, item.value)
+            }, item.value),
+            deadlineView(item, daysAgo, pixelsPerDay, index, lastX)
           ]);
         }),
         tooltipView(selectedIndexes, data, daysAgo, pixelsPerDay)
@@ -143,6 +150,36 @@
         x: point.x,
         y: point.y - 6
       }, value)
+    ]);
+  };
+
+  var deadlineView = function(item, daysAgo, pixelsPerDay, step, lastX) {
+    var deadline = item.deadline;
+    if (!deadline)
+      return;
+    var beginDate = addDays(startOfDay(), -daysAgo);
+    var x = (diffDays(deadline, beginDate) + 1) * pixelsPerDay - 0.5;
+    var y = (step + 1) * 24;
+    return m('g.deadline', [
+      m('line.range', {
+        className: (lastX >= x) ? 'hide' : '',
+        x1: lastX,
+        y1: y + 9,
+        x2: x,
+        y2: y + 9
+      }),
+      m('line.date', {
+        x1: x,
+        y1: y,
+        x2: x,
+        y2: y + 18
+      }),
+      m('polygon', {
+        points: x + ',' + (y + 3) + ' ' + (x - 1.5) + ',' + y + ' ' + (x + 1.5) + ',' + y + ' '
+      }),
+      m('polygon', {
+        points: x + ',' + (y + 15) + ' ' + (x - 1.5) + ',' + (y + 18) + ' ' + (x + 1.5) + ',' + (y + 18) + ' '
+      })
     ]);
   };
 
