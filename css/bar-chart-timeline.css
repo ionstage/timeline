@@ -23,10 +23,6 @@
   text-anchor: middle;
 }
 
-.timeline.bar-chart .graph .tooltip.show {
-  display: inline;
-}
-
 .timeline.bar-chart .graph .tooltip.hide {
   display: none;
 }

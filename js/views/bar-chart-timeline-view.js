@@ -88,7 +88,7 @@
     var value = index !== -1 ? data[index].value : '';
     var point = index !== -1 ? points[index] : {x: 0, y: 0};
     var width = value.toString().length * 8.4 + 8;
-    return m('g.tooltip.unselectable', {className: index !== -1 ? 'show' : 'hide'}, [
+    return m('g.tooltip.unselectable', {className: index === -1 ? 'hide' : ''}, [
       m('rect', {
         x: point.x + (pixelsPerDay - width) / 2,
         y: point.y - 18,

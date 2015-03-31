@@ -26,10 +26,6 @@
   text-anchor: middle;
 }
 
-.timeline.gantt-chart .graph .tooltip.show {
-  display: inline;
-}
-
 .timeline.gantt-chart .graph .tooltip.hide {
   display: none;
 }

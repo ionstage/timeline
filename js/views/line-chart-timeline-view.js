@@ -98,7 +98,7 @@
   var tooltipView = function(index, data, points) {
     var value = index !== -1 ? data[index].value : '';
     var point = index !== -1 ? points[index] : {x: 0, y: 0};
-    return m('g.tooltip.unselectable', {className: index !== -1 ? 'show' : 'hide'}, [
+    return m('g.tooltip.unselectable', {className: index === -1 ? 'hide' : ''}, [
       m('rect', {
         x: point.x + 12,
         y: point.y - 8,

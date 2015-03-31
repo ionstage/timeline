@@ -137,7 +137,7 @@
       var selectedItemDuration = selectedItem.duration;
       point.x = selectedItem.x + (selectedItemDuration ? pixelsPerDay * selectedItemDuration : pixelsPerDay) / 2
     }
-    return m('g.tooltip.unselectable', {className: index !== -1 ? 'show' : 'hide'}, [
+    return m('g.tooltip.unselectable', {className: index === -1 ? 'hide' : ''}, [
       m('rect', {
         x: point.x - width / 2,
         y: point.y - 18,
