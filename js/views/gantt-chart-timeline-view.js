@@ -20,7 +20,6 @@
 
     var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
     var height = 32 + data.length * 24;
-    var selectedIndexes = selectedIndex.split('-').map(function(index) { return +index; });
 
     return m('div.timeline.gantt-chart', {
       style: 'width: ' + width + 'px;',
@@ -53,11 +52,11 @@
           var target = event.target;
           if (target.tagName !== 'rect')
             return;
-          var className = target.getAttribute('class');
-          var indexes = className.match(/index-(\d+)-(\d+)/).slice(1);
+          var indices = target.getAttribute('class').match(/index-(\d+)-(\d+)/).slice(1);
+          var selectedIndex = indices.map(function(value) { return +value; });
           ctrl.dispatchEvent({
             type: 'select',
-            selectedIndex: indexes.join('-')
+            selectedIndex: selectedIndex
           });
         },
         onmouseout: function(event) {
@@ -66,7 +65,7 @@
             return;
           ctrl.dispatchEvent({
             type: 'select',
-            selectedIndex: ''
+            selectedIndex: [-1, -1]
           });
         }
       }, [
@@ -77,7 +76,7 @@
           return m('g', [
             ganttChartItems.map(function(ganttChartItem, subIndex) {
               var duration = ganttChartItem.duration;
-              var isSelected = selectedIndexes[0] === index && selectedIndexes[1] === subIndex;
+              var isSelected = selectedIndex[0] === index && selectedIndex[1] === subIndex;
               return m('rect', {
                 className : 'index-' + index + '-' + subIndex + (isSelected ? ' selected' : ''),
                 x: ganttChartItem.x + 1,
@@ -95,7 +94,7 @@
             deadlineView(item, daysAgo, pixelsPerDay, index, tailX)
           ]);
         }),
-        tooltipView(selectedIndexes, data, daysAgo, pixelsPerDay)
+        tooltipView(selectedIndex, data, daysAgo, pixelsPerDay)
       ])
     ]);
   };
@@ -130,34 +129,37 @@
     return (diff + 1) * pixelsPerDay;
   };
 
-  var tooltipView = function(indexes, data, daysAgo, pixelsPerDay) {
-    var index = indexes[0];
-    var subIndex = indexes[1];
-    var subData = sortBy(data[index].data, 'date');
-    var value = (typeof subIndex !== 'undefined') ? subData[subIndex].value.toString() : '';
+  var tooltipView = function(selectedIndex, data, daysAgo, pixelsPerDay) {
+    var index = selectedIndex[0];
+    var subIndex = selectedIndex[1];
+    var subData = (index !== -1) ? sortBy(data[index].data, 'date') : null;
+    var value = (subIndex !== -1) ? subData[subIndex].value.toString() : '';
     var wideText = (encodeURI(value).length - value.length) / 8;
     var width = value.length * 8.4 + 8 + wideText * 5.6;
-    var point = {x: 0, y: (index + 1) * 24};
-    if (typeof subIndex !== 'undefined') {
-      var ganttChartItems = calcGanttChartItems(subData, daysAgo, pixelsPerDay);
-      var selectedItem = ganttChartItems[subIndex];
-      var selectedItemDuration = selectedItem.duration;
-      point.x = selectedItem.x + (selectedItemDuration ? pixelsPerDay * selectedItemDuration : pixelsPerDay) / 2
-    }
+    var x = tooltipX(subIndex, subData, daysAgo, pixelsPerDay) || 0;
+    var y = (index + 1) * 24;
     return m('g.tooltip.unselectable', {className: index === -1 ? 'hide' : ''}, [
       m('rect', {
-        x: point.x - width / 2,
-        y: point.y - 18 + (wideText ? -2 : 0),
+        x: x - width / 2,
+        y: y - 18 + (wideText ? -2 : 0),
         width: width,
         height: 16 + (wideText ? 2 : 0),
         rx: 5,
         ry: 5
       }, value),
       m('text', {
-        x: point.x,
-        y: point.y - 6
+        x: x,
+        y: y - 6
       }, value)
     ]);
+  };
+
+  var tooltipX = function(subIndex, subData, daysAgo, pixelsPerDay) {
+    if (subIndex === -1 || !subData)
+      return;
+    var item = calcGanttChartItems(subData, daysAgo, pixelsPerDay)[subIndex];
+    var duration = item.duration;
+    return item.x + (duration ? pixelsPerDay * duration : pixelsPerDay) / 2;
   };
 
   var deadlineView = function(item, daysAgo, pixelsPerDay, step, tailX) {

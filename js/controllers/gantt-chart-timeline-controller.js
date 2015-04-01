@@ -10,7 +10,7 @@
 
   var GanttChartTimelineController = inherits(function(option) {
     GanttChartTimelineController.super_.call(this, option);
-    this.selectedIndex = m.prop('');
+    this.selectedIndex = m.prop([-1, -1]);
   }, TimelineController);
 
   GanttChartTimelineController.prototype.dispatchEvent = function(event) {
