@@ -73,12 +73,7 @@
         data.map(function(item, index) {
           var ganttChartItems = calcGanttChartItems(item.data, daysAgo, pixelsPerDay, index);
           var tailX = ganttChartTailX(ganttChartItems, pixelsPerDay);
-          var deadline = item.deadline;
-          var deadlineX = 0;
-          if (deadline) {
-            var beginDate = addDays(startOfDay(), -daysAgo);
-            deadlineX = Math.max((diffDays(deadline, beginDate) + 1) * pixelsPerDay - tailX, 0);
-          }
+          var textX = (deadlineX(item.deadline, daysAgo, pixelsPerDay) || tailX) + 8;
           return m('g', [
             ganttChartItems.map(function(ganttChartItem, subIndex) {
               var duration = ganttChartItem.duration;
@@ -94,7 +89,7 @@
             }),
             m('text', {
               className : item.link ? 'link ' + 'index-' + index : '',
-              x: tailX + deadlineX + 8,
+              x: textX,
               y: (index + 1) * 24 + 13
             }, item.value),
             deadlineView(item, daysAgo, pixelsPerDay, index, tailX)
@@ -123,6 +118,16 @@
     var lastItemDuration = lastItem.duration;
     var lastItemWidth = lastItemDuration ? pixelsPerDay * lastItemDuration : pixelsPerDay;
     return lastItem.x + lastItemWidth;
+  };
+
+  var deadlineX = function(deadline, daysAgo, pixelsPerDay) {
+    if (typeof deadline === 'undefined')
+      return;
+    var beginDate = addDays(startOfDay(), -daysAgo);
+    var diff = diffDays(deadline, beginDate);
+    if (diff < 0)
+      return;
+    return (diff + 1) * pixelsPerDay;
   };
 
   var tooltipView = function(indexes, data, daysAgo, pixelsPerDay) {
@@ -176,13 +181,15 @@
         x2: x,
         y2: y + 18
       }),
-      m('polygon', {
-        points: x + ',' + (y + 3) + ' ' + (x - 1.5) + ',' + y + ' ' + (x + 1.5) + ',' + y + ' '
-      }),
-      m('polygon', {
-        points: x + ',' + (y + 15) + ' ' + (x - 1.5) + ',' + (y + 18) + ' ' + (x + 1.5) + ',' + (y + 18) + ' '
-      })
+      triangleView(x, y + 3, x - 1.5, y, x + 1.5, y),
+      triangleView(x, y + 15, x - 1.5, y + 18, x + 1.5, y + 18)
     ]);
+  };
+
+  var triangleView = function(x1, y1, x2, y2, x3, y3) {
+    return m('polygon', {
+      points: x1 + ',' + y1 + ' ' + x2 + ',' + y2 + ' ' + x3 + ',' + y3
+    });
   };
 
   app.ganttChartTimelineView = ganttChartTimelineView;
