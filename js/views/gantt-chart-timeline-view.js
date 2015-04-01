@@ -74,16 +74,12 @@
       }, [
         data.map(function(item, index) {
           var ganttChartItems = calcGanttChartItems(item.data, daysAgo, pixelsPerDay, index);
-          var ganttChartItemsLength = ganttChartItems.length;
-          var ganttChartLastItem = sortBy(ganttChartItems, 'date')[ganttChartItemsLength - 1];
-          var ganttChartLastItemDuration = ganttChartLastItem.duration;
-          var ganttChartLastItemWidth = ganttChartLastItemDuration ? pixelsPerDay * ganttChartLastItemDuration : pixelsPerDay;
-          var lastX = ganttChartLastItem.x + ganttChartLastItemWidth;
+          var tailX = ganttChartTailX(ganttChartItems, pixelsPerDay);
           var deadline = item.deadline;
           var deadlineX = 0;
           if (deadline) {
             var beginDate = addDays(startOfDay(), -daysAgo);
-            deadlineX = Math.max((diffDays(deadline, beginDate) + 1) * pixelsPerDay - lastX, 0);
+            deadlineX = Math.max((diffDays(deadline, beginDate) + 1) * pixelsPerDay - tailX, 0);
           }
           return m('g', [
             ganttChartItems.map(function(ganttChartItem, subIndex) {
@@ -100,10 +96,10 @@
             }),
             m('text', {
               className : item.link ? 'link ' + 'index-' + index : '',
-              x: lastX + deadlineX + 8,
+              x: tailX + deadlineX + 8,
               y: (index + 1) * 24 + 13
             }, item.value),
-            deadlineView(item, daysAgo, pixelsPerDay, index, lastX)
+            deadlineView(item, daysAgo, pixelsPerDay, index, tailX)
           ]);
         }),
         tooltipView(selectedIndexes, data, daysAgo, pixelsPerDay)
@@ -122,6 +118,13 @@
         color: item.color
       };
     });
+  };
+
+  var ganttChartTailX = function(items, pixelsPerDay) {
+    var lastItem = sortBy(items, 'date')[items.length - 1];
+    var lastItemDuration = lastItem.duration;
+    var lastItemWidth = lastItemDuration ? pixelsPerDay * lastItemDuration : pixelsPerDay;
+    return lastItem.x + lastItemWidth;
   };
 
   var tooltipView = function(indexes, data, daysAgo, pixelsPerDay) {
@@ -154,7 +157,7 @@
     ]);
   };
 
-  var deadlineView = function(item, daysAgo, pixelsPerDay, step, lastX) {
+  var deadlineView = function(item, daysAgo, pixelsPerDay, step, tailX) {
     var deadline = item.deadline;
     if (!deadline)
       return;
@@ -163,8 +166,8 @@
     var y = (step + 1) * 24;
     return m('g.deadline', [
       m('line.range', {
-        className: (lastX >= x) ? 'hide' : '',
-        x1: lastX,
+        className: (tailX >= x) ? 'hide' : '',
+        x1: tailX,
         y1: y + 9,
         x2: x,
         y2: y + 9
