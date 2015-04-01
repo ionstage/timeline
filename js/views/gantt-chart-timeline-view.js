@@ -54,8 +54,6 @@
           if (target.tagName !== 'rect')
             return;
           var className = target.getAttribute('class');
-          if (!className)
-            return;
           var indexes = className.match(/index-(\d+)-(\d+)/).slice(1);
           ctrl.dispatchEvent({
             type: 'select',

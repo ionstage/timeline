@@ -13,6 +13,10 @@
   fill: blue;
 }
 
+.timeline.gantt-chart .graph .tooltip {
+  pointer-events: none;
+}
+
 .timeline.gantt-chart .graph .tooltip rect {
   fill: gray;
   stroke: white;
