@@ -78,7 +78,16 @@
           x: 0,
           y: 0,
           width: '100%',
-          height: height
+          height: height,
+          config: function(element, isInitialized, context) {
+            if (!isInitialized)
+              return;
+            if (context.pixelsPerDay !== pixelsPerDay) {
+              // set fill attribute to redraw time axis pattern for IE
+              element.setAttribute('fill', '');
+            }
+            context.pixelsPerDay = pixelsPerDay;
+          }
         }),
         monthMarkerViews,
         m('rect.today', {
