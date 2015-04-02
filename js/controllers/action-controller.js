@@ -4,6 +4,10 @@
   var m = global.m;
   var util = global.util;
 
+  var kebabCase = util.kebabCase;
+  var loadData = util.loadData;
+  var saveData = util.saveData;
+
   var LineChartTimelineController = app.LineChartTimelineController;
   var BarChartTimelineController = app.BarChartTimelineController;
   var ScheduleTimelineController = app.ScheduleTimelineController;
@@ -19,12 +23,25 @@
 
   ActionController.prototype.start = function() {
     var headerController = this.headerController();
+    var timeAxisController = this.timeAxisController();
     var timelineListController = this.timelineListController();
 
+    var daysAgo = loadData('days-ago') || 183;
+    var daysAfter = loadData('days-after') || 183;
+    var pixelsPerDay = loadData('pixels-per-day') || 8;
+
+    headerController.daysAgo(daysAgo);
+    headerController.daysAfter(daysAfter);
+    headerController.pixelsPerDay(pixelsPerDay);
+
+    timeAxisController.daysAgo(daysAgo);
+    timeAxisController.daysAfter(daysAfter);
+    timeAxisController.pixelsPerDay(pixelsPerDay);
+
     timelineListController.timelineControllers(defaultTimelineListControllers({
-      daysAgo: headerController.daysAgo(),
-      daysAfter: headerController.daysAfter(),
-      pixelsPerDay: headerController.pixelsPerDay()
+      daysAgo: daysAgo,
+      daysAfter: daysAfter,
+      pixelsPerDay: pixelsPerDay
     }));
 
     headerController.onchange = onChangeHeaderController.bind(this);
@@ -148,6 +165,8 @@
 
     timeAxisController[name](value);
     timelineListController[name](value);
+
+    saveData(kebabCase(name), value);
 
     m.redraw();
 

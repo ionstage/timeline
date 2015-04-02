@@ -30,6 +30,10 @@
     });
   };
 
+  util.kebabCase = function(s) {
+    return s.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
+  };
+
   util.startOfDay = function() {
     var now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), now.getDate());
