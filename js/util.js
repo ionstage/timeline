@@ -51,6 +51,16 @@
     window.open(url, '_blank');
   };
 
+  util.STORAGE_KEY_PREFIX = 'org.ionstage.timeline';
+
+  util.loadData = function(key) {
+    return JSON.parse(localStorage.getItem(util.STORAGE_KEY_PREFIX + '.' + key));
+  };
+
+  util.saveData = function(key, data) {
+    localStorage.setItem(util.STORAGE_KEY_PREFIX + '.' + key, JSON.stringify(data));
+  };
+
   if (typeof module !== 'undefined' && module.exports)
     module.exports = util;
   else
