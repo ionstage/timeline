@@ -5,24 +5,3 @@
 .timeline.bar-chart .graph rect.selected {
   opacity: 0.4;
 }
-
-.timeline.bar-chart .graph .tooltip {
-  pointer-events: none;
-}
-
-.timeline.bar-chart .graph .tooltip rect {
-  fill: gray;
-  stroke: white;
-  stroke-width: 1px;
-}
-
-.timeline.bar-chart .graph .tooltip text {
-  fill: white;
-  font-family: Courier;
-  font-size: 14px;
-  text-anchor: middle;
-}
-
-.timeline.bar-chart .graph .tooltip.hide {
-  display: none;
-}

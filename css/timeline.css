@@ -11,3 +11,24 @@
 .timeline .graph {
   vertical-align: bottom;
 }
+
+.timeline .graph .tooltip {
+  pointer-events: none;
+}
+
+.timeline .graph .tooltip rect {
+  fill: gray;
+  stroke: white;
+  stroke-width: 1px;
+}
+
+.timeline .graph .tooltip text {
+  fill: white;
+  font-family: Courier;
+  font-size: 14px;
+  text-anchor: middle;
+}
+
+.timeline .graph .tooltip.hide {
+  display: none;
+}

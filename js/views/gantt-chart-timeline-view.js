@@ -86,7 +86,7 @@
                 fill: ganttChartItem.color || 'gray'
               });
             }),
-            m('text', {
+            m('text.label', {
               className : item.link ? 'link ' + 'index-' + index : '',
               x: textX,
               y: (index + 1) * 24 + 13
