@@ -3,10 +3,7 @@
   var app = global.app || {};
   var m = global.m;
 
-  var LineChartTimelineController = app.LineChartTimelineController;
-  var BarChartTimelineController = app.BarChartTimelineController;
-  var ScheduleTimelineController = app.ScheduleTimelineController;
-  var GanttChartTimelineController = app.GanttChartTimelineController;
+  var TimelineController = app.TimelineController;
   var lineChartTimelineView = app.lineChartTimelineView;
   var barChartTimelineView = app.barChartTimelineView;
   var scheduleTimelineView = app.scheduleTimelineView;
@@ -30,14 +27,14 @@
         });
       }
     }, timelineControllers.map(function(controller) {
-      switch (controller.constructor) {
-      case LineChartTimelineController:
+      switch (controller.type()) {
+      case TimelineController.TYPE_LINE_CHART:
         return lineChartTimelineView(controller);
-      case BarChartTimelineController:
+      case TimelineController.TYPE_BAR_CHART:
         return barChartTimelineView(controller);
-      case ScheduleTimelineController:
+      case TimelineController.TYPE_SCHEDULE:
         return scheduleTimelineView(controller);
-      case GanttChartTimelineController:
+      case TimelineController.TYPE_GANTT_CHART:
         return ganttChartTimelineView(controller);
       default:
         return;

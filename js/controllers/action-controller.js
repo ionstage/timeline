@@ -8,10 +8,7 @@
   var loadData = util.loadData;
   var saveData = util.saveData;
 
-  var LineChartTimelineController = app.LineChartTimelineController;
-  var BarChartTimelineController = app.BarChartTimelineController;
-  var ScheduleTimelineController = app.ScheduleTimelineController;
-  var GanttChartTimelineController = app.GanttChartTimelineController;
+  var TimelineController = app.TimelineController;
 
   var windowWidth = util.windowWidth;
 
@@ -56,8 +53,9 @@
     var month = now.getMonth();
 
     return [
-      new LineChartTimelineController({
+      new TimelineController({
         title: 'Line Chart',
+        type: TimelineController.TYPE_LINE_CHART,
         data: [
           {'date': new Date(year, month, 1), 'value': 500},
           {'date': new Date(year, month, 5), 'value': 100},
@@ -68,8 +66,9 @@
         daysAfter: option.daysAfter,
         pixelsPerDay: option.pixelsPerDay
       }),
-      new BarChartTimelineController({
+      new TimelineController({
         title: 'Bar Chart',
+        type: TimelineController.TYPE_BAR_CHART,
         data: [
           {'date': new Date(year, month, 1), 'value': 100},
           {'date': new Date(year, month, 2), 'value': 200},
@@ -80,8 +79,9 @@
         daysAfter: option.daysAfter,
         pixelsPerDay: option.pixelsPerDay
       }),
-      new ScheduleTimelineController({
+      new TimelineController({
         title: 'Schedule',
+        type: TimelineController.TYPE_SCHEDULE,
         data: [
           {'date': new Date(year, month - 1, 26), 'value': month + '/26 A', 'link': '#'},
           {'date': new Date(year, month, 1), 'value': (month + 1) + '/1 B'},
@@ -98,8 +98,9 @@
         daysAfter: option.daysAfter,
         pixelsPerDay: option.pixelsPerDay
       }),
-      new GanttChartTimelineController({
+      new TimelineController({
         title: 'Gantt Chart',
+        type: TimelineController.TYPE_GANTT_CHART,
         data: [
           {
             data: [
