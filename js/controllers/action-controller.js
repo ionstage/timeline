@@ -22,9 +22,9 @@
     var timeAxisController = this.timeAxisController();
     var timelineListController = this.timelineListController();
 
-    var daysAgo = loadData('days-ago') || 183;
-    var daysAfter = loadData('days-after') || 183;
-    var pixelsPerDay = loadData('pixels-per-day') || 8;
+    var daysAgo = loadData('days-ago', 183);
+    var daysAfter = loadData('days-after', 183);
+    var pixelsPerDay = loadData('pixels-per-day' ,8);
 
     headerController.daysAgo(daysAgo);
     headerController.daysAfter(daysAfter);

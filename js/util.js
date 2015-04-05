@@ -57,8 +57,11 @@
 
   util.STORAGE_KEY_PREFIX = 'org.ionstage.timeline';
 
-  util.loadData = function(key) {
-    return JSON.parse(localStorage.getItem(util.STORAGE_KEY_PREFIX + '.' + key));
+  util.loadData = function(key, defaultValue) {
+    var value = localStorage.getItem(util.STORAGE_KEY_PREFIX + '.' + key);
+    if (value === null && typeof defaultValue !== 'undefined')
+      return defaultValue;
+    return JSON.parse(value);
   };
 
   util.saveData = function(key, data) {
