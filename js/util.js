@@ -55,17 +55,19 @@
     window.open(url, '_blank');
   };
 
-  util.STORAGE_KEY_PREFIX = 'org.ionstage.timeline';
+  util.storageKey = function(key) {
+    return 'org.ionstage.timeline.' + key;
+  };
 
   util.loadData = function(key, defaultValue) {
-    var value = localStorage.getItem(util.STORAGE_KEY_PREFIX + '.' + key);
+    var value = localStorage.getItem(util.storageKey(key));
     if (value === null && typeof defaultValue !== 'undefined')
       return defaultValue;
     return JSON.parse(value);
   };
 
   util.saveData = function(key, data) {
-    localStorage.setItem(util.STORAGE_KEY_PREFIX + '.' + key, JSON.stringify(data));
+    localStorage.setItem(util.storageKey(key), JSON.stringify(data));
   };
 
   if (typeof module !== 'undefined' && module.exports)
