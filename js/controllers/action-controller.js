@@ -4,12 +4,11 @@
   var m = global.m;
   var util = global.util;
 
+  var TimelineController = app.TimelineController;
+
   var kebabCase = util.kebabCase;
   var loadData = util.loadData;
   var saveData = util.saveData;
-
-  var TimelineController = app.TimelineController;
-
   var windowWidth = util.windowWidth;
 
   var ActionController = function(option) {
@@ -57,10 +56,10 @@
         title: 'Line Chart',
         type: TimelineController.TYPE_LINE_CHART,
         data: [
-          {'date': new Date(year, month, 1), 'value': 500},
-          {'date': new Date(year, month, 5), 'value': 100},
-          {'date': new Date(year, month, 17), 'value': 2000},
-          {'date': new Date(year, month, 31), 'value': 700}
+          {date: new Date(year, month, 1), value: 500},
+          {date: new Date(year, month, 5), value: 100},
+          {date: new Date(year, month, 17), value: 2000},
+          {date: new Date(year, month, 31), value: 700}
         ],
         daysAgo: option.daysAgo,
         daysAfter: option.daysAfter,
@@ -70,10 +69,10 @@
         title: 'Bar Chart',
         type: TimelineController.TYPE_BAR_CHART,
         data: [
-          {'date': new Date(year, month, 1), 'value': 100},
-          {'date': new Date(year, month, 2), 'value': 200},
-          {'date': new Date(year, month, 3), 'value': 500},
-          {'date': new Date(year, month, 8), 'value': 200}
+          {date: new Date(year, month, 1), value: 100},
+          {date: new Date(year, month, 2), value: 200},
+          {date: new Date(year, month, 3), value: 500},
+          {date: new Date(year, month, 8), value: 200}
         ],
         daysAgo: option.daysAgo,
         daysAfter: option.daysAfter,
@@ -83,16 +82,16 @@
         title: 'Schedule',
         type: TimelineController.TYPE_SCHEDULE,
         data: [
-          {'date': new Date(year, month - 1, 26), 'value': month + '/26 A', 'link': '#'},
-          {'date': new Date(year, month, 1), 'value': (month + 1) + '/1 B'},
-          {'date': new Date(year, month, 4), 'value': (month + 1) + '/4 C'},
-          {'date': new Date(year, month, 7), 'value': (month + 1) + '/7 D'},
-          {'date': new Date(year, month, 10), 'value': (month + 1) + '/10 E'},
-          {'date': new Date(year, month, 17), 'value': (month + 1) + '/17 F'},
-          {'date': new Date(year, month, 18), 'value': (month + 1) + '/18 G'},
-          {'date': new Date(year, month, 19), 'duration': 6, 'value': (month + 1) + '/19-24 H'},
-          {'date': new Date(year, month, 24), 'value': (month + 1) + '/24 I'},
-          {'date': new Date(year, month, 29), 'value': (month + 1) + '/29 J'}
+          {date: new Date(year, month - 1, 26), value: month + '/26 A', link: '#'},
+          {date: new Date(year, month, 1), value: (month + 1) + '/1 B'},
+          {date: new Date(year, month, 4), value: (month + 1) + '/4 C'},
+          {date: new Date(year, month, 7), value: (month + 1) + '/7 D'},
+          {date: new Date(year, month, 10), value: (month + 1) + '/10 E'},
+          {date: new Date(year, month, 17), value: (month + 1) + '/17 F'},
+          {date: new Date(year, month, 18), value: (month + 1) + '/18 G'},
+          {date: new Date(year, month, 19), duration: 6, value: (month + 1) + '/19-24 H'},
+          {date: new Date(year, month, 24), value: (month + 1) + '/24 I'},
+          {date: new Date(year, month, 29), value: (month + 1) + '/29 J'}
         ],
         daysAgo: option.daysAgo,
         daysAfter: option.daysAfter,
@@ -104,9 +103,9 @@
         data: [
           {
             data: [
-              {'date': new Date(year, month, 16), 'duration': 5, 'value': 'a', 'color': 'pink'},
-              {'date': new Date(year, month, 21), 'duration': 3, 'value': 'b', 'color': 'gold'},
-              {'date': new Date(year, month, 24), 'duration': 3, 'value': 'c', 'color': 'lime'}
+              {date: new Date(year, month, 16), duration: 5, value: 'a', color: 'pink'},
+              {date: new Date(year, month, 21), duration: 3, value: 'b', color: 'gold'},
+              {date: new Date(year, month, 24), duration: 3, value: 'c', color: 'lime'}
             ],
             deadline: new Date(year, month, 30),
             value: 'A',
@@ -114,25 +113,25 @@
           },
           {
             data: [
-              {'date': new Date(year, month, 10), 'duration': 5, 'value': 'a'},
-              {'date': new Date(year, month, 15), 'duration': 3, 'value': 'b'},
-              {'date': new Date(year, month, 18), 'duration': 3, 'value': 'c'}
+              {date: new Date(year, month, 10), duration: 5, value: 'a'},
+              {date: new Date(year, month, 15), duration: 3, value: 'b'},
+              {date: new Date(year, month, 18), duration: 3, value: 'c'}
             ],
             value: 'B'
           },
           {
             data: [
-              {'date': new Date(year, month, 1), 'duration': 5, 'value': 'a'},
-              {'date': new Date(year, month, 6), 'duration': 3, 'value': 'b'},
-              {'date': new Date(year, month, 9), 'duration': 3, 'value': 'c'}
+              {date: new Date(year, month, 1), duration: 5, value: 'a'},
+              {date: new Date(year, month, 6), duration: 3, value: 'b'},
+              {date: new Date(year, month, 9), duration: 3, value: 'c'}
             ],
             value: 'C'
           },
           {
             data: [
-              {'date': new Date(year, month - 1, 21), 'duration': 5, 'value': 'a'},
-              {'date': new Date(year, month - 1, 26), 'duration': 3, 'value': 'b'},
-              {'date': new Date(year, month - 1, 29), 'duration': 3, 'value': 'c'}
+              {date: new Date(year, month - 1, 21), duration: 5, value: 'a'},
+              {date: new Date(year, month - 1, 26), duration: 3, value: 'b'},
+              {date: new Date(year, month - 1, 29), duration: 3, value: 'c'}
             ],
             value: 'D'
           }
