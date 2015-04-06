@@ -2,6 +2,9 @@
   'use strict';
   var app = global.app || {};
   var m = global.m;
+  var util = global.util;
+
+  var translate = util.translate;
 
   var TimelineController = function(option) {
     this.title = m.prop(option.title);
@@ -17,7 +20,7 @@
   TimelineController.prototype.scrollLeft = function(value) {
     var titleElement = this.titleElement();
     if (titleElement)
-      titleElement.style.left = value + 'px';
+      translate(titleElement, value, 0);
   };
 
   TimelineController.prototype.dispatchEvent = function(event) {

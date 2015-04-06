@@ -55,6 +55,15 @@
     window.open(url, '_blank');
   };
 
+  util.translate = function(el, x, y) {
+    var value = 'translate(' + x + 'px, ' + y + 'px)';
+    el.style.transform =  value;
+    el.style.webkitTransform = value;
+    el.style.MozTransform = value;
+    el.style.msTransform = value;
+    el.style.OTransform = value;
+  };
+
   util.storageKey = function(key) {
     return 'org.ionstage.timeline.' + key;
   };
