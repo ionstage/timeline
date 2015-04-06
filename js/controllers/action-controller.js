@@ -7,6 +7,7 @@
   var TimelineController = app.TimelineController;
 
   var kebabCase = util.kebabCase;
+  var startOfDay = util.startOfDay;
   var loadData = util.loadData;
   var saveData = util.saveData;
   var windowWidth = util.windowWidth;
@@ -47,9 +48,9 @@
   };
 
   var defaultTimelineListControllers = function(option) {
-    var now = new Date();
-    var year = now.getFullYear();
-    var month = now.getMonth();
+    var today = startOfDay();
+    var year = today.getFullYear();
+    var month = today.getMonth();
 
     return [
       new TimelineController({
@@ -183,7 +184,6 @@
 
   var onTodayHeaderController = function() {
     var headerController = this.headerController();
-    var timelineListController = this.timelineListController();
 
     var daysAgo = headerController.daysAgo();
     var pixelsPerDay = headerController.pixelsPerDay();
