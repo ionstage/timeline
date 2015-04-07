@@ -61,7 +61,7 @@
         m('div.icon', ['| |'])
       ]),
       m('div.spacer'),
-      m('a.button.today', {
+      m('a.button', {
         href: '#',
         onclick: function() {
           ctrl.dispatchEvent({
@@ -70,7 +70,7 @@
           });
         }
       }, 'Today'),
-      m('a.button.timelines', {
+      m('a.button', {
         href: '#',
         onclick: function() {
           ctrl.dispatchEvent({
