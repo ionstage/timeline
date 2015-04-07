@@ -23,8 +23,8 @@
       case 'today':
         this.ontoday();
         break;
-      case 'edit':
-        // TODO: click "edit" button
+      case 'timelines':
+        // TODO: click "timelines" button
         break;
       default:
         break;

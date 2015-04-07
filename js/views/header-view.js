@@ -70,15 +70,15 @@
           });
         }
       }, 'Today'),
-      m('a.button.edit', {
+      m('a.button.timelines', {
         href: '#',
         onclick: function() {
           ctrl.dispatchEvent({
             type: 'click',
-            name: 'edit'
+            name: 'timelines'
           });
         }
-      }, 'Edit')
+      }, 'Timelines')
     ]);
   };
 
