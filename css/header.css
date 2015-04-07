@@ -65,6 +65,10 @@
   text-decoration: none;
 }
 
+.header .button:hover {
+  opacity: 0.6;
+}
+
 .header .button:active {
   opacity: 0.3;
 }
