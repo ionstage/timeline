@@ -55,8 +55,8 @@
     window.open(url, '_blank');
   };
 
-  util.translate = function(el, x, y) {
-    var value = 'translate(' + x + 'px, ' + y + 'px)';
+  util.translateX = function(el, x) {
+    var value = 'translateX(' + x + 'px)';
     el.style.transform =  value;
     el.style.webkitTransform = value;
     el.style.MozTransform = value;

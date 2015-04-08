@@ -4,7 +4,7 @@
   var m = global.m;
   var util = global.util;
 
-  var translate = util.translate;
+  var translateX = util.translateX;
 
   var TimeAxisController = function() {
     this.daysAgo = m.prop(183);
@@ -16,7 +16,7 @@
   TimeAxisController.prototype.scrollLeft = function(value) {
     var element = this.element();
     if (element)
-      translate(element, -value, 0);
+      translateX(element, -value);
   };
 
   TimeAxisController.prototype.dispatchEvent = function(event) {
