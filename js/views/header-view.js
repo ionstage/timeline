@@ -69,8 +69,7 @@
         href: '#',
         onclick: function() {
           ctrl.dispatchEvent({
-            type: 'click',
-            name: 'today'
+            type: 'today'
           });
         }
       }, 'Today'),

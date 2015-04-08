@@ -20,14 +20,8 @@
       this[event.name](event.value);
       this.onchange(event);
       break;
-    case 'click':
-      switch(event.name) {
-      case 'today':
-        this.ontoday();
-        break;
-      default:
-        break;
-      }
+    case 'today':
+      this.ontoday();
       break;
     case 'popovershow':
       if (this.showTimelinesPopover())
