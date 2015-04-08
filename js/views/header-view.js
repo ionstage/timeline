@@ -2,6 +2,10 @@
   'use strict';
   var app = global.app || {};
   var m = global.m;
+  var util = global.util;
+
+  var supportsTouch = util.supportsTouch;
+  var rootElement = util.rootElement;
 
   var headerView = function(ctrl) {
     return m('div.header.unselectable', [
@@ -71,14 +75,49 @@
         }
       }, 'Today'),
       m('a.button', {
+        className: ctrl.showTimelinesPopover() ? 'disabled' : '',
         href: '#',
         onclick: function() {
+          m.redraw.strategy('none');
           ctrl.dispatchEvent({
-            type: 'click',
-            name: 'timelines'
+            type: 'popovershow'
           });
         }
-      }, 'Timelines')
+      }, 'Timelines'),
+      popoverView(ctrl)
+    ]);
+  };
+
+  var popoverView = function(ctrl) {
+    var timelineControllers = ctrl.timelineControllers();
+    return m('div.popover', {
+      className: ctrl.showTimelinesPopover() ? '' : 'hide',
+      style: 'height: ' + (timelineControllers.length * 42 + 90) +'px',
+      config: function(element, isInitialized) {
+        if (isInitialized)
+          return;
+        element.addEventListener(supportsTouch ? 'touchstart' : 'mousedown', function(event) {
+          event.stopPropagation();
+        });
+        rootElement.addEventListener(supportsTouch ? 'touchstart' : 'mousedown', function(event) {
+          ctrl.dispatchEvent({
+            type: 'popoverhide'
+          });
+        });
+      }
+    }, [
+      m('div.popover-header', [
+        m('a.button', {href: '#'}, 'Add'),
+        m('div.spacer'),
+        m('a.button', {href: '#'}, 'Edit')
+      ]),
+      m('div.popover-content', [
+        m('div.popover-list', ctrl.timelineControllers().map(function(controller) {
+          return m('div.popover-list-item', [
+            m('div.popover-list-item-title', controller.title())
+          ]);
+        }))
+      ])
     ]);
   };
 

@@ -3,6 +3,7 @@
   var util = {};
 
   var window = global.window;
+  var document = global.document;
 
   util.inherits = function(ctor, superCtor) {
     ctor.super_ = superCtor;
@@ -46,6 +47,10 @@
   util.diffDays = function(date0, date1) {
     return (date0.getTime() - date1.getTime()) / 86400000;
   };
+
+  util.supportsTouch = (document && 'createTouch' in document) || false;
+
+  util.rootElement = document.documentElement;
 
   util.windowWidth = function() {
     return window.innerWidth;

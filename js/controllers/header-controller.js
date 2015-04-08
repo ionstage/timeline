@@ -8,6 +8,8 @@
     this.daysAgo = m.prop(183);
     this.daysAfter = m.prop(183);
     this.pixelsPerDay = m.prop(8);
+    this.timelineControllers = m.prop([]);
+    this.showTimelinesPopover = m.prop(false);
     this.onchange = noop;
     this.ontoday = noop;
   };
@@ -23,12 +25,21 @@
       case 'today':
         this.ontoday();
         break;
-      case 'timelines':
-        // TODO: click "timelines" button
-        break;
       default:
         break;
       }
+      break;
+    case 'popovershow':
+      if (this.showTimelinesPopover())
+        break;
+      this.showTimelinesPopover(true);
+      m.redraw();
+      break;
+    case 'popoverhide':
+      if (!this.showTimelinesPopover())
+        break;
+      this.showTimelinesPopover(false);
+      m.redraw();
       break;
     default:
       break;

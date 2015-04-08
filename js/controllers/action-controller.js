@@ -26,20 +26,22 @@
     var daysAgo = loadData('days-ago', 183);
     var daysAfter = loadData('days-after', 183);
     var pixelsPerDay = loadData('pixels-per-day' ,8);
+    var timelineControllers = defaultTimelineListControllers({
+      daysAgo: daysAgo,
+      daysAfter: daysAfter,
+      pixelsPerDay: pixelsPerDay
+    });
 
     headerController.daysAgo(daysAgo);
     headerController.daysAfter(daysAfter);
     headerController.pixelsPerDay(pixelsPerDay);
+    headerController.timelineControllers(timelineControllers);
 
     timeAxisController.daysAgo(daysAgo);
     timeAxisController.daysAfter(daysAfter);
     timeAxisController.pixelsPerDay(pixelsPerDay);
 
-    timelineListController.timelineControllers(defaultTimelineListControllers({
-      daysAgo: daysAgo,
-      daysAfter: daysAfter,
-      pixelsPerDay: pixelsPerDay
-    }));
+    timelineListController.timelineControllers(timelineControllers);
 
     headerController.onchange = onChangeHeaderController.bind(this);
     headerController.ontoday = onTodayHeaderController.bind(this);
