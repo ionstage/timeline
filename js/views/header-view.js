@@ -146,7 +146,9 @@
           var state = controller.state();
           var title = controller.title();
           var className = '';
-          if (state === TimelineController.STATE_LOAD_ERROR)
+          if (state === TimelineController.STATE_LOADING)
+            className = 'loading';
+          else if (state === TimelineController.STATE_LOAD_ERROR)
             className = 'load-error';
           return m('div.popover-list-item', {
             className: className

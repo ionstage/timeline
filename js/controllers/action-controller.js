@@ -164,13 +164,16 @@
       url: url
     });
 
+    controllers.push(timelineController);
+
     timelineController.fetch().then(function(controller) {
       controller.daysAgo(headerController.daysAgo());
       controller.daysAfter(headerController.daysAfter());
       controller.pixelsPerDay(headerController.pixelsPerDay());
-      controllers.push(controller);
       m.redraw();
     });
+
+    m.redraw();
   };
 
   var onChangeHeaderController = function(event) {

@@ -146,6 +146,14 @@
   padding-left: 16px;
 }
 
+.header .popover-list-item.loading {
+  color: gray;
+}
+
+.header .popover-list-item.loading .popover-list-item-title:before {
+  content: "Loading...";
+}
+
 .header .popover-list-item.load-error {
   background-color: pink;
   color: red;

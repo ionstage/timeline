@@ -21,6 +21,7 @@
 
   TimelineController.prototype.fetch = function() {
     var url = this.url();
+    this.state(TimelineController.STATE_LOADING);
     return m.request({
       method: 'GET',
       url: url,
@@ -101,6 +102,7 @@
   };
 
   TimelineController.STATE_INITIALIZED = 'initialized';
+  TimelineController.STATE_LOADING = 'loading';
   TimelineController.STATE_LOAD_COMPLETE = 'load-complete';
   TimelineController.STATE_LOAD_ERROR = 'load-error';
 
