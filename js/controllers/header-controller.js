@@ -10,8 +10,10 @@
     this.pixelsPerDay = m.prop(8);
     this.timelineControllers = m.prop([]);
     this.showTimelinesPopover = m.prop(false);
+    this.timelinesPopoverMode = m.prop(HeaderController.TIMELINES_POPOVER_MODE_INITIAL);
     this.onchange = noop;
     this.ontoday = noop;
+    this.ontimelineadd = noop;
   };
 
   HeaderController.prototype.dispatchEvent = function(event) {
@@ -35,10 +37,19 @@
       this.showTimelinesPopover(false);
       m.redraw();
       break;
+    case 'popovermodechange':
+      this.timelinesPopoverMode(event.mode);
+      break;
+    case 'timelineadd':
+      this.ontimelineadd(event);
+      break;
     default:
       break;
     }
   };
+
+  HeaderController.TIMELINES_POPOVER_MODE_INITIAL = 'initial';
+  HeaderController.TIMELINES_POPOVER_MODE_ADD = 'add';
 
   app.HeaderController = HeaderController;
   global.app = app;

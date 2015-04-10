@@ -45,6 +45,7 @@
 
     headerController.onchange = onChangeHeaderController.bind(this);
     headerController.ontoday = onTodayHeaderController.bind(this);
+    headerController.ontimelineadd = onTimelineAddHeaderController.bind(this);
     timelineListController.oninit = onInitTimelineListController.bind(this);
     timelineListController.onscroll = onScrollTimelineListController.bind(this);
   };
@@ -154,6 +155,24 @@
     timelineListController.scrollLeft(value);
   };
 
+  var addTimelineController = function(ctrl, url) {
+    var headerController = ctrl.headerController();
+
+    // headerController and timelineListController have same controllers
+    var controllers = headerController.timelineControllers();
+    var timelineController = new TimelineController({
+      url: url
+    });
+
+    timelineController.fetch().then(function(controller) {
+      controller.daysAgo(headerController.daysAgo());
+      controller.daysAfter(headerController.daysAfter());
+      controller.pixelsPerDay(headerController.pixelsPerDay());
+      controllers.push(controller);
+      m.redraw();
+    });
+  };
+
   var onChangeHeaderController = function(event) {
     var timeAxisController = this.timeAxisController();
     var timelineListController = this.timelineListController();
@@ -192,6 +211,13 @@
     var scrollLeft = (daysAgo + 0.5) * pixelsPerDay - windowWidth() / 2;
 
     updateScrollLeftPosition(this, scrollLeft);
+  };
+
+  var onTimelineAddHeaderController = function(event) {
+    var url = event.url;
+    if (!url)
+      return;
+    addTimelineController(this, url);
   };
 
   var onInitTimelineListController = function() {
