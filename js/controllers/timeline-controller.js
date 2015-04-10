@@ -7,6 +7,8 @@
   var translateX = util.translateX;
 
   var TimelineController = function(option) {
+    this.url = m.prop(option.url);
+    this.state = m.prop(TimelineController.STATE_INITIALIZED);
     this.title = m.prop(option.title);
     this.type = m.prop(option.type);
     this.data = m.prop(option.data);
@@ -15,6 +17,15 @@
     this.pixelsPerDay = m.prop(option.pixelsPerDay);
     this.selectedIndex = selectedIndexProp();
     this.titleElement = m.prop(null);
+  };
+
+  TimelineController.prototype.fetch = function() {
+    var url = this.url();
+    return m.request({
+      method: 'GET',
+      url: url,
+      extract: requestExtract,
+    }).then(requestSuccessCallback.bind(this), requestErrorCallback.bind(this));
   };
 
   TimelineController.prototype.scrollLeft = function(value) {
@@ -50,6 +61,48 @@
       selectedIndex(value);
     };
   };
+
+  var requestExtract = function(xhr) {
+    return xhr.status > 200 ? JSON.stringify(xhr.responseText) : xhr.responseText;
+  };
+
+  var requestSuccessCallback = function(result) {
+    var title = result.title;
+    var type = result.type;
+    var data = result.data;
+
+    if (type === TimelineController.TYPE_GANTT_CHART) {
+      data = data.map(function(item) {
+        item.data = parseDateProperty(item.data);
+        item.deadline = new Date(item.deadline);
+        return item;
+      });
+    } else {
+      data = parseDateProperty(data);
+    }
+
+    this.title(title);
+    this.type(type);
+    this.data(data);
+    this.state(TimelineController.STATE_LOAD_COMPLETE);
+    return this;
+  };
+
+  var requestErrorCallback = function() {
+    this.state(TimelineController.STATE_LOAD_ERROR);
+    return this;
+  };
+
+  var parseDateProperty = function(array) {
+    return array.map(function(item) {
+      item.date = new Date(item.date);
+      return item;
+    });
+  };
+
+  TimelineController.STATE_INITIALIZED = 'initialized';
+  TimelineController.STATE_LOAD_COMPLETE = 'load-complete';
+  TimelineController.STATE_LOAD_ERROR = 'load-error';
 
   TimelineController.TYPE_LINE_CHART = 'line-chart';
   TimelineController.TYPE_BAR_CHART = 'bar-chart';
