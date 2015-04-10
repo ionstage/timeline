@@ -25,7 +25,13 @@
     return m.request({
       method: 'GET',
       url: url,
-      extract: requestExtract,
+      deserialize: function(value) {
+        try {
+          return JSON.parse(value);
+        } catch (e) {
+          return null;
+        }
+      }
     }).then(requestSuccessCallback.bind(this), requestErrorCallback.bind(this));
   };
 
@@ -63,11 +69,10 @@
     };
   };
 
-  var requestExtract = function(xhr) {
-    return xhr.status > 200 ? JSON.stringify(xhr.responseText) : xhr.responseText;
-  };
-
   var requestSuccessCallback = function(result) {
+    if (!result)
+      return requestErrorCallback.call(this);
+
     var title = result.title;
     var type = result.type;
     var data = result.data;
