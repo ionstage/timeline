@@ -172,7 +172,7 @@
           }
         }, 'Cencel'),
         m('div.spacer', 'Add'),
-        m('a.button', {
+        m('a.button.done', {
           href: '#',
           config: function(element, isInitialized) {
             if (isInitialized)

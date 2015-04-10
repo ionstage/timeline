@@ -66,6 +66,10 @@
   text-decoration: none;
 }
 
+.header .button.done {
+  font-weight: bold;
+}
+
 .header .button.disabled {
   pointer-events: none;
 }
@@ -111,6 +115,10 @@
 .header .popover .popover-header > * {
   display: table-cell;
   vertical-align: middle;
+}
+
+.header .popover .popover-header a {
+  color: orangered;
 }
 
 .header .popover .popover-content {
