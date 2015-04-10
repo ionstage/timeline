@@ -138,7 +138,7 @@
             });
           }
         }, 'Add'),
-        m('div.spacer'),
+        m('div.spacer', 'Timelines'),
         m('a.button', {href: '#'}, 'Edit')
       ]),
       m('div.popover-content', [
@@ -171,7 +171,7 @@
             });
           }
         }, 'Cencel'),
-        m('div.spacer', 'Add'),
+        m('div.spacer', 'Add Timeline'),
         m('a.button.done', {
           href: '#',
           config: function(element, isInitialized) {
