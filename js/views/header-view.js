@@ -198,7 +198,8 @@
       m('div.popover-content', [
         m('div', 'URL'),
         m('input', {
-          type: 'text',
+          type: 'url',
+          autofocus: true,
           config: function(element, isInitialized) {
             if (isInitialized)
               return;
