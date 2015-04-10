@@ -135,15 +135,15 @@
   width: 100%;
 }
 
-.header .popover-list-item.load-error {
-  background-color: pink;
-  color: red;
-}
-
-.header .popover-list-item-title {
+.header .popover-list-item .popover-list-item-title {
   display: table-cell;
   vertical-align: middle;
   padding-left: 16px;
+}
+
+.header .popover-list-item.load-error {
+  background-color: pink;
+  color: red;
 }
 
 .header .popover-list-item.load-error .popover-list-item-title:before {
