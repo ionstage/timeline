@@ -79,6 +79,10 @@
   opacity: 0.3;
 }
 
+.header .button.hide {
+  visibility: hidden;
+}
+
 .header .popover {
   -webkit-box-shadow: 0 0 8px gray;
   background-color: whitesmoke;
@@ -144,6 +148,20 @@
   display: table-cell;
   vertical-align: middle;
   padding-left: 16px;
+}
+
+.header .popover-list-item .popover-list-item-button {
+  color: #333;
+  display: table-cell;
+  font-size: 20px;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  width: 42px;
+}
+
+.header .popover-list-item .popover-list-item-button:active {
+  opacity: 0.3;
 }
 
 .header .popover-list-item.loading {

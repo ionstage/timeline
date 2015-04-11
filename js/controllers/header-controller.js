@@ -14,6 +14,7 @@
     this.onchange = noop;
     this.ontoday = noop;
     this.ontimelineadd = noop;
+    this.ontimelineremove = noop;
   };
 
   HeaderController.prototype.dispatchEvent = function(event) {
@@ -43,6 +44,9 @@
     case 'timelineadd':
       this.ontimelineadd(event);
       break;
+    case 'timelineremove':
+      this.ontimelineremove(event);
+      break;
     default:
       break;
     }
@@ -50,6 +54,7 @@
 
   HeaderController.TIMELINES_POPOVER_MODE_INITIAL = 'initial';
   HeaderController.TIMELINES_POPOVER_MODE_ADD = 'add';
+  HeaderController.TIMELINES_POPOVER_MODE_EDIT = 'edit';
 
   app.HeaderController = HeaderController;
   global.app = app;

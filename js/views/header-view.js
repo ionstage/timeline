@@ -98,6 +98,9 @@
     if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_ADD) {
       height = 160;
       view = popoverAddView;
+    } else if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_EDIT) {
+      height = timelineControllers.length * 42 + 90;
+      view = popoverEditView;
     } else {
       height = timelineControllers.length * 42 + 90;
       view = popoverInitialView;
@@ -139,7 +142,15 @@
           }
         }, 'Add'),
         m('div.spacer', 'Timelines'),
-        m('a.button', {href: '#'}, 'Edit')
+        m('a.button', {
+          href: '#',
+          onclick: function() {
+            ctrl.dispatchEvent({
+              type: 'popovermodechange',
+              mode: HeaderController.TIMELINES_POPOVER_MODE_EDIT
+            });
+          }
+        }, 'Edit')
       ]),
       m('div.popover-content', [
         m('div.popover-list', timelineControllers.map(function(controller) {
@@ -208,6 +219,61 @@
             inputElementProp(element);
           }
         }, 'URL')
+      ])
+    ];
+  };
+
+  var popoverEditView = function(ctrl) {
+    var timelineControllers = ctrl.timelineControllers();
+    return [
+      m('div.popover-header', [
+        m('a.button.hide', 'Add'),
+        m('div.spacer', 'Edit Timelines'),
+        m('a.button.done', {
+          href: '#',
+          onclick: function() {
+            ctrl.dispatchEvent({
+              type: 'popovermodechange',
+              mode: HeaderController.TIMELINES_POPOVER_MODE_INITIAL
+            });
+          }
+        }, 'Done')
+      ]),
+      m('div.popover-content', [
+        m('div.popover-list', {
+          onclick: function(event) {
+            var target = event.target;
+            var className = target.getAttribute('class');
+
+            m.redraw.strategy('none');
+
+            if (!className || !className.match(/popover-list-item-button/))
+              return;
+
+            var index = +className.match(/index-(\d+)/)[1];
+            ctrl.dispatchEvent({
+              type: 'timelineremove',
+              index: index
+            });
+          }
+        }, timelineControllers.map(function(controller, index) {
+          var state = controller.state();
+          var title = controller.title();
+          var className = '';
+          if (state === TimelineController.STATE_LOADING)
+            className = 'loading';
+          else if (state === TimelineController.STATE_LOAD_ERROR)
+            className = 'load-error';
+          return m('div.popover-list-item', {
+            className: className
+          }, [
+            m('a.popover-list-item-button', {
+              className: 'index-' + index,
+              href: '#'
+            }, '×'),
+            m('div.popover-list-item-title', title)
+          ]);
+        }))
       ])
     ];
   };
