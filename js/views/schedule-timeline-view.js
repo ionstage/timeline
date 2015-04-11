@@ -16,6 +16,7 @@
     var daysAgo = ctrl.daysAgo();
     var daysAfter = ctrl.daysAfter();
     var pixelsPerDay = ctrl.pixelsPerDay();
+    var titleElement = ctrl.titleElement();
 
     var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
     var sheduleItems = calcScheduleItems(data, daysAgo, pixelsPerDay);
@@ -38,7 +39,7 @@
     }, [
       m('div.title', {
         config: function(element, isInitialized) {
-          if (isInitialized)
+          if (element === titleElement)
             return;
           ctrl.dispatchEvent({
             type: 'init',
