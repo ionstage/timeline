@@ -160,6 +160,19 @@
   width: 42px;
 }
 
+.header .popover-list-item .popover-list-item-handle {
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+  color: #333;
+  display: table-cell;
+  font-size: 20px;
+  text-align: center;
+  vertical-align: middle;
+  width: 42px;
+}
+
 .header .popover-list-item .popover-list-item-button:active {
   opacity: 0.3;
 }
@@ -179,6 +192,10 @@
 
 .header .popover-list-item.load-error .popover-list-item-title:before {
   content: "Load Error";
+}
+
+.header .popover-list-item.load-error .popover-list-item-title span {
+  display: none;
 }
 
 .header .popover .popover-content input {

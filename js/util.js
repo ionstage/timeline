@@ -5,6 +5,8 @@
   var window = global.window;
   var document = global.document;
 
+  var jQuery = global.jQuery;
+
   util.inherits = function(ctor, superCtor) {
     ctor.super_ = superCtor;
     ctor.prototype = Object.create(superCtor.prototype, {
@@ -67,6 +69,10 @@
     el.style.MozTransform = value;
     el.style.msTransform = value;
     el.style.OTransform = value;
+  };
+
+  util.sortable = function(el, option) {
+    return jQuery(el).sortable(option);
   };
 
   util.storageKey = function(key) {

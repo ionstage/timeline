@@ -9,6 +9,7 @@
 
   var supportsTouch = util.supportsTouch;
   var rootElement = util.rootElement;
+  var sortable = util.sortable;
 
   var headerView = function(ctrl) {
     var daysAgo = ctrl.daysAgo();
@@ -164,7 +165,9 @@
           return m('div.popover-list-item', {
             className: className
           }, [
-            m('div.popover-list-item-title', title)
+            m('div.popover-list-item-title', [
+              m('span', title)
+            ])
           ]);
         }))
       ])
@@ -255,6 +258,30 @@
               type: 'timelineremove',
               index: index
             });
+          },
+          config: function(element, isInitialized) {
+            if (isInitialized)
+              return;
+            var $sortable = sortable(element, {
+              axis: 'y',
+              containment: 'parent',
+              handle: '.popover-list-item-handle',
+              tolerance: 'pointer',
+              stop: function() {
+                var sortedClassNames = $sortable.sortable('toArray', {attribute: 'class'});
+                var indeces = sortedClassNames.map(function(className) {
+                  return +className.match(/index-(\d+)/)[1];
+                });
+
+                // cancel sort for using virtual DOM update
+                $sortable.sortable('cancel');
+
+                ctrl.dispatchEvent({
+                  type: 'timelinereorder',
+                  indeces: indeces
+                });
+              }
+            });
           }
         }, timelineControllers.map(function(controller, index) {
           var state = controller.state();
@@ -265,13 +292,16 @@
           else if (state === TimelineController.STATE_LOAD_ERROR)
             className = 'load-error';
           return m('div.popover-list-item', {
-            className: className
+            className: className + ' index-' + index
           }, [
             m('a.popover-list-item-button', {
               className: 'index-' + index,
               href: '#'
             }, '×'),
-            m('div.popover-list-item-title', title)
+            m('div.popover-list-item-title', [
+              m('span', title)
+            ]),
+            m('div.popover-list-item-handle', '|||')
           ]);
         }))
       ])

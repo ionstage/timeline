@@ -15,6 +15,7 @@
     this.ontoday = noop;
     this.ontimelineadd = noop;
     this.ontimelineremove = noop;
+    this.ontimelinereorder = noop;
   };
 
   HeaderController.prototype.dispatchEvent = function(event) {
@@ -46,6 +47,9 @@
       break;
     case 'timelineremove':
       this.ontimelineremove(event);
+      break;
+    case 'timelinereorder':
+      this.ontimelinereorder(event);
       break;
     default:
       break;
