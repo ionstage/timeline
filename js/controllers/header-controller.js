@@ -2,6 +2,9 @@
   'use strict';
   var app = global.app || {};
   var m = global.m;
+  var util = global.util;
+
+  var camelCase = util.camelCase;
 
   var HeaderController = function() {
     var noop = function() {};
@@ -21,7 +24,7 @@
   HeaderController.prototype.dispatchEvent = function(event) {
     switch (event.type) {
     case 'change':
-      this[event.name](event.value);
+      this[camelCase(event.name)](event.value);
       this.onchange(event);
       break;
     case 'today':

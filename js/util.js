@@ -33,8 +33,10 @@
     });
   };
 
-  util.kebabCase = function(s) {
-    return s.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
+  util.camelCase = function(s) {
+    return s.replace(/-(.)/g, function(_, g) {
+      return g.toUpperCase();
+    });
   };
 
   util.startOfDay = function() {

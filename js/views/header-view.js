@@ -22,7 +22,7 @@
           onchange: m.withAttr('value', function(value) {
             ctrl.dispatchEvent({
               type: 'change',
-              name: 'daysAgo',
+              name: 'days-ago',
               value: +value
             });
           }),
@@ -37,7 +37,7 @@
           onchange: m.withAttr('value', function(value) {
             ctrl.dispatchEvent({
               type: 'change',
-              name: 'daysAfter',
+              name: 'days-after',
               value: +value
             });
           }),
@@ -58,7 +58,7 @@
           onchange: m.withAttr('value', function(value) {
             ctrl.dispatchEvent({
               type: 'change',
-              name: 'pixelsPerDay',
+              name: 'pixels-per-day',
               value: +value
             });
           }),

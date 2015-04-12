@@ -6,7 +6,7 @@
 
   var TimelineController = app.TimelineController;
 
-  var kebabCase = util.kebabCase;
+  var camelCase = util.camelCase;
   var startOfDay = util.startOfDay;
   var loadData = util.loadData;
   var saveData = util.saveData;
@@ -213,18 +213,19 @@
 
     var name = event.name;
     var value = event.value;
+    var methodName = camelCase(name);
 
-    timeAxisController[name](value);
-    timelineListController[name](value);
+    timeAxisController[methodName](value);
+    timelineListController[methodName](value);
 
-    saveData(kebabCase(name), value);
+    saveData(name, value);
 
     m.redraw();
 
     // adjust scroll position after redraw
-    if (name === 'daysAgo') {
+    if (name === 'days-ago') {
       scrollLeft += (value - daysAgo) * pixelsPerDay;
-    } else if (name === 'pixelsPerDay') {
+    } else if (name === 'pixels-per-day') {
       var scrollDays = (scrollLeft + windowWidth() / 2) / pixelsPerDay;
       scrollLeft += scrollDays * (value - pixelsPerDay);
     }
