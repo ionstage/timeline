@@ -17,6 +17,19 @@
     this.timelineListController = m.prop(option.timelineListController);
   };
 
+  ActionController.prototype.timelineControllers = function(value) {
+    var headerController = this.headerController();
+
+    // headerController's timelineController is used as a cache
+    if (typeof value === 'undefined')
+      return headerController.timelineControllers();
+
+    var timelineListController = this.timelineListController();
+
+    headerController.timelineControllers(value);
+    timelineListController.timelineControllers(value);
+  };
+
   ActionController.prototype.start = function() {
     var headerController = this.headerController();
     var timeAxisController = this.timeAxisController();
@@ -25,22 +38,20 @@
     var daysAgo = loadData('days-ago', 183);
     var daysAfter = loadData('days-after', 183);
     var pixelsPerDay = loadData('pixels-per-day' ,8);
-    var timelineControllers = defaultTimelineListControllers({
+
+    this.timelineControllers(defaultTimelineControllers({
       daysAgo: daysAgo,
       daysAfter: daysAfter,
       pixelsPerDay: pixelsPerDay
-    });
+    }));
 
     headerController.daysAgo(daysAgo);
     headerController.daysAfter(daysAfter);
     headerController.pixelsPerDay(pixelsPerDay);
-    headerController.timelineControllers(timelineControllers);
 
     timeAxisController.daysAgo(daysAgo);
     timeAxisController.daysAfter(daysAfter);
     timeAxisController.pixelsPerDay(pixelsPerDay);
-
-    timelineListController.timelineControllers(timelineControllers);
 
     headerController.onchange = onChangeHeaderController.bind(this);
     headerController.ontoday = onTodayHeaderController.bind(this);
@@ -51,7 +62,7 @@
     timelineListController.onscroll = onScrollTimelineListController.bind(this);
   };
 
-  var defaultTimelineListControllers = function(option) {
+  var defaultTimelineControllers = function(option) {
     return [
       new TimelineController({
         title: 'Line Chart',
@@ -98,9 +109,8 @@
 
   var addTimelineController = function(ctrl, url) {
     var headerController = ctrl.headerController();
+    var controllers = ctrl.timelineControllers();
 
-    // headerController and timelineListController have same controllers
-    var controllers = headerController.timelineControllers();
     var timelineController = new TimelineController({
       url: url
     });
@@ -118,20 +128,13 @@
   };
 
   var removeTimelineController = function(ctrl, index) {
-    var headerController = ctrl.headerController();
-
-    // headerController and timelineListController have same controllers
-    var controllers = headerController.timelineControllers();
+    var controllers = ctrl.timelineControllers();
     controllers.splice(index, 1);
-
     m.redraw();
   };
 
   var reorderTimelineController = function(ctrl, indeces) {
-    var headerController = ctrl.headerController();
-
-    // headerController and timelineListController have same controllers
-    var controllers = headerController.timelineControllers();
+    var controllers = ctrl.timelineControllers();
     var clone = controllers.concat();
 
     for (var i = 0, len = controllers.length; i < len; i++) {
