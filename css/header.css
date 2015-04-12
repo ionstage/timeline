@@ -133,7 +133,8 @@
 
 .header .popover .popover-list {
   height: 100%;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .header .popover-list-item {
@@ -148,6 +149,21 @@
   display: table-cell;
   vertical-align: middle;
   padding-left: 16px;
+  width: calc(100% - 84px);
+}
+
+.header .popover-list-item .popover-list-item-title .text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header .popover-list-item .popover-list-item-title .text.initial {
+  width: 280px;
+}
+
+.header .popover-list-item .popover-list-item-title .text.edit {
+  width: 196px;
 }
 
 .header .popover-list-item .popover-list-item-button {
@@ -194,7 +210,7 @@
   content: "Load Error";
 }
 
-.header .popover-list-item.load-error .popover-list-item-title span {
+.header .popover-list-item.load-error .popover-list-item-title .text {
   display: none;
 }
 

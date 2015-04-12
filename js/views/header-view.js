@@ -166,7 +166,7 @@
             className: className
           }, [
             m('div.popover-list-item-title', [
-              m('span', title)
+              m('div.text.initial', title)
             ])
           ]);
         }))
@@ -299,7 +299,7 @@
               href: '#'
             }, '×'),
             m('div.popover-list-item-title', [
-              m('span', title)
+              m('div.text.edit', title)
             ]),
             m('div.popover-list-item-handle', '|||')
           ]);
