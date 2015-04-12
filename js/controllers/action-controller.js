@@ -7,7 +7,6 @@
   var TimelineController = app.TimelineController;
 
   var camelCase = util.camelCase;
-  var startOfDay = util.startOfDay;
   var loadData = util.loadData;
   var saveData = util.saveData;
   var windowWidth = util.windowWidth;
