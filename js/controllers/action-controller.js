@@ -39,11 +39,11 @@
     var daysAfter = loadData('days-after', 183);
     var pixelsPerDay = loadData('pixels-per-day' ,8);
 
-    this.timelineControllers(defaultTimelineControllers({
+    loadDefaultTimelineControllers(this, {
       daysAgo: daysAgo,
       daysAfter: daysAfter,
       pixelsPerDay: pixelsPerDay
-    }));
+    });
 
     headerController.daysAgo(daysAgo);
     headerController.daysAfter(daysAfter);
@@ -66,8 +66,23 @@
     timelineListController.onscroll = onScrollTimelineListController.bind(this);
   };
 
-  var defaultTimelineControllers = function(option) {
-    return [];
+  var loadDefaultTimelineControllers = function(ctrl, option) {
+    var urls = loadTimelineUrls();
+    var timelineControllers = urls.map(function(url) {
+      return new TimelineController({
+        url: url,
+        daysAgo: option.daysAgo,
+        daysAfter: option.daysAfter,
+        pixelsPerDay: option.pixelsPerDay
+      });
+    });
+
+    m.sync(timelineControllers.map(function(controller) {
+      return controller.fetch();
+    })).then(function(controllers) {
+      ctrl.timelineControllers(controllers);
+      m.redraw();
+    }.bind(ctrl));
   };
 
   var updateScrollLeftPosition = function(ctrl, value) {
@@ -95,12 +110,14 @@
       m.redraw();
     });
 
+    saveTimelineUrls(controllers);
     m.redraw();
   };
 
   var removeTimelineController = function(ctrl, index) {
     var controllers = ctrl.timelineControllers();
     controllers.splice(index, 1);
+    saveTimelineUrls(controllers);
     m.redraw();
   };
 
@@ -112,7 +129,18 @@
       controllers[i] = clone[indeces[i]];
     }
 
+    saveTimelineUrls(controllers);
     m.redraw();
+  };
+
+  var loadTimelineUrls = function() {
+    return loadData('timeline-urls', []);
+  };
+
+  var saveTimelineUrls = function(controllers) {
+    saveData('timeline-urls', controllers.map(function(controller) {
+      return controller.url();
+    }));
   };
 
   var onChangeHeaderController = function(event) {
