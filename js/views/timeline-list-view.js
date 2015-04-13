@@ -30,8 +30,11 @@
 
   var timelineViews = function(ctrl) {
     var timelineControllers = ctrl.timelineControllers();
+    var allError = timelineControllers.every(function(controller) {
+      return controller.state() === TimelineController.STATE_LOAD_ERROR;
+    });
 
-    if (timelineControllers.length === 0) {
+    if (timelineControllers.length === 0 || allError) {
       var daysAgo = ctrl.daysAgo();
       var daysAfter = ctrl.daysAfter();
       var pixelsPerDay = ctrl.pixelsPerDay();
