@@ -140,8 +140,10 @@
 .header .popover-list-item {
   background-color: white;
   border-bottom: 1px solid whitesmoke;
+  border-top: 1px solid whitesmoke;
   display: table;
   height: 42px;
+  margin-top: -1px;
   width: 100%;
 }
 
