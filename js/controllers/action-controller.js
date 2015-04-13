@@ -86,6 +86,11 @@
       timelineListController.pixelsPerDay(option.pixelsPerDay);
 
       m.redraw();
+
+      // locate timeline title
+      controllers.forEach(function(controller) {
+        controller.scrollLeft(timelineListController.scrollLeft());
+      });
     }.bind(ctrl));
   };
 
@@ -99,6 +104,7 @@
 
   var addTimelineController = function(ctrl, url) {
     var headerController = ctrl.headerController();
+    var timelineListController = ctrl.timelineListController();
     var controllers = ctrl.timelineControllers();
 
     var timelineController = new TimelineController({
@@ -111,8 +117,12 @@
       controller.daysAgo(headerController.daysAgo());
       controller.daysAfter(headerController.daysAfter());
       controller.pixelsPerDay(headerController.pixelsPerDay());
-      m.redraw();
-    });
+
+      m.redraw(true);
+
+      // locate timeline title
+      controller.scrollLeft(timelineListController.scrollLeft());
+    }.bind(ctrl));
 
     saveTimelineUrls(controllers);
     m.redraw();
