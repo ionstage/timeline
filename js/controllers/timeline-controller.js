@@ -22,6 +22,41 @@
 
   TimelineController.prototype.fetch = function() {
     var url = this.url();
+
+    var sampleUrlMatch = url.match(/timeline:sample\/(.+)/);
+    var deferred = m.deferred();
+
+    // make sample timeline data
+    if (sampleUrlMatch) {
+      var type = sampleUrlMatch[1];
+
+      switch (type) {
+      case TimelineController.TYPE_LINE_CHART:
+        this.title('Line Chart');
+        break;
+      case TimelineController.TYPE_BAR_CHART:
+        this.title('Bar Chart');
+        break;
+      case TimelineController.TYPE_SCHEDULE:
+        this.title('Schedule');
+        break;
+      case TimelineController.TYPE_GANTT_CHART:
+        this.title('Gantt Chart');
+        break;
+      default:
+        deferred.reject(requestErrorCallback.call(this));
+        return deferred.promise;
+      }
+
+      this.type(type);
+      this.data(TimelineController.sampleData(type));
+      this.state(TimelineController.STATE_LOAD_COMPLETE);
+
+      deferred.resolve(this);
+      return deferred.promise;
+    }
+
+    // load timeline data from web
     this.state(TimelineController.STATE_LOADING);
     try {
       return m.request({
@@ -36,7 +71,6 @@
         }
       }).then(requestSuccessCallback.bind(this), requestErrorCallback.bind(this));
     } catch (e) {
-      var deferred = m.deferred();
       deferred.reject(requestErrorCallback.call(this));
       return deferred.promise;
     }
