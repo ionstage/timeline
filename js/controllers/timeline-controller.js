@@ -23,17 +23,23 @@
   TimelineController.prototype.fetch = function() {
     var url = this.url();
     this.state(TimelineController.STATE_LOADING);
-    return m.request({
-      method: 'GET',
-      url: url,
-      deserialize: function(value) {
-        try {
-          return JSON.parse(value);
-        } catch (e) {
-          return null;
+    try {
+      return m.request({
+        method: 'GET',
+        url: url,
+        deserialize: function(value) {
+          try {
+            return JSON.parse(value);
+          } catch (e) {
+            return null;
+          }
         }
-      }
-    }).then(requestSuccessCallback.bind(this), requestErrorCallback.bind(this));
+      }).then(requestSuccessCallback.bind(this), requestErrorCallback.bind(this));
+    } catch (e) {
+      var deferred = m.deferred();
+      deferred.reject(requestErrorCallback.call(this));
+      return deferred.promise;
+    }
   };
 
   TimelineController.prototype.scrollLeft = function(value) {
