@@ -63,40 +63,7 @@
   };
 
   var defaultTimelineControllers = function(option) {
-    return [
-      new TimelineController({
-        title: 'Line Chart',
-        type: TimelineController.TYPE_LINE_CHART,
-        data: TimelineController.sampleData(TimelineController.TYPE_LINE_CHART),
-        daysAgo: option.daysAgo,
-        daysAfter: option.daysAfter,
-        pixelsPerDay: option.pixelsPerDay
-      }),
-      new TimelineController({
-        title: 'Bar Chart',
-        type: TimelineController.TYPE_BAR_CHART,
-        data: TimelineController.sampleData(TimelineController.TYPE_BAR_CHART),
-        daysAgo: option.daysAgo,
-        daysAfter: option.daysAfter,
-        pixelsPerDay: option.pixelsPerDay
-      }),
-      new TimelineController({
-        title: 'Schedule',
-        type: TimelineController.TYPE_SCHEDULE,
-        data: TimelineController.sampleData(TimelineController.TYPE_SCHEDULE),
-        daysAgo: option.daysAgo,
-        daysAfter: option.daysAfter,
-        pixelsPerDay: option.pixelsPerDay
-      }),
-      new TimelineController({
-        title: 'Gantt Chart',
-        type: TimelineController.TYPE_GANTT_CHART,
-        data: TimelineController.sampleData(TimelineController.TYPE_GANTT_CHART),
-        daysAgo: option.daysAgo,
-        daysAfter: option.daysAfter,
-        pixelsPerDay: option.pixelsPerDay
-      })
-    ];
+    return [];
   };
 
   var updateScrollLeftPosition = function(ctrl, value) {
