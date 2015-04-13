@@ -3,6 +3,11 @@
   position: relative;
 }
 
+.timeline.dummy {
+  border: 0;
+  height: 1px;
+}
+
 .timeline .title {
   color: gray;
   position: absolute;

@@ -8,22 +8,43 @@
 
   var TimelineListController = function() {
     var noop = function() {};
+    this.daysAgo = daysAgoProp();
+    this.daysAfter = daysAfterProp();
+    this.pixelsPerDay = pixelsPerDayProp();
     this.timelineControllers = m.prop([]);
     this.element = m.prop(null);
     this.oninit = noop;
     this.onscroll = noop;
   };
 
-  TimelineListController.prototype.daysAgo = function(value) {
-    invoke(this.timelineControllers(), 'daysAgo', value);
+  var daysAgoProp = function(value) {
+    var cache = m.prop(183);
+    return function(value) {
+      if (typeof value === 'undefined')
+        return cache();
+      cache(value);
+      invoke(this.timelineControllers(), 'daysAgo', value);
+    };
   };
 
-  TimelineListController.prototype.daysAfter = function(value) {
-    invoke(this.timelineControllers(), 'daysAfter', value);
+  var daysAfterProp = function(value) {
+    var cache = m.prop(183);
+    return function(value) {
+      if (typeof value === 'undefined')
+        return cache();
+      cache(value);
+      invoke(this.timelineControllers(), 'daysAfter', value);
+    };
   };
 
-  TimelineListController.prototype.pixelsPerDay = function(value) {
-    invoke(this.timelineControllers(), 'pixelsPerDay', value);
+  var pixelsPerDayProp = function(value) {
+    var cache = m.prop(8);
+    return function(value) {
+      if (typeof value === 'undefined')
+        return cache();
+      cache(value);
+      invoke(this.timelineControllers(), 'pixelsPerDay', value);
+    };
   };
 
   TimelineListController.prototype.scrollLeft = function(value) {

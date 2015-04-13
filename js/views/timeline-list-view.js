@@ -10,7 +10,6 @@
   var ganttChartTimelineView = app.ganttChartTimelineView;
 
   var timelineListView = function(ctrl) {
-    var timelineControllers = ctrl.timelineControllers();
     return m('div.timeline-list', {
       onscroll: function(event) {
         ctrl.dispatchEvent({
@@ -26,7 +25,21 @@
           element: element
         });
       }
-    }, timelineControllers.map(function(controller) {
+    }, timelineViews(ctrl));
+  };
+
+  var timelineViews = function(ctrl) {
+    var timelineControllers = ctrl.timelineControllers();
+
+    if (timelineControllers.length === 0) {
+      var daysAgo = ctrl.daysAgo();
+      var daysAfter = ctrl.daysAfter();
+      var pixelsPerDay = ctrl.pixelsPerDay();
+      var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
+      return m('div.timeline.dummy', {style: 'width: ' + width + 'px'});
+    }
+
+    return timelineControllers.map(function(controller) {
       switch (controller.type()) {
       case TimelineController.TYPE_LINE_CHART:
         return lineChartTimelineView(controller);
@@ -39,7 +52,7 @@
       default:
         return;
       }
-    }));
+    });
   };
 
   app.timelineListView = timelineListView;

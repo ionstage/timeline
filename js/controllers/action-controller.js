@@ -53,6 +53,10 @@
     timeAxisController.daysAfter(daysAfter);
     timeAxisController.pixelsPerDay(pixelsPerDay);
 
+    timelineListController.daysAgo(daysAgo);
+    timelineListController.daysAfter(daysAfter);
+    timelineListController.pixelsPerDay(pixelsPerDay);
+
     headerController.onchange = onChangeHeaderController.bind(this);
     headerController.ontoday = onTodayHeaderController.bind(this);
     headerController.ontimelineadd = onTimelineAddHeaderController.bind(this);
