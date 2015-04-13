@@ -10,12 +10,12 @@
   var TimelineController = function(option) {
     this.url = m.prop(option.url);
     this.state = m.prop(TimelineController.STATE_INITIALIZED);
-    this.title = m.prop(option.title);
-    this.type = m.prop(option.type);
-    this.data = m.prop(option.data);
-    this.daysAgo = m.prop(option.daysAgo);
-    this.daysAfter = m.prop(option.daysAfter);
-    this.pixelsPerDay = m.prop(option.pixelsPerDay);
+    this.title = m.prop('');
+    this.type = m.prop(TimelineController.TYPE_NONE);
+    this.data = m.prop([]);
+    this.daysAgo = m.prop(183);
+    this.daysAfter = m.prop(183);
+    this.pixelsPerDay = m.prop(8);
     this.selectedIndex = selectedIndexProp();
     this.titleElement = m.prop(null);
   };
@@ -227,6 +227,7 @@
   TimelineController.STATE_LOAD_COMPLETE = 'load-complete';
   TimelineController.STATE_LOAD_ERROR = 'load-error';
 
+  TimelineController.TYPE_NONE = 'none'
   TimelineController.TYPE_LINE_CHART = 'line-chart';
   TimelineController.TYPE_BAR_CHART = 'bar-chart';
   TimelineController.TYPE_SCHEDULE = 'schedule';

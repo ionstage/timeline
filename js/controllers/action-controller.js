@@ -70,17 +70,21 @@
     var urls = loadTimelineUrls();
     var timelineControllers = urls.map(function(url) {
       return new TimelineController({
-        url: url,
-        daysAgo: option.daysAgo,
-        daysAfter: option.daysAfter,
-        pixelsPerDay: option.pixelsPerDay
+        url: url
       });
     });
 
     m.sync(timelineControllers.map(function(controller) {
       return controller.fetch();
     })).then(function(controllers) {
+      var timelineListController = ctrl.timelineListController();
+
       ctrl.timelineControllers(controllers);
+
+      timelineListController.daysAgo(option.daysAgo);
+      timelineListController.daysAfter(option.daysAfter);
+      timelineListController.pixelsPerDay(option.pixelsPerDay);
+
       m.redraw();
     }.bind(ctrl));
   };
