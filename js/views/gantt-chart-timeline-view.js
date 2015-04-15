@@ -20,7 +20,8 @@
     var titleElement = ctrl.titleElement();
 
     var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
-    var height = 32 + data.length * 24;
+    var ganttChartItemsList = calcGanttChartItemsList(data, daysAgo, daysAfter, pixelsPerDay);
+    var height = 32 + ganttChartItemsList.length * 24;
 
     return m('div.timeline.gantt-chart', {
       style: 'width: ' + width + 'px;',
@@ -32,7 +33,7 @@
           return;
         }
         var index = +className.match(/index-(\d+)/)[1];
-        var link = data[index].link;
+        var link = ganttChartItemsList[index].link;
         openWindow(link);
       }
     }, [
@@ -70,10 +71,10 @@
           });
         }
       }, [
-        data.map(function(item, index) {
-          var ganttChartItems = calcGanttChartItems(item.data, daysAgo, pixelsPerDay, index);
-          var tailX = ganttChartTailX(ganttChartItems, pixelsPerDay);
-          var textX = (deadlineX(item.deadline, daysAgo, pixelsPerDay) || tailX) + 8;
+        ganttChartItemsList.map(function(item, index) {
+          var ganttChartItems = item.ganttChartItems;
+          var tailX = item.tailX;
+          var textX = item.textX;
           return m('g', [
             ganttChartItems.map(function(ganttChartItem, subIndex) {
               var duration = ganttChartItem.duration;
@@ -95,9 +96,33 @@
             deadlineView(item, daysAgo, pixelsPerDay, index, tailX)
           ]);
         }),
-        tooltipView(selectedIndex, data, daysAgo, pixelsPerDay)
+        tooltipView(selectedIndex, ganttChartItemsList, daysAgo, pixelsPerDay)
       ])
     ]);
+  };
+
+  var calcGanttChartItemsList = function(data, daysAgo, daysAfter, pixelsPerDay) {
+    var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
+    var ganttChartItemsList = [];
+
+    return data.filter(function(item, index) {
+      var ganttChartItems = calcGanttChartItems(item.data, daysAgo, pixelsPerDay, index);
+      var endDate = addDays(startOfDay(), daysAfter);
+      var firstDate = ganttChartFirstDate(item.data);
+      var tailX = ganttChartTailX(ganttChartItems, pixelsPerDay);
+      var textX = (deadlineX(item.deadline, daysAgo, pixelsPerDay) || tailX) + 8;
+
+      // out of the range
+      if (textX < 0 || diffDays(endDate, firstDate) < 0)
+        return false;
+
+      // cache the calculation results
+      item.ganttChartItems = ganttChartItems;
+      item.tailX = tailX;
+      item.textX = textX;
+
+      return true;
+    });
   };
 
   var calcGanttChartItems = function(data, daysAgo, pixelsPerDay, step) {
@@ -111,6 +136,10 @@
         color: item.color
       };
     });
+  };
+
+  var ganttChartFirstDate = function(data) {
+    return data[0].date;
   };
 
   var ganttChartTailX = function(items, pixelsPerDay) {

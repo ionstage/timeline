@@ -19,9 +19,9 @@
     var titleElement = ctrl.titleElement();
 
     var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
-    var sheduleItems = calcScheduleItems(data, daysAgo, pixelsPerDay);
-    var dataLength = data.length;
-    var height = dataLength > 0 ? sortBy(sheduleItems, 'y')[dataLength - 1].y + 18 : 24;
+    var sheduleItems = calcScheduleItems(data, daysAgo, daysAfter, pixelsPerDay);
+    var sheduleItemsLength = sheduleItems.length;
+    var height = sheduleItemsLength > 0 ? sortBy(sheduleItems, 'y')[sheduleItemsLength - 1].y + 18 : 24;
 
     return m('div.timeline.schedule', {
       style: 'width: ' + width + 'px;',
@@ -72,11 +72,25 @@
     ]);
   };
 
-  var calcScheduleItems = function(data, daysAgo, pixelsPerDay) {
-    var beginDate = addDays(startOfDay(), -daysAgo);
+  var calcScheduleItems = function(data, daysAgo, daysAfter, pixelsPerDay) {
+    var today = startOfDay();
+    var beginDate = addDays(today, -daysAgo);
+    var endDate = addDays(today, daysAfter);
     var stepWidthList = [];
 
-    return sortBy(data, 'date').map(function(item) {
+    return sortBy(data, 'date').filter(function(item) {
+      var duration = item.duration || 1;
+
+      // before first date
+      if (diffDays(addDays(item.date, duration - 1), beginDate) < 0)
+        return false;
+
+      // after the last date
+      if (diffDays(endDate, item.date) < 0)
+        return false;
+
+      return true;
+    }).map(function(item) {
       var x = (diffDays(item.date, beginDate) + 0.5) * pixelsPerDay;
       var duration = item.duration;
       var value = item.value.toString();
