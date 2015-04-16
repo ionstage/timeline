@@ -45,17 +45,9 @@
       pixelsPerDay: pixelsPerDay
     });
 
-    headerController.daysAgo(daysAgo);
-    headerController.daysAfter(daysAfter);
-    headerController.pixelsPerDay(pixelsPerDay);
-
-    timeAxisController.daysAgo(daysAgo);
-    timeAxisController.daysAfter(daysAfter);
-    timeAxisController.pixelsPerDay(pixelsPerDay);
-
-    timelineListController.daysAgo(daysAgo);
-    timelineListController.daysAfter(daysAfter);
-    timelineListController.pixelsPerDay(pixelsPerDay);
+    updateTimelineSettings(headerController, daysAgo, daysAfter, pixelsPerDay);
+    updateTimelineSettings(timeAxisController, daysAgo, daysAfter, pixelsPerDay);
+    updateTimelineSettings(timelineListController, daysAgo, daysAfter, pixelsPerDay);
 
     headerController.onchange = onChangeHeaderController.bind(this);
     headerController.ontoday = onTodayHeaderController.bind(this);
@@ -66,6 +58,12 @@
     timelineListController.onscroll = onScrollTimelineListController.bind(this);
   };
 
+  var updateTimelineSettings = function(ctrl, daysAgo, daysAfter, pixelsPerDay) {
+    ctrl.daysAgo(daysAgo);
+    ctrl.daysAfter(daysAfter);
+    ctrl.pixelsPerDay(pixelsPerDay);
+  };
+
   var loadDefaultTimelineControllers = function(ctrl, option) {
     var urls = loadTimelineUrls();
     var timelineControllers = urls.map(function(url) {
@@ -74,22 +72,21 @@
       });
     });
 
-    m.sync(timelineControllers.map(function(controller) {
-      return controller.fetch();
-    })).then(function(controllers) {
+    m.sync(timelineControllers.map(function(timelineController) {
+      return timelineController.fetch();
+    })).then(function(timelineControllers) {
       var timelineListController = ctrl.timelineListController();
+      var daysAgo = option.daysAgo;
+      var daysAfter = option.daysAfter;
+      var pixelsPerDay = option.pixelsPerDay;
 
-      ctrl.timelineControllers(controllers);
-
-      timelineListController.daysAgo(option.daysAgo);
-      timelineListController.daysAfter(option.daysAfter);
-      timelineListController.pixelsPerDay(option.pixelsPerDay);
-
+      ctrl.timelineControllers(timelineControllers);
+      updateTimelineSettings(timelineListController, daysAgo, daysAfter, pixelsPerDay);
       m.redraw();
 
       // locate timeline title
-      controllers.forEach(function(controller) {
-        controller.scrollLeft(timelineListController.scrollLeft());
+      timelineControllers.forEach(function(timelineController) {
+        timelineController.scrollLeft(timelineListController.scrollLeft());
       });
     }.bind(ctrl));
   };
@@ -105,45 +102,46 @@
   var addTimelineController = function(ctrl, url) {
     var headerController = ctrl.headerController();
     var timelineListController = ctrl.timelineListController();
-    var controllers = ctrl.timelineControllers();
+    var timelineControllers = ctrl.timelineControllers();
 
     var timelineController = new TimelineController({
       url: url
     });
 
-    controllers.push(timelineController);
+    timelineControllers.push(timelineController);
 
-    timelineController.fetch().then(function(controller) {
-      controller.daysAgo(headerController.daysAgo());
-      controller.daysAfter(headerController.daysAfter());
-      controller.pixelsPerDay(headerController.pixelsPerDay());
+    timelineController.fetch().then(function(timelineController) {
+      var daysAgo = headerController.daysAgo();
+      var daysAfter = headerController.daysAfter();
+      var pixelsPerDay = headerController.pixelsPerDay();
 
+      updateTimelineSettings(timelineController, daysAgo, daysAfter, pixelsPerDay);
       m.redraw(true);
 
       // locate timeline title
-      controller.scrollLeft(timelineListController.scrollLeft());
+      timelineController.scrollLeft(timelineListController.scrollLeft());
     }.bind(ctrl));
 
-    saveTimelineUrls(controllers);
+    saveTimelineUrls(timelineControllers);
     m.redraw();
   };
 
   var removeTimelineController = function(ctrl, index) {
-    var controllers = ctrl.timelineControllers();
-    controllers.splice(index, 1);
-    saveTimelineUrls(controllers);
+    var timelineControllers = ctrl.timelineControllers();
+    timelineControllers.splice(index, 1);
+    saveTimelineUrls(timelineControllers);
     m.redraw();
   };
 
   var reorderTimelineController = function(ctrl, indeces) {
-    var controllers = ctrl.timelineControllers();
-    var clone = controllers.concat();
+    var timelineControllers = ctrl.timelineControllers();
+    var clone = timelineControllers.concat();
 
-    for (var i = 0, len = controllers.length; i < len; i++) {
-      controllers[i] = clone[indeces[i]];
+    for (var i = 0, len = timelineControllers.length; i < len; i++) {
+      timelineControllers[i] = clone[indeces[i]];
     }
 
-    saveTimelineUrls(controllers);
+    saveTimelineUrls(timelineControllers);
     m.redraw();
   };
 
@@ -151,9 +149,9 @@
     return loadData('timeline-urls', []);
   };
 
-  var saveTimelineUrls = function(controllers) {
-    saveData('timeline-urls', controllers.map(function(controller) {
-      return controller.url();
+  var saveTimelineUrls = function(timelineControllers) {
+    saveData('timeline-urls', timelineControllers.map(function(timelineController) {
+      return timelineController.url();
     }));
   };
 
@@ -174,7 +172,6 @@
     timelineListController[methodName](value);
 
     saveData(name, value);
-
     m.redraw();
 
     // adjust scroll position after redraw
