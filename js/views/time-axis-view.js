@@ -49,12 +49,13 @@
           y: 0,
           width: '100%',
           height: height,
+          fill: 'url(#time-axis-pattern)',
           config: function(element, isInitialized, context) {
             if (!isInitialized)
               return;
             if (context.pixelsPerDay !== pixelsPerDay) {
               // set fill attribute to redraw time axis pattern for IE
-              element.setAttribute('fill', '');
+              element.setAttribute('fill', 'url(#time-axis-pattern)');
             }
             context.pixelsPerDay = pixelsPerDay;
           }
