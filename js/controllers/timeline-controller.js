@@ -186,9 +186,6 @@
   };
 
   var requestSuccessCallback = function(result) {
-    if (!result)
-      return requestErrorCallback.call(this);
-
     var title = result.title;
     var type = result.type;
     var data = result.data;
