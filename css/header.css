@@ -31,10 +31,6 @@
 }
 
 .header .time-span .icon {
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  transform: rotate(90deg);
   font-family: Courier;
   padding: 4px;
 }
@@ -179,10 +175,6 @@
 }
 
 .header .popover-list-item .popover-list-item-handle {
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  transform: rotate(90deg);
   color: #333;
   display: table-cell;
   font-size: 20px;

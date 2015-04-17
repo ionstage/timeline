@@ -32,7 +32,7 @@
           m('option', {value: '365'}, ['1 year ago']),
           m('option', {value: '730'}, ['2 year ago'])
         ]),
-        m('div.icon', ['I']),
+        m('div.icon.rotate-90', ['I']),
         m('select', {
           onchange: m.withAttr('value', function(value) {
             ctrl.dispatchEvent({
@@ -301,7 +301,7 @@
             m('div.popover-list-item-title', [
               m('div.text.edit', title)
             ]),
-            m('div.popover-list-item-handle', '|||')
+            m('div.popover-list-item-handle.rotate-90', '|||')
           ]);
         }))
       ])
