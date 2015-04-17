@@ -18,31 +18,31 @@
   };
 
   var daysAgoProp = function(value) {
-    var cache = m.prop(183);
+    var cacheProp = m.prop(183);
     return function(value) {
       if (typeof value === 'undefined')
-        return cache();
-      cache(value);
+        return cacheProp();
+      cacheProp(value);
       invoke(this.timelineControllers(), 'daysAgo', value);
     };
   };
 
   var daysAfterProp = function(value) {
-    var cache = m.prop(183);
+    var cacheProp = m.prop(183);
     return function(value) {
       if (typeof value === 'undefined')
-        return cache();
-      cache(value);
+        return cacheProp();
+      cacheProp(value);
       invoke(this.timelineControllers(), 'daysAfter', value);
     };
   };
 
   var pixelsPerDayProp = function(value) {
-    var cache = m.prop(8);
+    var cacheProp = m.prop(8);
     return function(value) {
       if (typeof value === 'undefined')
-        return cache();
-      cache(value);
+        return cacheProp();
+      cacheProp(value);
       invoke(this.timelineControllers(), 'pixelsPerDay', value);
     };
   };

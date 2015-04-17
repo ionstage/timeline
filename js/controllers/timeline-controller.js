@@ -171,17 +171,17 @@
   };
 
   var selectedIndexProp = function() {
-    var selectedIndex = m.prop(null);
+    var cacheProp = m.prop(null);
     return function(value) {
       if (typeof value === 'undefined') {
-        value = selectedIndex();
+        value = cacheProp();
         var type = this.type();
         if (value === null)
           return (type === TimelineController.TYPE_GANTT_CHART) ? [-1, -1] : -1;
         else
           return value;
       }
-      selectedIndex(value);
+      cacheProp(value);
     };
   };
 
