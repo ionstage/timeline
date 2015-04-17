@@ -48,8 +48,8 @@
         }
       }, title),
       m('svg.graph', {
-        height: height,
-        width: width
+        width: width,
+        height: height
       }, [
         sheduleItems.map(function(item, index) {
           var duration = item.duration;

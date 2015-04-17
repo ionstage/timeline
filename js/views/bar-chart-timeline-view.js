@@ -34,8 +34,8 @@
         }
       }, title),
       m('svg.graph', {
-        height: height,
         width: width,
+        height: height,
         onmouseover: function(event) {
           var target = event.target;
           if (target.tagName !== 'rect')

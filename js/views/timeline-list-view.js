@@ -12,9 +12,10 @@
   var timelineListView = function(ctrl) {
     return m('div.timeline-list', {
       onscroll: function(event) {
+        var element = event.currentTarget;
         ctrl.dispatchEvent({
           type: 'scroll',
-          scrollLeft: this.scrollLeft
+          scrollLeft: element.scrollLeft
         });
       },
       config: function(element, isInitialized) {
@@ -39,7 +40,7 @@
       var daysAfter = ctrl.daysAfter();
       var pixelsPerDay = ctrl.pixelsPerDay();
       var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
-      return m('div.timeline.dummy', {style: 'width: ' + width + 'px'});
+      return m('div.timeline.dummy', {style: 'width: ' + width + 'px;'});
     }
 
     return timelineControllers.map(function(controller) {
