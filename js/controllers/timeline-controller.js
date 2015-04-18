@@ -6,6 +6,7 @@
 
   var startOfDay = util.startOfDay;
   var translateX = util.translateX;
+  var getJSON = util.getJSON;
 
   var TimelineController = function(option) {
     this.url = m.prop(option.url);
@@ -44,7 +45,8 @@
         this.title('Gantt Chart');
         break;
       default:
-        deferred.reject(requestErrorCallback.call(this));
+        this.state(TimelineController.STATE_LOAD_ERROR);
+        deferred.resolve(this);
         return deferred.promise;
       }
 
@@ -58,22 +60,15 @@
 
     // load timeline data from web
     this.state(TimelineController.STATE_LOADING);
-    try {
-      return m.request({
-        method: 'GET',
-        url: url,
-        deserialize: function(value) {
-          try {
-            return JSON.parse(value);
-          } catch (e) {
-            return null;
-          }
-        }
-      }).then(requestSuccessCallback.bind(this), requestErrorCallback.bind(this));
-    } catch (e) {
-      deferred.reject(requestErrorCallback.call(this));
-      return deferred.promise;
-    }
+
+    getJSON(url)
+    .done(requestSuccessCallback.bind(this))
+    .fail(requestErrorCallback.bind(this))
+    .always(function() {
+      deferred.resolve(this);
+    }.bind(this));
+
+    return deferred.promise;
   };
 
   TimelineController.prototype.scrollLeft = function(value) {
@@ -204,12 +199,10 @@
     this.type(type);
     this.data(data);
     this.state(TimelineController.STATE_LOAD_COMPLETE);
-    return this;
   };
 
   var requestErrorCallback = function() {
     this.state(TimelineController.STATE_LOAD_ERROR);
-    return this;
   };
 
   var parseDateProperty = function(array) {

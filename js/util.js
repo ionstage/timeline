@@ -73,6 +73,10 @@
     el.style.OTransform = value;
   };
 
+  util.getJSON = function(url) {
+    return jQuery.getJSON(url);
+  };
+
   util.sortable = function(el, option) {
     return jQuery(el).sortable(option);
   };
