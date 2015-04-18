@@ -53,7 +53,10 @@
       return;
     if (typeof value === 'undefined')
       return element.scrollLeft;
+
+    var timelineControllers = this.timelineControllers();
     element.scrollLeft = value;
+    invoke(timelineControllers, 'scrollLeft', value);
   };
 
   TimelineListController.prototype.dispatchEvent = function(event) {

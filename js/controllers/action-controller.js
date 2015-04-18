@@ -134,7 +134,10 @@
   };
 
   var reorderTimelineController = function(ctrl, indeces) {
+    var timelineListController = ctrl.timelineListController();
     var timelineControllers = ctrl.timelineControllers();
+
+    var scrollLeft = timelineListController.scrollLeft();
     var clone = timelineControllers.concat();
 
     for (var i = 0, len = timelineControllers.length; i < len; i++) {
@@ -143,6 +146,8 @@
 
     saveTimelineUrls(timelineControllers);
     m.redraw();
+
+    updateScrollLeftPosition(ctrl, scrollLeft);
   };
 
   var loadTimelineUrls = function() {
