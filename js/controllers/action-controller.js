@@ -84,15 +84,16 @@
       updateTimelineSettings(timelineListController, daysAgo, daysAfter, pixelsPerDay);
       m.redraw();
 
-      // locate timeline title
-      timelineControllers.forEach(function(timelineController) {
-        timelineController.scrollLeft(timelineListController.scrollLeft());
-      });
-    }.bind(ctrl));
+      updateScrollLeftPosition(ctrl);
+    });
   };
 
   var updateScrollLeftPosition = function(ctrl, value) {
     var timelineListController = ctrl.timelineListController();
+
+    // locate each timeline title
+    if (typeof value === 'undefined')
+      value = timelineListController.scrollLeft();
 
     // need only adjust timeline list scroll position
     // timeline list scroll event transferred to time axis
@@ -120,7 +121,7 @@
 
       // locate timeline title
       timelineController.scrollLeft(timelineListController.scrollLeft());
-    }.bind(ctrl));
+    });
 
     saveTimelineUrls(timelineControllers);
     m.redraw();
@@ -134,10 +135,7 @@
   };
 
   var reorderTimelineController = function(ctrl, indeces) {
-    var timelineListController = ctrl.timelineListController();
     var timelineControllers = ctrl.timelineControllers();
-
-    var scrollLeft = timelineListController.scrollLeft();
     var clone = timelineControllers.concat();
 
     for (var i = 0, len = timelineControllers.length; i < len; i++) {
@@ -147,7 +145,7 @@
     saveTimelineUrls(timelineControllers);
     m.redraw();
 
-    updateScrollLeftPosition(ctrl, scrollLeft);
+    updateScrollLeftPosition(ctrl);
   };
 
   var loadTimelineUrls = function() {
