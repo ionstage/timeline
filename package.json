@@ -1,6 +1,6 @@
 {
   "name": "timeline",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "browser-sync": "browser-sync start --files='index.html, css/*.css, js/*.js, js/**/*.js' --server",
     "test": "mocha --compilers coffee:coffee-script/register",
