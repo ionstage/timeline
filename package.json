@@ -12,10 +12,6 @@
     "coffee-script": "*",
     "mocha": "*"
   },
-  "dependencies": {
-    "jquery-ui-touch-punch": "^0.2.3",
-    "mithril": "^0.1.30"
-  },
   "license": "MIT",
   "private": true
 }
