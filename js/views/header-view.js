@@ -108,7 +108,7 @@
     }
 
     return m('div.popover', {
-      className: showTimelinesPopover ? '' : 'hide',
+      className: showTimelinesPopover ? '' : 'invisible',
       style: 'height: ' + height +'px;',
       config: function(element, isInitialized) {
         if (isInitialized)
@@ -230,7 +230,7 @@
     var timelineControllers = ctrl.timelineControllers();
     return [
       m('div.popover-header', [
-        m('a.button.hide', 'Add'),
+        m('a.button.invisible', 'Add'),
         m('div.spacer', 'Edit Timelines'),
         m('a.button.done', {
           href: '#',

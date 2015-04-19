@@ -75,10 +75,6 @@
   opacity: 0.3;
 }
 
-.header .button.hide {
-  visibility: hidden;
-}
-
 .header .popover {
   -webkit-box-shadow: 0 0 8px gray;
   background-color: whitesmoke;
@@ -91,10 +87,6 @@
   top: 48px;
   width: 360px;
   z-index: 1;
-}
-
-.header .popover.hide {
-  visibility: hidden;
 }
 
 .header .popover:after {

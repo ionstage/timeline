@@ -23,10 +23,6 @@
   stroke-width: 1px;
 }
 
-.timeline.gantt-chart .graph .deadline .range.hide {
-  display: none;
-}
-
 .timeline.gantt-chart .graph .deadline .date {
   stroke: red;
   stroke-width: 2px;

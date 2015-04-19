@@ -45,6 +45,14 @@ input[type=range]::-ms-fill-lower {
   background: transparent;
 }
 
+.hide {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
 .unselectable {
   -webkit-user-select: none;
   -moz-user-select: none;

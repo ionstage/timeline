@@ -33,7 +33,3 @@
   font-size: 14px;
   text-anchor: middle;
 }
-
-.timeline .graph .tooltip.hide {
-  display: none;
-}
