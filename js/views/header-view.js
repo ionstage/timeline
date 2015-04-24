@@ -100,10 +100,10 @@
       height = 160;
       view = popoverAddView;
     } else if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_EDIT) {
-      height = timelineControllers.length * 42 + 90;
+      height = timelineControllers.length * 41 + 90;
       view = popoverEditView;
     } else {
-      height = timelineControllers.length * 42 + 90;
+      height = timelineControllers.length * 41 + 90;
       view = popoverInitialView;
     }
 
