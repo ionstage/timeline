@@ -12,6 +12,7 @@ body {
   color: #333;
   font-family: sans-serif;
   margin: 0;
+  overflow: hidden;
 }
 
 a {

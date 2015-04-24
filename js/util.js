@@ -60,6 +60,10 @@
     return window.innerWidth;
   };
 
+  util.windowHeight = function() {
+    return window.innerHeight;
+  };
+
   util.openWindow = function(url) {
     window.open(url, '_blank');
   };

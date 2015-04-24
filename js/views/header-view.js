@@ -9,6 +9,7 @@
 
   var supportsTouch = util.supportsTouch;
   var rootElement = util.rootElement;
+  var windowHeight = util.windowHeight;
   var sortable = util.sortable;
 
   var headerView = function(ctrl) {
@@ -95,15 +96,16 @@
     var timelinesPopoverMode = ctrl.timelinesPopoverMode();
 
     var height, view;
+    var maxHeight = windowHeight() - 72;
 
     if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_ADD) {
       height = 160;
       view = popoverAddView;
     } else if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_EDIT) {
-      height = timelineControllers.length * 41 + 90;
+      height = Math.min(timelineControllers.length * 41 + 90, maxHeight);
       view = popoverEditView;
     } else {
-      height = timelineControllers.length * 41 + 90;
+      height = Math.min(timelineControllers.length * 41 + 90, maxHeight);
       view = popoverInitialView;
     }
 
