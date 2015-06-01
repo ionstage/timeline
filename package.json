@@ -2,10 +2,30 @@
   "name": "timeline",
   "version": "0.1.0",
   "scripts": {
+    "bundle": "browserify js/lib.js -o js/bundle.js",
     "start": "browser-sync start --files='index.html, css/*.css, js/*.js, js/**/*.js' --server"
   },
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "jquery-ui": "^1.10.5",
+    "jquery-ui-touch-punch": "^0.2.3",
+    "mithril": "^0.2.0"
+  },
   "devDependencies": {
-    "browser-sync": "^2.7.6"
+    "browser-sync": "^2.7.6",
+    "browserify": "^10.2.3",
+    "browserify-shim": "^3.8.7"
+  },
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.js"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "jquery": "jQuery"
   },
   "license": "MIT",
   "private": true
