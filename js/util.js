@@ -4,6 +4,7 @@
 
   var window = global.window;
   var document = global.document;
+  var localStorage = global.localStorage;
 
   var jQuery = global.jQuery;
 
