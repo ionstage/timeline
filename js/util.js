@@ -1,12 +1,11 @@
 (function(global) {
   'use strict';
   var util = {};
+  var jQuery = global.jQuery;
 
   var window = global.window;
   var document = global.document;
   var localStorage = global.localStorage;
-
-  var jQuery = global.jQuery;
 
   util.inherits = function(ctor, superCtor) {
     ctor.super_ = superCtor;
