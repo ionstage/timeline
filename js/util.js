@@ -47,9 +47,13 @@
     return (date0.getTime() - date1.getTime()) / 86400000;
   };
 
-  util.supportsTouch = (document && 'createTouch' in document) || false;
+  util.supportsTouch = function() {
+    return 'createTouch' in document;
+  };
 
-  util.rootElement = document.documentElement;
+  util.rootElement = function() {
+    return document.documentElement;
+  };
 
   util.windowWidth = function() {
     return window.innerWidth;

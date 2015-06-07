@@ -108,10 +108,10 @@
       config: function(element, isInitialized) {
         if (isInitialized)
           return;
-        element.addEventListener(util.supportsTouch ? 'touchstart' : 'mousedown', function(event) {
+        element.addEventListener(util.supportsTouch() ? 'touchstart' : 'mousedown', function(event) {
           event.stopPropagation();
         });
-        util.rootElement.addEventListener(util.supportsTouch ? 'touchstart' : 'mousedown', function() {
+        util.rootElement().addEventListener(util.supportsTouch() ? 'touchstart' : 'mousedown', function() {
           ctrl.dispatchEvent({
             type: 'popoverhide'
           });
