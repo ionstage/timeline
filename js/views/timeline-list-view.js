@@ -1,13 +1,11 @@
-(function(global) {
+(function(app) {
   'use strict';
-  var app = global.app || {};
-  var m = global.m;
-
-  var TimelineController = app.TimelineController;
-  var lineChartTimelineView = app.lineChartTimelineView;
-  var barChartTimelineView = app.barChartTimelineView;
-  var scheduleTimelineView = app.scheduleTimelineView;
-  var ganttChartTimelineView = app.ganttChartTimelineView;
+  var m = require('mithril');
+  var TimelineController = app.TimelineController || require('../controllers/timeline-controller.js');
+  var lineChartTimelineView = app.lineChartTimelineView || require('./line-chart-timeline-view.js');
+  var barChartTimelineView = app.barChartTimelineView || require('./bar-chart-timeline-view.js');
+  var scheduleTimelineView = app.scheduleTimelineView || require('./schedule-timeline-view.js');
+  var ganttChartTimelineView = app.ganttChartTimelineView || require('./gantt-chart-timeline-view.js');
 
   var timelineListView = function(ctrl) {
     return m('div.timeline-list', {
@@ -59,6 +57,8 @@
     });
   };
 
-  app.timelineListView = timelineListView;
-  global.app = app;
-})(this);
+  if (typeof module !== 'undefined' && module.exports)
+    module.exports = timelineListView;
+  else
+    app.timelineListView = timelineListView;
+})(this.app || (this.app = {}));

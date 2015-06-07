@@ -1,16 +1,9 @@
-(function(global) {
+(function(app) {
   'use strict';
-  var app = global.app || {};
-  var m = global.m;
-  var util = global.util;
-
-  var HeaderController = app.HeaderController;
-  var TimelineController = app.TimelineController;
-
-  var supportsTouch = util.supportsTouch;
-  var rootElement = util.rootElement;
-  var windowHeight = util.windowHeight;
-  var sortable = util.sortable;
+  var m = require('mithril');
+  var util = app.util || require('../util.js');
+  var HeaderController = app.HeaderController || require('../controllers/header-controller.js');
+  var TimelineController = app.TimelineController || require('../controllers/timeline-controller.js');
 
   var headerView = function(ctrl) {
     var daysAgo = ctrl.daysAgo();
@@ -96,7 +89,7 @@
     var timelinesPopoverMode = ctrl.timelinesPopoverMode();
 
     var height, view;
-    var maxHeight = windowHeight() - 72;
+    var maxHeight = util.windowHeight() - 72;
 
     if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_ADD) {
       height = 160;
@@ -115,10 +108,10 @@
       config: function(element, isInitialized) {
         if (isInitialized)
           return;
-        element.addEventListener(supportsTouch ? 'touchstart' : 'mousedown', function(event) {
+        element.addEventListener(util.supportsTouch ? 'touchstart' : 'mousedown', function(event) {
           event.stopPropagation();
         });
-        rootElement.addEventListener(supportsTouch ? 'touchstart' : 'mousedown', function() {
+        util.rootElement.addEventListener(util.supportsTouch ? 'touchstart' : 'mousedown', function() {
           ctrl.dispatchEvent({
             type: 'popoverhide'
           });
@@ -264,7 +257,7 @@
           config: function(element, isInitialized) {
             if (isInitialized)
               return;
-            var $sortable = sortable(element, {
+            var $sortable = util.sortable(element, {
               axis: 'y',
               containment: 'parent',
               handle: '.popover-list-item-handle',
@@ -310,6 +303,8 @@
     ];
   };
 
-  app.headerView = headerView;
-  global.app = app;
-})(this);
+  if (typeof module !== 'undefined' && module.exports)
+    module.exports = headerView;
+  else
+    app.headerView = headerView;
+})(this.app || (this.app = {}));

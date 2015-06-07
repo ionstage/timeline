@@ -1,14 +1,7 @@
-(function(global) {
+(function(app) {
   'use strict';
-  var app = global.app || {};
-  var m = global.m;
-  var util = global.util;
-
-  var sortBy = util.sortBy;
-  var startOfDay = util.startOfDay;
-  var addDays = util.addDays;
-  var diffDays = util.diffDays;
-  var openWindow = util.openWindow;
+  var m = require('mithril');
+  var util = app.util || require('../util.js');
 
   var scheduleTimelineView = function(ctrl) {
     var title = ctrl.title();
@@ -21,7 +14,7 @@
     var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
     var sheduleItems = calcScheduleItems(data, daysAgo, daysAfter, pixelsPerDay);
     var sheduleItemsLength = sheduleItems.length;
-    var height = sheduleItemsLength > 0 ? sortBy(sheduleItems, 'y')[sheduleItemsLength - 1].y + 18 : 24;
+    var height = sheduleItemsLength > 0 ? util.sortBy(sheduleItems, 'y')[sheduleItemsLength - 1].y + 18 : 24;
 
     return m('div.timeline.schedule', {
       style: 'width: ' + width + 'px;',
@@ -34,7 +27,7 @@
         }
         var index = +className.match(/index-(\d+)/)[1];
         var link = sheduleItems[index].link;
-        openWindow(link);
+        util.openWindow(link);
       }
     }, [
       m('div.title', {
@@ -73,25 +66,25 @@
   };
 
   var calcScheduleItems = function(data, daysAgo, daysAfter, pixelsPerDay) {
-    var today = startOfDay();
-    var beginDate = addDays(today, -daysAgo);
-    var endDate = addDays(today, daysAfter);
+    var today = util.startOfDay();
+    var beginDate = util.addDays(today, -daysAgo);
+    var endDate = util.addDays(today, daysAfter);
     var stepWidthList = [];
 
-    return sortBy(data, 'date').filter(function(item) {
+    return util.sortBy(data, 'date').filter(function(item) {
       var duration = item.duration || 1;
 
       // before first date
-      if (diffDays(addDays(item.date, duration - 1), beginDate) < 0)
+      if (util.diffDays(util.addDays(item.date, duration - 1), beginDate) < 0)
         return false;
 
       // after the last date
-      if (diffDays(endDate, item.date) < 0)
+      if (util.diffDays(endDate, item.date) < 0)
         return false;
 
       return true;
     }).map(function(item) {
-      var x = (diffDays(item.date, beginDate) + 0.5) * pixelsPerDay;
+      var x = (util.diffDays(item.date, beginDate) + 0.5) * pixelsPerDay;
       var duration = item.duration;
       var value = item.value.toString();
       var wideText = (encodeURI(value).length - value.length) / 8;
@@ -115,6 +108,8 @@
     });
   };
 
-  app.scheduleTimelineView = scheduleTimelineView;
-  global.app = app;
-})(this);
+  if (typeof module !== 'undefined' && module.exports)
+    module.exports = scheduleTimelineView;
+  else
+    app.scheduleTimelineView = scheduleTimelineView;
+})(this.app || (this.app = {}));

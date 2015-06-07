@@ -1,13 +1,7 @@
-(function(global) {
+(function(app) {
   'use strict';
-  var app = global.app || {};
-  var m = global.m;
-  var util = global.util;
-
-  var sortBy = util.sortBy;
-  var startOfDay = util.startOfDay;
-  var addDays = util.addDays;
-  var diffDays = util.diffDays;
+  var m = require('mithril');
+  var util = app.util || require('../util.js');
 
   var lineChartTimelineView = function(ctrl) {
     var title = ctrl.title();
@@ -82,30 +76,30 @@
   };
 
   var calcPoints = function(data, daysAgo, daysAfter, pixelsPerDay, height) {
-    var dataSortedByValue = sortBy(data, 'value');
+    var dataSortedByValue = util.sortBy(data, 'value');
     var dataLength = data.length;
     var min = dataLength > 0 ? Math.min(dataSortedByValue[0].value, 0) : 0;
     var max = dataLength > 0 ? dataSortedByValue[dataLength - 1].value : 0;
-    var today = startOfDay();
-    var beginDate = addDays(today, -daysAgo);
-    var endDate = addDays(today, daysAfter);
+    var today = util.startOfDay();
+    var beginDate = util.addDays(today, -daysAgo);
+    var endDate = util.addDays(today, daysAfter);
 
-    return sortBy(data, 'date').filter(function(item, index, array) {
+    return util.sortBy(data, 'date').filter(function(item, index, array) {
       var nextItem = array[index + 1];
       var prevItem = array[index - 1];
 
       // before the first date
-      if (diffDays(item.date, beginDate) < 0 && nextItem && diffDays(nextItem.date, beginDate) < 0)
+      if (util.diffDays(item.date, beginDate) < 0 && nextItem && util.diffDays(nextItem.date, beginDate) < 0)
         return false;
 
       // after the last date
-      if (diffDays(endDate, item.date) < 0 && prevItem && diffDays(endDate, prevItem.date) < 0)
+      if (util.diffDays(endDate, item.date) < 0 && prevItem && util.diffDays(endDate, prevItem.date) < 0)
         return false;
 
       return true;
     }).map(function(item) {
       return {
-        x: (diffDays(item.date, beginDate) + 0.5) * pixelsPerDay,
+        x: (util.diffDays(item.date, beginDate) + 0.5) * pixelsPerDay,
         y: (max - item.value) / (max - min) * (height - 36) + 24
       };
     });
@@ -130,6 +124,8 @@
     ]);
   };
 
-  app.lineChartTimelineView = lineChartTimelineView;
-  global.app = app;
-})(this);
+  if (typeof module !== 'undefined' && module.exports)
+    module.exports = lineChartTimelineView;
+  else
+    app.lineChartTimelineView = lineChartTimelineView;
+})(this.app || (this.app = {}));

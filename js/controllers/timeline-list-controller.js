@@ -1,8 +1,7 @@
-(function(global) {
+(function(app) {
   'use strict';
-  var app = global.app || {};
-  var m = global.m;
-  var util = global.util;
+  var m = require('mithril');
+  var util = app.util || require('../util.js');
 
   var invoke = util.invoke;
 
@@ -77,6 +76,8 @@
     }
   };
 
-  app.TimelineListController = TimelineListController;
-  global.app = app;
-})(this);
+  if (typeof module !== 'undefined' && module.exports)
+    module.exports = TimelineListController;
+  else
+    app.TimelineListController = TimelineListController;
+})(this.app || (this.app = {}));

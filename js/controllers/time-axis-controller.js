@@ -1,10 +1,7 @@
-(function(global) {
+(function(app) {
   'use strict';
-  var app = global.app || {};
-  var m = global.m;
-  var util = global.util;
-
-  var translateX = util.translateX;
+  var m = require('mithril');
+  var util = app.util || require('../util.js');
 
   var TimeAxisController = function() {
     this.daysAgo = m.prop(183);
@@ -16,7 +13,7 @@
   TimeAxisController.prototype.scrollLeft = function(value) {
     var element = this.element();
     if (element)
-      translateX(element, -value);
+      util.translateX(element, -value);
   };
 
   TimeAxisController.prototype.dispatchEvent = function(event) {
@@ -29,6 +26,8 @@
     }
   };
 
-  app.TimeAxisController = TimeAxisController;
-  global.app = app;
-})(this);
+  if (typeof module !== 'undefined' && module.exports)
+    module.exports = TimeAxisController;
+  else
+    app.TimeAxisController = TimeAxisController;
+})(this.app || (this.app = {}));

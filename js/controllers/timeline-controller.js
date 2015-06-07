@@ -1,12 +1,7 @@
-(function(global) {
+(function(app) {
   'use strict';
-  var app = global.app || {};
-  var m = global.m;
-  var util = global.util;
-
-  var startOfDay = util.startOfDay;
-  var translateX = util.translateX;
-  var getJSON = util.getJSON;
+  var m = require('mithril');
+  var util = app.util || require('../util.js');
 
   var TimelineController = function(option) {
     this.url = m.prop(option.url);
@@ -61,7 +56,7 @@
     // load timeline data from web
     this.state(TimelineController.STATE_LOADING);
 
-    getJSON(url)
+    util.getJSON(url)
     .done(requestSuccessCallback.bind(this))
     .fail(requestErrorCallback.bind(this))
     .always(function() {
@@ -74,7 +69,7 @@
   TimelineController.prototype.scrollLeft = function(value) {
     var titleElement = this.titleElement();
     if (titleElement)
-      translateX(titleElement, value);
+      util.translateX(titleElement, value);
   };
 
   TimelineController.prototype.dispatchEvent = function(event) {
@@ -91,7 +86,7 @@
   };
 
   TimelineController.sampleData = function(type) {
-    var today = startOfDay();
+    var today = util.startOfDay();
     var year = today.getFullYear();
     var month = today.getMonth();
 
@@ -223,6 +218,8 @@
   TimelineController.TYPE_SCHEDULE = 'schedule';
   TimelineController.TYPE_GANTT_CHART = 'gantt-chart';
 
-  app.TimelineController = TimelineController;
-  global.app = app;
-})(this);
+  if (typeof module !== 'undefined' && module.exports)
+    module.exports = TimelineController;
+  else
+    app.TimelineController = TimelineController;
+})(this.app || (this.app = {}));

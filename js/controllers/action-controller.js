@@ -1,15 +1,8 @@
-(function(global) {
+(function(app) {
   'use strict';
-  var app = global.app || {};
-  var m = global.m;
-  var util = global.util;
-
-  var TimelineController = app.TimelineController;
-
-  var camelCase = util.camelCase;
-  var loadData = util.loadData;
-  var saveData = util.saveData;
-  var windowWidth = util.windowWidth;
+  var m = require('mithril');
+  var util = app.util || require('../util.js');
+  var TimelineController = app.TimelineController || require('./timeline-controller.js');
 
   var ActionController = function(option) {
     this.headerController = m.prop(option.headerController);
@@ -35,9 +28,9 @@
     var timeAxisController = this.timeAxisController();
     var timelineListController = this.timelineListController();
 
-    var daysAgo = loadData('days-ago', 183);
-    var daysAfter = loadData('days-after', 183);
-    var pixelsPerDay = loadData('pixels-per-day' ,8);
+    var daysAgo = util.loadData('days-ago', 183);
+    var daysAfter = util.loadData('days-after', 183);
+    var pixelsPerDay = util.loadData('pixels-per-day' ,8);
 
     loadDefaultTimelineControllers(this, {
       daysAgo: daysAgo,
@@ -149,11 +142,11 @@
   };
 
   var loadTimelineUrls = function() {
-    return loadData('timeline-urls', []);
+    return util.loadData('timeline-urls', []);
   };
 
   var saveTimelineUrls = function(timelineControllers) {
-    saveData('timeline-urls', timelineControllers.map(function(timelineController) {
+    util.saveData('timeline-urls', timelineControllers.map(function(timelineController) {
       return timelineController.url();
     }));
   };
@@ -169,19 +162,19 @@
 
     var name = event.name;
     var value = event.value;
-    var methodName = camelCase(name);
+    var methodName = util.camelCase(name);
 
     timeAxisController[methodName](value);
     timelineListController[methodName](value);
 
-    saveData(name, value);
+    util.saveData(name, value);
     m.redraw();
 
     // adjust scroll position after redraw
     if (name === 'days-ago') {
       scrollLeft += (value - daysAgo) * pixelsPerDay;
     } else if (name === 'pixels-per-day') {
-      var scrollDays = (scrollLeft + windowWidth() / 2) / pixelsPerDay;
+      var scrollDays = (scrollLeft + util.windowWidth() / 2) / pixelsPerDay;
       scrollLeft += scrollDays * (value - pixelsPerDay);
     }
 
@@ -193,7 +186,7 @@
 
     var daysAgo = headerController.daysAgo();
     var pixelsPerDay = headerController.pixelsPerDay();
-    var scrollLeft = (daysAgo + 0.5) * pixelsPerDay - windowWidth() / 2;
+    var scrollLeft = (daysAgo + 0.5) * pixelsPerDay - util.windowWidth() / 2;
 
     updateScrollLeftPosition(this, scrollLeft);
   };
@@ -222,6 +215,8 @@
     timeAxisController.scrollLeft(event.scrollLeft);
   };
 
-  app.ActionController = ActionController;
-  global.app = app;
-})(this);
+  if (typeof module !== 'undefined' && module.exports)
+    module.exports = ActionController;
+  else
+    app.ActionController = ActionController;
+})(this.app || (this.app = {}));

@@ -1,13 +1,7 @@
-(function(global) {
+(function(app) {
   'use strict';
-  var app = global.app || {};
-  var m = global.m;
-  var util = global.util;
-
-  var sortBy = util.sortBy;
-  var startOfDay = util.startOfDay;
-  var addDays = util.addDays;
-  var diffDays = util.diffDays;
+  var m = require('mithril');
+  var util = app.util || require('../util.js');
 
   var barChartTimelineView = function(ctrl) {
     var title = ctrl.title();
@@ -72,26 +66,26 @@
   };
 
   var calcPoints = function(data, daysAgo, daysAfter, pixelsPerDay, height) {
-    var dataSortedByValue = sortBy(data, 'value');
+    var dataSortedByValue = util.sortBy(data, 'value');
     var dataLength = data.length;
     var max = dataLength > 0 ? dataSortedByValue[dataLength - 1].value : 0;
-    var today = startOfDay();
-    var beginDate = addDays(today, -daysAgo);
-    var endDate = addDays(today, daysAfter);
+    var today = util.startOfDay();
+    var beginDate = util.addDays(today, -daysAgo);
+    var endDate = util.addDays(today, daysAfter);
 
-    return sortBy(data, 'date').filter(function(item) {
+    return util.sortBy(data, 'date').filter(function(item) {
       // before the first date
-      if (diffDays(item.date, beginDate) < 0)
+      if (util.diffDays(item.date, beginDate) < 0)
         return false;
 
       // after the last date
-      if (diffDays(endDate, item.date) < 0)
+      if (util.diffDays(endDate, item.date) < 0)
         return false;
 
       return true;
     }).map(function(item) {
       return {
-        x: (diffDays(item.date, beginDate)) * pixelsPerDay,
+        x: (util.diffDays(item.date, beginDate)) * pixelsPerDay,
         y: (max - item.value) / max * (height - 24) + 24
       };
     });
@@ -117,6 +111,8 @@
     ]);
   };
 
-  app.barChartTimelineView = barChartTimelineView;
-  global.app = app;
-})(this);
+  if (typeof module !== 'undefined' && module.exports)
+    module.exports = barChartTimelineView;
+  else
+    app.barChartTimelineView = barChartTimelineView;
+})(this.app || (this.app = {}));

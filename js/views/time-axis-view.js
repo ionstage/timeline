@@ -1,11 +1,7 @@
-(function(global) {
+(function(app) {
   'use strict';
-  var app = global.app || {};
-  var m = global.m;
-  var util = global.util;
-
-  var startOfDay = util.startOfDay;
-  var addDays = util.addDays;
+  var m = require('mithril');
+  var util = app.util || require('../util.js');
 
   var timeAxisView = function(ctrl) {
     var daysAgo = ctrl.daysAgo();
@@ -73,9 +69,9 @@
 
   var monthMarkerViews = function(daysAgo, daysAfter, pixelsPerDay, height) {
     var views = [];
-    var today = startOfDay();
+    var today = util.startOfDay();
     for (var di = -daysAgo, dlen = daysAfter + 1; di < dlen; di++) {
-      var date = addDays(today, di);
+      var date = util.addDays(today, di);
       if (date.getDate() !== 1)
         continue;
       var month = date.getMonth() + 1;
@@ -107,6 +103,8 @@
     return views;
   };
 
-  app.timeAxisView = timeAxisView;
-  global.app = app;
-})(this);
+  if (typeof module !== 'undefined' && module.exports)
+    module.exports = timeAxisView;
+  else
+    app.timeAxisView = timeAxisView;
+})(this.app || (this.app = {}));

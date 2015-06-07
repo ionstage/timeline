@@ -1,14 +1,7 @@
-(function(global) {
+(function(app) {
   'use strict';
-  var app = global.app || {};
-  var m = global.m;
-  var util = global.util;
-
-  var sortBy = util.sortBy;
-  var startOfDay = util.startOfDay;
-  var addDays = util.addDays;
-  var diffDays = util.diffDays;
-  var openWindow = util.openWindow;
+  var m = require('mithril');
+  var util = app.util || require('../util.js');
 
   var ganttChartTimelineView = function(ctrl) {
     var title = ctrl.title();
@@ -34,7 +27,7 @@
         }
         var index = +className.match(/index-(\d+)/)[1];
         var link = ganttChartItemsList[index].link;
-        openWindow(link);
+        util.openWindow(link);
       }
     }, [
       m('div.title', {
@@ -107,13 +100,13 @@
 
     return data.filter(function(item, index) {
       var ganttChartItems = calcGanttChartItems(item.data, daysAgo, pixelsPerDay, index);
-      var endDate = addDays(startOfDay(), daysAfter);
+      var endDate = util.addDays(util.startOfDay(), daysAfter);
       var firstDate = ganttChartFirstDate(item.data);
       var tailX = ganttChartTailX(ganttChartItems, pixelsPerDay);
       var textX = (deadlineX(item.deadline, daysAgo, pixelsPerDay) || tailX) + 8;
 
       // out of the range
-      if (textX < 0 || diffDays(endDate, firstDate) < 0)
+      if (textX < 0 || util.diffDays(endDate, firstDate) < 0)
         return false;
 
       // cache the calculation results
@@ -126,10 +119,10 @@
   };
 
   var calcGanttChartItems = function(data, daysAgo, pixelsPerDay, step) {
-    var beginDate = addDays(startOfDay(), -daysAgo);
-    return sortBy(data, 'date').map(function(item) {
+    var beginDate = util.addDays(util.startOfDay(), -daysAgo);
+    return util.sortBy(data, 'date').map(function(item) {
       return {
-        x: diffDays(item.date, beginDate) * pixelsPerDay,
+        x: util.diffDays(item.date, beginDate) * pixelsPerDay,
         y: (step + 1) * 24,
         duration: item.duration,
         value: item.value.toString(),
@@ -143,7 +136,7 @@
   };
 
   var ganttChartTailX = function(items, pixelsPerDay) {
-    var lastItem = sortBy(items, 'date')[items.length - 1];
+    var lastItem = util.sortBy(items, 'date')[items.length - 1];
     var lastItemDuration = lastItem.duration;
     var lastItemWidth = lastItemDuration ? pixelsPerDay * lastItemDuration : pixelsPerDay;
     return lastItem.x + lastItemWidth;
@@ -152,8 +145,8 @@
   var deadlineX = function(deadline, daysAgo, pixelsPerDay) {
     if (typeof deadline === 'undefined')
       return;
-    var beginDate = addDays(startOfDay(), -daysAgo);
-    var diff = diffDays(deadline, beginDate);
+    var beginDate = util.addDays(util.startOfDay(), -daysAgo);
+    var diff = util.diffDays(deadline, beginDate);
     if (diff < 0)
       return;
     return (diff + 1) * pixelsPerDay;
@@ -162,7 +155,7 @@
   var tooltipView = function(selectedIndex, data, daysAgo, pixelsPerDay) {
     var index = selectedIndex[0];
     var subIndex = selectedIndex[1];
-    var subData = (index !== -1) ? sortBy(data[index].data, 'date') : null;
+    var subData = (index !== -1) ? util.sortBy(data[index].data, 'date') : null;
     var value = (subIndex !== -1) ? subData[subIndex].value.toString() : '';
     var wideText = (encodeURI(value).length - value.length) / 8;
     var width = value.length * 8.4 + 8 + wideText * 5.6;
@@ -196,8 +189,8 @@
     var deadline = item.deadline;
     if (!deadline)
       return;
-    var beginDate = addDays(startOfDay(), -daysAgo);
-    var x = (diffDays(deadline, beginDate) + 1) * pixelsPerDay - 0.5;
+    var beginDate = util.addDays(util.startOfDay(), -daysAgo);
+    var x = (util.diffDays(deadline, beginDate) + 1) * pixelsPerDay - 0.5;
     var y = (step + 1) * 24;
     return m('g.deadline', [
       m('line.range', {
@@ -224,6 +217,8 @@
     });
   };
 
-  app.ganttChartTimelineView = ganttChartTimelineView;
-  global.app = app;
-})(this);
+  if (typeof module !== 'undefined' && module.exports)
+    module.exports = ganttChartTimelineView;
+  else
+    app.ganttChartTimelineView = ganttChartTimelineView;
+})(this.app || (this.app = {}));

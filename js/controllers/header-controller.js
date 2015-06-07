@@ -1,10 +1,7 @@
-(function(global) {
+(function(app) {
   'use strict';
-  var app = global.app || {};
-  var m = global.m;
-  var util = global.util;
-
-  var camelCase = util.camelCase;
+  var m = require('mithril');
+  var util = app.util || require('../util.js');
 
   var HeaderController = function() {
     var noop = function() {};
@@ -24,7 +21,7 @@
   HeaderController.prototype.dispatchEvent = function(event) {
     switch (event.type) {
     case 'change':
-      this[camelCase(event.name)](event.value);
+      this[util.camelCase(event.name)](event.value);
       this.onchange(event);
       break;
     case 'today':
@@ -63,6 +60,8 @@
   HeaderController.TIMELINES_POPOVER_MODE_ADD = 'add';
   HeaderController.TIMELINES_POPOVER_MODE_EDIT = 'edit';
 
-  app.HeaderController = HeaderController;
-  global.app = app;
-})(this);
+  if (typeof module !== 'undefined' && module.exports)
+    module.exports = HeaderController;
+  else
+    app.HeaderController = HeaderController;
+})(this.app || (this.app = {}));

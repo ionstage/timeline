@@ -1,11 +1,6 @@
-(function(global) {
+(function(app) {
   'use strict';
   var util = {};
-  var jQuery = global.jQuery;
-
-  var window = global.window;
-  var document = global.document;
-  var localStorage = global.localStorage;
 
   util.inherits = function(ctor, superCtor) {
     ctor.super_ = superCtor;
@@ -68,6 +63,10 @@
     window.open(url, '_blank');
   };
 
+  util.el = function(selector) {
+    return document.querySelector(selector);
+  };
+
   util.translateX = function(el, x) {
     var value = 'translateX(' + x + 'px)';
     el.style.transform =  value;
@@ -103,5 +102,5 @@
   if (typeof module !== 'undefined' && module.exports)
     module.exports = util;
   else
-    global.util = util;
-}(this));
+    app.util = util;
+})(this.app || (this.app = {}));

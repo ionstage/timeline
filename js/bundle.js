@@ -1,4 +1,8 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+require('jquery');
+require('jquery-ui/sortable');
+require('jquery-ui-touch-punch');
+},{"jquery":7,"jquery-ui-touch-punch":2,"jquery-ui/sortable":5}],2:[function(require,module,exports){
 /*!
  * jQuery UI Touch Punch 0.2.3
  *
@@ -179,7 +183,7 @@
   };
 
 })(jQuery);
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -503,7 +507,7 @@ $.extend( $.ui, {
 
 })( jQuery );
 
-},{"jquery":6}],3:[function(require,module,exports){
+},{"jquery":7}],4:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./widget');
 
@@ -677,7 +681,7 @@ $.widget("ui.mouse", {
 
 })(jQuery);
 
-},{"./widget":5,"jquery":6}],4:[function(require,module,exports){
+},{"./widget":6,"jquery":7}],5:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./core');
 require('./mouse');
@@ -1973,7 +1977,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 
 })(jQuery);
 
-},{"./core":2,"./mouse":3,"./widget":5,"jquery":6}],5:[function(require,module,exports){
+},{"./core":3,"./mouse":4,"./widget":6,"jquery":7}],6:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -2498,7 +2502,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":6}],6:[function(require,module,exports){
+},{"jquery":7}],7:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*!
@@ -11717,7 +11721,7 @@ return jQuery;
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],7:[function(require,module,exports){
+},{}],"mithril":[function(require,module,exports){
 var m = (function app(window, undefined) {
 	var OBJECT = "[object Object]", ARRAY = "[object Array]", STRING = "[object String]", FUNCTION = "function";
 	var type = {}.toString;
@@ -12878,11 +12882,4 @@ var m = (function app(window, undefined) {
 if (typeof module != "undefined" && module !== null && module.exports) module.exports = m;
 else if (typeof define === "function" && define.amd) define(function() {return m});
 
-},{}],8:[function(require,module,exports){
-(function (global){
-require('jquery');
-require('jquery-ui/sortable');
-require('jquery-ui-touch-punch');
-global.m = require('mithril');
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":6,"jquery-ui-touch-punch":1,"jquery-ui/sortable":4,"mithril":7}]},{},[8]);
+},{}]},{},[1]);
