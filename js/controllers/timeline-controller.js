@@ -176,6 +176,11 @@
   };
 
   var requestSuccessCallback = function(result) {
+    if (!checkTimelineData(result)) {
+      this.state(TimelineController.STATE_LOAD_ERROR);
+      return;
+    }
+
     var title = result.title;
     var type = result.type;
     var data = result.data;
@@ -198,6 +203,21 @@
 
   var requestErrorCallback = function() {
     this.state(TimelineController.STATE_LOAD_ERROR);
+  };
+
+  var checkTimelineData = function(timelineData) {
+    var type = timelineData.type;
+    if (type !== TimelineController.TYPE_LINE_CHART &&
+        type !== TimelineController.TYPE_BAR_CHART &&
+        type !== TimelineController.TYPE_SCHEDULE &&
+        type !== TimelineController.TYPE_SCHEDULE)
+      return false;
+
+    var data = timelineData.data;
+    if (!Array.isArray(data))
+      return false;
+
+    return true;
   };
 
   var parseDateProperty = function(array) {
