@@ -59,6 +59,19 @@
 
   var loadDefaultTimelineControllers = function(ctrl, option) {
     var urls = loadTimelineUrls();
+
+    if (urls === null) {
+      // load default timeline URLs from settings
+      util.getJSON('settings.json').done(function(data) {
+        var defaultTimelines = data.defaultTimelines;
+        if (Array.isArray(defaultTimelines)) {
+          util.saveData('timeline-urls', defaultTimelines);
+          loadDefaultTimelineControllers(ctrl, option);
+        }
+      });
+      return;
+    }
+
     var timelineControllers = urls.map(function(url) {
       return new TimelineController({
         url: url
@@ -142,7 +155,7 @@
   };
 
   var loadTimelineUrls = function() {
-    return util.loadData('timeline-urls', []);
+    return util.loadData('timeline-urls', null);
   };
 
   var saveTimelineUrls = function(timelineControllers) {
