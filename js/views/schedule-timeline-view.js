@@ -39,7 +39,7 @@
             titleElement: element
           });
         }
-      }, title),
+      }, [m('div.antialias', title)]),
       m('svg.graph', {
         width: width,
         height: height

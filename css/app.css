@@ -69,6 +69,13 @@ input[type=range]::-ms-fill-lower {
   transform: rotate(90deg);
 }
 
+.antialias {
+  -webkit-transform: rotate(0.028deg);
+  -ms-transform: rotate(0.028deg);
+  -o-transform: rotate(0.028deg);
+  transform: rotate(0.028deg);
+}
+
 #container {
   height: 100%;
 }
