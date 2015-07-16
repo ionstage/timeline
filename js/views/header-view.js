@@ -43,7 +43,7 @@
         ])
       ]),
       m('div.pixels-per-day', [
-        m('div.icon', ['||||']),
+        m('div.icon.antialias', ['||||']),
         m('input', {
           type: 'range',
           min: '1.5',
@@ -58,10 +58,10 @@
           }),
           value: pixelsPerDay.toString()
         }),
-        m('div.icon', ['| |'])
+        m('div.icon.antialias', ['| |'])
       ]),
       m('div.spacer'),
-      m('a.button', {
+      m('a.button.antialias', {
         href: '#',
         onclick: function() {
           ctrl.dispatchEvent({
@@ -69,7 +69,7 @@
           });
         }
       }, 'Today'),
-      m('a.button', {
+      m('a.button.antialias', {
         className: ctrl.showTimelinesPopover() ? 'disabled' : '',
         href: '#',
         onclick: function() {
@@ -125,7 +125,7 @@
     var timelineControllers = ctrl.timelineControllers();
     return [
       m('div.popover-header', [
-        m('a.button', {
+        m('a.button.antialias', {
           href: '#',
           onclick: function() {
             ctrl.dispatchEvent({
@@ -134,8 +134,8 @@
             });
           }
         }, 'Add'),
-        m('div.spacer', 'Timelines'),
-        m('a.button', {
+        m('div.spacer.antialias', 'Timelines'),
+        m('a.button.antialias', {
           href: '#',
           onclick: function() {
             ctrl.dispatchEvent({
@@ -158,7 +158,7 @@
             className: className
           }, [
             m('div.popover-list-item-title', [
-              m('div.text.initial', title)
+              m('div.text.initial.antialias', title)
             ])
           ]);
         }))
@@ -170,7 +170,7 @@
     var inputElementProp = m.prop(null);
     return [
       m('div.popover-header', [
-        m('a.button', {
+        m('a.button.antialias', {
           href: '#',
           onclick: function() {
             ctrl.dispatchEvent({
@@ -179,8 +179,8 @@
             });
           }
         }, 'Cencel'),
-        m('div.spacer', 'Add Timeline'),
-        m('a.button.done', {
+        m('div.spacer.antialias', 'Add Timeline'),
+        m('a.button.done.antialias', {
           href: '#',
           config: function(element, isInitialized) {
             if (isInitialized)
@@ -204,7 +204,7 @@
         }, 'Done')
       ]),
       m('div.popover-content', [
-        m('div', 'URL'),
+        m('div.antialias', 'URL'),
         m('input', {
           type: 'url',
           autofocus: true,
@@ -223,8 +223,8 @@
     return [
       m('div.popover-header', [
         m('a.button.invisible', 'Add'),
-        m('div.spacer', 'Edit Timelines'),
-        m('a.button.done', {
+        m('div.spacer.antialias', 'Edit Timelines'),
+        m('a.button.done.antialias', {
           href: '#',
           onclick: function() {
             ctrl.dispatchEvent({
@@ -286,12 +286,12 @@
           return m('div.popover-list-item', {
             className: className + ' index-' + index
           }, [
-            m('a.popover-list-item-button', {
+            m('a.popover-list-item-button.antialias', {
               className: 'index-' + index,
               href: '#'
             }, '×'),
             m('div.popover-list-item-title', [
-              m('div.text.edit', title)
+              m('div.text.edit.antialias', title)
             ]),
             m('div.popover-list-item-handle.rotate-90', '|||')
           ]);
