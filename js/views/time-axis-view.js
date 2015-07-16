@@ -79,23 +79,25 @@
       var x = (di + daysAgo) * pixelsPerDay;
       var width = showYear ? 60 : 20;
       var text = showYear ? date.getFullYear() + '/' + month : month;
-      views.push(m('g.month', [
+      views.push(m('g.month', {
+        transform: 'translate(' + x + ')'
+      }, [
         m('line', {
-          x1: x,
+          x1: 0,
           y1: 0,
-          x2: x,
+          x2: 0,
           y2: height
         }),
         m('rect', {
-          x: x - (showYear ? 30 : 10),
+          x: showYear ? -30 : -10,
           y: 5,
           width: width,
           height: 20,
           rx: 5,
           ry: 5
         }),
-        m('text', {
-          x: x,
+        m('text.antialias', {
+          x: 0,
           y: 20
         }, text)
       ]));
