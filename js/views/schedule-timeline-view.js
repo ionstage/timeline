@@ -46,17 +46,19 @@
       }, [
         sheduleItems.map(function(item, index) {
           var duration = item.duration;
-          return m('g', [
+          return m('g', {
+            transform: 'translate(' + item.x + ')'
+          }, [
             m('line', {
-              x1: item.x,
+              x1: 0,
               y1: item.y,
-              x2: item.x + (duration ? pixelsPerDay * (duration - 1) : 0),
+              x2: duration ? pixelsPerDay * (duration - 1) : 0,
               y2: item.y,
               r: 4
             }),
-            m('text', {
+            m('text.antialias', {
               className : item.link ? 'link ' + 'index-' + index : '',
-              x: item.x + (duration ? pixelsPerDay * (duration - 1) : 0) + 8,
+              x: (duration ? pixelsPerDay * (duration - 1) : 0) + 8,
               y: item.y + 4
             }, item.value)
           ]);

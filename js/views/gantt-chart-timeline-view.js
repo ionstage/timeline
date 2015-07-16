@@ -81,11 +81,15 @@
                 fill: ganttChartItem.color || 'gray'
               });
             }),
-            m('text.label', {
-              className : item.link ? 'link ' + 'index-' + index : '',
-              x: textX,
-              y: (index + 1) * 24 + 13
-            }, item.value),
+            m('g', {
+              transform: 'translate(' + textX + ')'
+            },[
+              m('text.label.antialias', {
+                className : item.link ? 'link ' + 'index-' + index : '',
+                x: 0,
+                y: (index + 1) * 24 + 13
+              }, item.value)
+            ]),
             deadlineView(item, daysAgo, pixelsPerDay, index, tailX)
           ]);
         }),
@@ -161,17 +165,20 @@
     var width = value.length * 8.4 + 8 + wideText * 5.6;
     var x = tooltipX(subIndex, subData, daysAgo, pixelsPerDay) || 0;
     var y = (index + 1) * 24;
-    return m('g.tooltip.unselectable', {className: index === -1 ? 'hide' : ''}, [
+    return m('g.tooltip.unselectable', {
+      className: index === -1 ? 'hide' : '',
+      transform: 'translate(' + x + ')'
+    }, [
       m('rect', {
-        x: x - width / 2,
+        x: -width / 2,
         y: y - 18 + (wideText ? -2 : 0),
         width: width,
         height: 16 + (wideText ? 2 : 0),
         rx: 5,
         ry: 5
       }, value),
-      m('text', {
-        x: x,
+      m('text.antialias', {
+        x: 0,
         y: y - 6
       }, value)
     ]);

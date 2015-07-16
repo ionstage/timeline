@@ -95,17 +95,20 @@
     var value = index !== -1 ? data[index].value : '';
     var point = index !== -1 ? points[index] : {x: 0, y: 0};
     var width = value.toString().length * 8.4 + 8;
-    return m('g.tooltip.unselectable', {className: index === -1 ? 'hide' : ''}, [
+    return m('g.tooltip.unselectable', {
+      className: index === -1 ? 'hide' : '',
+      transform: 'translate(' + point.x + ')'
+    }, [
       m('rect', {
-        x: point.x + (pixelsPerDay - width) / 2,
+        x: (pixelsPerDay - width) / 2,
         y: point.y - 18,
         width: width,
         height: 16,
         rx: 5,
         ry: 5
       }, value),
-      m('text', {
-        x: point.x + pixelsPerDay / 2,
+      m('text.antialias', {
+        x: pixelsPerDay / 2,
         y: point.y - 6
       }, value)
     ]);
