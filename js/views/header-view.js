@@ -112,13 +112,10 @@
           event.stopPropagation();
         });
         util.rootElement().addEventListener(util.supportsTouch() ? 'touchstart' : 'mousedown', function() {
-          ctrl.dispatchEvent({
-            type: 'popoverhide'
-          });
-          ctrl.dispatchEvent({
-            type: 'popovermodechange',
-            mode: HeaderController.TIMELINES_POPOVER_MODE_INITIAL
-          });
+          hidePopoverView(ctrl);
+        });
+        util.addResizeEvent(function() {
+          hidePopoverView(ctrl);
         });
       }
     }, view(ctrl));
@@ -301,6 +298,16 @@
         }))
       ])
     ];
+  };
+
+  var hidePopoverView = function(ctrl) {
+    ctrl.dispatchEvent({
+      type: 'popoverhide'
+    });
+    ctrl.dispatchEvent({
+      type: 'popovermodechange',
+      mode: HeaderController.TIMELINES_POPOVER_MODE_INITIAL
+    });
   };
 
   if (typeof module !== 'undefined' && module.exports)

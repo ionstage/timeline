@@ -67,6 +67,10 @@
     window.open(url, '_blank');
   };
 
+  util.addResizeEvent = function(listener) {
+    window.addEventListener('resize', listener);
+  };
+
   util.el = function(selector) {
     return document.querySelector(selector);
   };
