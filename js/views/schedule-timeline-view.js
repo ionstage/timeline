@@ -14,7 +14,7 @@
     var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
     var sheduleItems = calcScheduleItems(data, daysAgo, daysAfter, pixelsPerDay);
     var sheduleItemsLength = sheduleItems.length;
-    var height = sheduleItemsLength > 0 ? util.sortBy(sheduleItems, 'y')[sheduleItemsLength - 1].y + 18 : 24;
+    var height = sheduleItemsLength > 0 ? util.sortBy(sheduleItems, 'y')[sheduleItemsLength - 1].y + 22 : 28;
 
     return m('div.timeline.schedule', {
       style: 'width: ' + width + 'px;',
@@ -102,7 +102,7 @@
 
       return {
         x: x,
-        y: 24 + step * 16,
+        y: 28 + step * 16,
         duration: duration,
         value: value,
         link: item.link

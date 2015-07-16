@@ -100,7 +100,7 @@
     }).map(function(item) {
       return {
         x: (util.diffDays(item.date, beginDate) + 0.5) * pixelsPerDay,
-        y: (max - item.value) / (max - min) * (height - 36) + 24
+        y: (max - item.value) / (max - min) * (height - 40) + 28
       };
     });
   };

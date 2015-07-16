@@ -14,7 +14,7 @@
 
     var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
     var ganttChartItemsList = calcGanttChartItemsList(data, daysAgo, daysAfter, pixelsPerDay);
-    var height = 32 + ganttChartItemsList.length * 24;
+    var height = 36 + ganttChartItemsList.length * 24;
 
     return m('div.timeline.gantt-chart', {
       style: 'width: ' + width + 'px;',
@@ -87,7 +87,7 @@
               m('text.label.antialias', {
                 className : item.link ? 'link ' + 'index-' + index : '',
                 x: 0,
-                y: (index + 1) * 24 + 13
+                y: (index + 1) * 24 + 17
               }, item.value)
             ]),
             deadlineView(item, daysAgo, pixelsPerDay, index, tailX)
@@ -127,7 +127,7 @@
     return util.sortBy(data, 'date').map(function(item) {
       return {
         x: util.diffDays(item.date, beginDate) * pixelsPerDay,
-        y: (step + 1) * 24,
+        y: (step + 1) * 24 + 4,
         duration: item.duration,
         value: item.value.toString(),
         color: item.color
@@ -164,7 +164,7 @@
     var wideText = (encodeURI(value).length - value.length) / 8;
     var width = value.length * 8.4 + 8 + wideText * 5.6;
     var x = tooltipX(subIndex, subData, daysAgo, pixelsPerDay) || 0;
-    var y = (index + 1) * 24;
+    var y = (index + 1) * 24 + 4;
     return m('g.tooltip.unselectable', {
       className: index === -1 ? 'hide' : '',
       transform: 'translate(' + x + ')'
@@ -198,7 +198,7 @@
       return;
     var beginDate = util.addDays(util.startOfDay(), -daysAgo);
     var x = (util.diffDays(deadline, beginDate) + 1) * pixelsPerDay - 0.5;
-    var y = (step + 1) * 24;
+    var y = (step + 1) * 24 + 4;
     return m('g.deadline', [
       m('line.range', {
         className: (tailX >= x) ? 'hide' : '',
