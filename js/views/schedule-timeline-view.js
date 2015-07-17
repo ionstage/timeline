@@ -102,7 +102,7 @@
 
       return {
         x: x,
-        y: 28 + step * 16,
+        y: 32 + step * 20,
         duration: duration,
         value: value,
         link: item.link
