@@ -71,6 +71,10 @@
   pointer-events: none;
 }
 
+.header .button.invisible {
+  min-width: 60px;
+}
+
 .header .button:active {
   opacity: 0.3;
 }

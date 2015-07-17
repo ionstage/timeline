@@ -222,7 +222,7 @@
     var timelineControllers = ctrl.timelineControllers();
     return [
       m('div.popover-header', [
-        m('a.button.invisible', 'Add'),
+        m('a.button.invisible'),
         m('div.spacer.antialias', 'Edit Timelines'),
         m('a.button.done.antialias', {
           href: '#',
