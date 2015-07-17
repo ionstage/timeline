@@ -13,7 +13,6 @@
     this.timelinesPopoverMode = m.prop(HeaderController.TIMELINES_POPOVER_MODE_INITIAL);
     this.onchange = noop;
     this.ontoday = noop;
-    this.ontimelineadd = noop;
     this.ontimelineremove = noop;
     this.ontimelinereorder = noop;
   };
@@ -42,9 +41,6 @@
     case 'popovermodechange':
       this.timelinesPopoverMode(event.mode);
       break;
-    case 'timelineadd':
-      this.ontimelineadd(event);
-      break;
     case 'timelineremove':
       this.ontimelineremove(event);
       break;
@@ -57,7 +53,6 @@
   };
 
   HeaderController.TIMELINES_POPOVER_MODE_INITIAL = 'initial';
-  HeaderController.TIMELINES_POPOVER_MODE_ADD = 'add';
   HeaderController.TIMELINES_POPOVER_MODE_EDIT = 'edit';
 
   if (typeof module !== 'undefined' && module.exports)

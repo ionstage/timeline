@@ -44,7 +44,6 @@
 
     headerController.onchange = onChangeHeaderController.bind(this);
     headerController.ontoday = onTodayHeaderController.bind(this);
-    headerController.ontimelineadd = onTimelineAddHeaderController.bind(this);
     headerController.ontimelineremove = onTimelineRemoveHeaderController.bind(this);
     headerController.ontimelinereorder = onTimelineReorderHeaderController.bind(this);
     timelineListController.oninit = onInitTimelineListController.bind(this);
@@ -104,33 +103,6 @@
     // need only adjust timeline list scroll position
     // timeline list scroll event transferred to time axis
     timelineListController.scrollLeft(value);
-  };
-
-  var addTimelineController = function(ctrl, url) {
-    var headerController = ctrl.headerController();
-    var timelineListController = ctrl.timelineListController();
-    var timelineControllers = ctrl.timelineControllers();
-
-    var timelineController = new TimelineController({
-      url: url
-    });
-
-    timelineControllers.push(timelineController);
-
-    timelineController.fetch().then(function(timelineController) {
-      var daysAgo = headerController.daysAgo();
-      var daysAfter = headerController.daysAfter();
-      var pixelsPerDay = headerController.pixelsPerDay();
-
-      updateTimelineSettings(timelineController, daysAgo, daysAfter, pixelsPerDay);
-      m.redraw(true);
-
-      // locate timeline title
-      timelineController.scrollLeft(timelineListController.scrollLeft());
-    });
-
-    saveTimelineUrls(timelineControllers);
-    m.redraw();
   };
 
   var removeTimelineController = function(ctrl, index) {
@@ -202,13 +174,6 @@
     var scrollLeft = (daysAgo + 0.5) * pixelsPerDay - util.windowWidth() / 2;
 
     updateScrollLeftPosition(this, scrollLeft);
-  };
-
-  var onTimelineAddHeaderController = function(event) {
-    var url = event.url;
-    if (!url)
-      return;
-    addTimelineController(this, url);
   };
 
   var onTimelineRemoveHeaderController = function(event) {

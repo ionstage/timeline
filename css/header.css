@@ -203,9 +203,3 @@
 .header .popover-list-item.load-error .popover-list-item-title .text {
   display: none;
 }
-
-.header .popover .popover-content input {
-  font-size: 16px;
-  margin: 8px 0;
-  width: 100%;
-}

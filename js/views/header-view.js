@@ -91,10 +91,7 @@
     var height, view;
     var maxHeight = util.windowHeight() - 72;
 
-    if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_ADD) {
-      height = 160;
-      view = popoverAddView;
-    } else if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_EDIT) {
+    if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_EDIT) {
       height = Math.min(timelineControllers.length * 41 + 90, maxHeight);
       view = popoverEditView;
     } else {
@@ -125,15 +122,7 @@
     var timelineControllers = ctrl.timelineControllers();
     return [
       m('div.popover-header', [
-        m('a.button.antialias', {
-          href: '#',
-          onclick: function() {
-            ctrl.dispatchEvent({
-              type: 'popovermodechange',
-              mode: HeaderController.TIMELINES_POPOVER_MODE_ADD
-            });
-          }
-        }, 'Add'),
+        m('a.button.invisible'),
         m('div.spacer.antialias', 'Timelines'),
         m('a.button.antialias', {
           href: '#',
@@ -162,58 +151,6 @@
             ])
           ]);
         }))
-      ])
-    ];
-  };
-
-  var popoverAddView = function(ctrl) {
-    var inputElementProp = m.prop(null);
-    return [
-      m('div.popover-header', [
-        m('a.button.antialias', {
-          href: '#',
-          onclick: function() {
-            ctrl.dispatchEvent({
-              type: 'popovermodechange',
-              mode: HeaderController.TIMELINES_POPOVER_MODE_INITIAL
-            });
-          }
-        }, 'Cencel'),
-        m('div.spacer.antialias', 'Add Timeline'),
-        m('a.button.done.antialias', {
-          href: '#',
-          config: function(element, isInitialized) {
-            if (isInitialized)
-              return;
-            var prop = inputElementProp;
-            element.addEventListener('click', function() {
-              var inputElement = prop();
-              if (!inputElement)
-                return;
-              ctrl.dispatchEvent({
-                type: 'popovermodechange',
-                mode: HeaderController.TIMELINES_POPOVER_MODE_INITIAL
-              });
-              m.redraw();
-              ctrl.dispatchEvent({
-                type: 'timelineadd',
-                url: inputElement.value
-              });
-            });
-          }
-        }, 'Done')
-      ]),
-      m('div.popover-content', [
-        m('div.antialias', 'URL'),
-        m('input', {
-          type: 'url',
-          autofocus: true,
-          config: function(element, isInitialized) {
-            if (isInitialized)
-              return;
-            inputElementProp(element);
-          }
-        }, 'URL')
       ])
     ];
   };
