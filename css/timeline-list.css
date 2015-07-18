@@ -2,3 +2,7 @@
   height: calc(100% - 74px);
   overflow: auto;
 }
+
+.timeline-list .spacer {
+  height: 100%;
+}

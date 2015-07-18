@@ -24,7 +24,10 @@
           element: element
         });
       }
-    }, timelineViews(ctrl));
+    }, [
+      timelineViews(ctrl),
+      m('div.spacer')
+    ]);
   };
 
   var timelineViews = function(ctrl) {
