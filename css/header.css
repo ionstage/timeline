@@ -152,12 +152,8 @@
   white-space: nowrap;
 }
 
-.header .popover-list-item .popover-list-item-title .text.initial {
-  width: 280px;
-}
-
-.header .popover-list-item .popover-list-item-title .text.edit {
-  width: 196px;
+.header .popover-list-item .popover-list-item-title .text {
+  width: 238px;
 }
 
 .header .popover-list-item .popover-list-item-button {

@@ -135,7 +135,32 @@
         }, 'Edit')
       ]),
       m('div.popover-content', [
-        m('div.popover-list', timelineControllers.map(function(controller) {
+        m('div.popover-list', {
+          config: function(element, isInitialized) {
+            if (isInitialized)
+              return;
+            var $sortable = util.sortable(element, {
+              axis: 'y',
+              containment: 'parent',
+              handle: '.popover-list-item-handle',
+              tolerance: 'pointer',
+              stop: function() {
+                var sortedClassNames = $sortable.sortable('toArray', {attribute: 'class'});
+                var indeces = sortedClassNames.map(function(className) {
+                  return +className.match(/index-(\d+)/)[1];
+                });
+
+                // cancel sort for using virtual DOM update
+                $sortable.sortable('cancel');
+
+                ctrl.dispatchEvent({
+                  type: 'timelinereorder',
+                  indeces: indeces
+                });
+              }
+            });
+          }
+        }, timelineControllers.map(function(controller, index) {
           var state = controller.state();
           var title = controller.title();
           var className = '';
@@ -144,11 +169,12 @@
           else if (state === TimelineController.STATE_LOAD_ERROR)
             className = 'load-error';
           return m('div.popover-list-item', {
-            className: className
+            className: className + ' index-' + index
           }, [
             m('div.popover-list-item-title', [
-              m('div.text.initial.antialias', title)
-            ])
+              m('div.text.antialias', title)
+            ]),
+            m('div.popover-list-item-handle.rotate-90', '|||')
           ]);
         }))
       ])
@@ -187,30 +213,6 @@
               type: 'timelineremove',
               index: index
             });
-          },
-          config: function(element, isInitialized) {
-            if (isInitialized)
-              return;
-            var $sortable = util.sortable(element, {
-              axis: 'y',
-              containment: 'parent',
-              handle: '.popover-list-item-handle',
-              tolerance: 'pointer',
-              stop: function() {
-                var sortedClassNames = $sortable.sortable('toArray', {attribute: 'class'});
-                var indeces = sortedClassNames.map(function(className) {
-                  return +className.match(/index-(\d+)/)[1];
-                });
-
-                // cancel sort for using virtual DOM update
-                $sortable.sortable('cancel');
-
-                ctrl.dispatchEvent({
-                  type: 'timelinereorder',
-                  indeces: indeces
-                });
-              }
-            });
           }
         }, timelineControllers.map(function(controller, index) {
           var state = controller.state();
@@ -221,16 +223,15 @@
           else if (state === TimelineController.STATE_LOAD_ERROR)
             className = 'load-error';
           return m('div.popover-list-item', {
-            className: className + ' index-' + index
+            className: className
           }, [
             m('a.popover-list-item-button.antialias', {
               className: 'index-' + index,
               href: '#'
             }, '×'),
             m('div.popover-list-item-title', [
-              m('div.text.edit.antialias', title)
-            ]),
-            m('div.popover-list-item-handle.rotate-90', '|||')
+              m('div.text.antialias', title)
+            ])
           ]);
         }))
       ])
