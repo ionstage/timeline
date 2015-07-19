@@ -94,7 +94,7 @@
 
         ctrl.timelineControllers(timelineControllers);
         updateTimelineSettings(timelineListController, daysAgo, daysAfter, pixelsPerDay);
-        m.redraw();
+        m.redraw(true);
 
         updateScrollLeftPosition(ctrl);
       });
