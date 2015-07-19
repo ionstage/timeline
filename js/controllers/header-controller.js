@@ -13,7 +13,7 @@
     this.timelinesPopoverMode = m.prop(HeaderController.TIMELINES_POPOVER_MODE_INITIAL);
     this.onchange = noop;
     this.ontoday = noop;
-    this.ontimelineremove = noop;
+    this.ontimelinetoggle = noop;
     this.ontimelinereorder = noop;
   };
 
@@ -41,8 +41,8 @@
     case 'popovermodechange':
       this.timelinesPopoverMode(event.mode);
       break;
-    case 'timelineremove':
-      this.ontimelineremove(event);
+    case 'timelinetoggle':
+      this.ontimelinetoggle(event);
       break;
     case 'timelinereorder':
       this.ontimelinereorder(event);

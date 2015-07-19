@@ -75,6 +75,18 @@
     return document.querySelector(selector);
   };
 
+  util.closest = function(el, selector) {
+    var indexOf = Array.prototype.indexOf;
+    while (el) {
+      var parentNode = el.parentNode;
+      if (!parentNode)
+        return null;
+      if (indexOf.call(parentNode.querySelectorAll(selector), el) !== -1)
+        return el;
+      el = parentNode;
+    }
+  };
+
   util.translateX = function(el, x) {
     var value = 'translateX(' + x + 'px)';
     el.style.transform =  value;

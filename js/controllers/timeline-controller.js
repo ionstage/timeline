@@ -14,6 +14,7 @@
     this.pixelsPerDay = m.prop(8);
     this.selectedIndex = selectedIndexProp();
     this.titleElement = m.prop(null);
+    this.visible = m.prop(false);
   };
 
   TimelineController.prototype.fetch = function() {
@@ -70,6 +71,10 @@
     var titleElement = this.titleElement();
     if (titleElement)
       util.translateX(titleElement, value);
+  };
+
+  TimelineController.prototype.toggle = function() {
+    this.visible(!this.visible());
   };
 
   TimelineController.prototype.dispatchEvent = function(event) {

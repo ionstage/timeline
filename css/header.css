@@ -139,6 +139,10 @@
   width: 100%;
 }
 
+.header .popover-list-item.edit {
+  cursor: pointer;
+}
+
 .header .popover-list-item .popover-list-item-title {
   display: table-cell;
   vertical-align: middle;
@@ -156,7 +160,7 @@
   width: 238px;
 }
 
-.header .popover-list-item .popover-list-item-button {
+.header .popover-list-item .popover-list-item-icon {
   color: #333;
   display: table-cell;
   font-size: 20px;
@@ -173,10 +177,6 @@
   text-align: center;
   vertical-align: middle;
   width: 42px;
-}
-
-.header .popover-list-item .popover-list-item-button:active {
-  opacity: 0.3;
 }
 
 .header .popover-list-item.loading {

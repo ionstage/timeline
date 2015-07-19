@@ -85,6 +85,9 @@
 
   var popoverView = function(ctrl) {
     var timelineControllers = ctrl.timelineControllers();
+    var visibleTimelineControllers = timelineControllers.filter(function(controller) {
+      return controller.visible();
+    });
     var showTimelinesPopover = ctrl.showTimelinesPopover();
     var timelinesPopoverMode = ctrl.timelinesPopoverMode();
 
@@ -95,7 +98,7 @@
       height = Math.min(timelineControllers.length * 41 + 90, maxHeight);
       view = popoverEditView;
     } else {
-      height = Math.min(timelineControllers.length * 41 + 90, maxHeight);
+      height = Math.min(visibleTimelineControllers.length * 41 + 90, maxHeight);
       view = popoverInitialView;
     }
 
@@ -128,6 +131,10 @@
           href: '#',
           onclick: function() {
             ctrl.dispatchEvent({
+              type: 'timelinereorder',
+              indeces: indecesOnEditTimelines(timelineControllers)
+            });
+            ctrl.dispatchEvent({
               type: 'popovermodechange',
               mode: HeaderController.TIMELINES_POPOVER_MODE_EDIT
             });
@@ -150,6 +157,12 @@
                   return +className.match(/index-(\d+)/)[1];
                 });
 
+                // add indeces of invisible timelines
+                for (var i = 0, len = timelineControllers.length; i < len; i++) {
+                  if (indeces.indexOf(i) === -1)
+                    indeces.push(i);
+                }
+
                 // cancel sort for using virtual DOM update
                 $sortable.sortable('cancel');
 
@@ -161,6 +174,9 @@
             });
           }
         }, timelineControllers.map(function(controller, index) {
+          if (!controller.visible())
+            return;
+
           var state = controller.state();
           var title = controller.title();
           var className = '';
@@ -200,35 +216,32 @@
       m('div.popover-content', [
         m('div.popover-list', {
           onclick: function(event) {
-            var target = event.target;
-            var className = target.getAttribute('class');
+            var target = util.closest(event.target, '.popover-list-item');
+            if (!target)
+              return;
 
             m.redraw.strategy('none');
 
-            if (!className || !className.match(/popover-list-item-button/))
-              return;
-
+            var className = target.getAttribute('class');
             var index = +className.match(/index-(\d+)/)[1];
             ctrl.dispatchEvent({
-              type: 'timelineremove',
+              type: 'timelinetoggle',
               index: index
             });
           }
         }, timelineControllers.map(function(controller, index) {
           var state = controller.state();
           var title = controller.title();
+          var visible = controller.visible();
           var className = '';
           if (state === TimelineController.STATE_LOADING)
             className = 'loading';
           else if (state === TimelineController.STATE_LOAD_ERROR)
             className = 'load-error';
-          return m('div.popover-list-item', {
-            className: className
+          return m('div.popover-list-item.edit', {
+            className: className + ' index-' + index
           }, [
-            m('a.popover-list-item-button.antialias', {
-              className: 'index-' + index,
-              href: '#'
-            }, '×'),
+            m('div.popover-list-item-icon.antialias', visible ? '✓' : ''),
             m('div.popover-list-item-title', [
               m('div.text.antialias', title)
             ])
@@ -246,6 +259,29 @@
       type: 'popovermodechange',
       mode: HeaderController.TIMELINES_POPOVER_MODE_INITIAL
     });
+  };
+
+  var indecesOnEditTimelines = function(timelineControllers) {
+    var visibleIndeces = [];
+    var invisibleIndeces = [];
+
+    // devide timelines into visible or not
+    timelineControllers.forEach(function(controller, index) {
+      if (controller.visible())
+        visibleIndeces.push(index);
+      else
+        invisibleIndeces.push(index);
+    });
+
+    // sort invisible timelines by title
+    invisibleIndeces.sort(function(i, j) {
+      if (timelineControllers[i].title() < timelineControllers[j].title())
+        return -1;
+      else
+        return 1;
+    });
+
+    return visibleIndeces.concat(invisibleIndeces);
   };
 
   if (typeof module !== 'undefined' && module.exports)

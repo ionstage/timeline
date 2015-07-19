@@ -44,7 +44,7 @@
 
     headerController.onchange = onChangeHeaderController.bind(this);
     headerController.ontoday = onTodayHeaderController.bind(this);
-    headerController.ontimelineremove = onTimelineRemoveHeaderController.bind(this);
+    headerController.ontimelinetoggle = onTimelineToggleHeaderController.bind(this);
     headerController.ontimelinereorder = onTimelineReorderHeaderController.bind(this);
     timelineListController.oninit = onInitTimelineListController.bind(this);
     timelineListController.onscroll = onScrollTimelineListController.bind(this);
@@ -105,11 +105,14 @@
     timelineListController.scrollLeft(value);
   };
 
-  var removeTimelineController = function(ctrl, index) {
+  var toggleTimelineController = function(ctrl, index) {
     var timelineControllers = ctrl.timelineControllers();
-    timelineControllers.splice(index, 1);
-    saveTimelineUrls(timelineControllers);
+    var timelineController = timelineControllers[index];
+
+    timelineController.toggle();
     m.redraw();
+
+    updateScrollLeftPosition(ctrl);
   };
 
   var reorderTimelineController = function(ctrl, indeces) {
@@ -176,8 +179,8 @@
     updateScrollLeftPosition(this, scrollLeft);
   };
 
-  var onTimelineRemoveHeaderController = function(event) {
-    removeTimelineController(this, event.index);
+  var onTimelineToggleHeaderController = function(event) {
+    toggleTimelineController(this, event.index);
   };
 
   var onTimelineReorderHeaderController = function(event) {
