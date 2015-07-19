@@ -5,6 +5,7 @@
 
   var TimelineController = function(option) {
     this.url = m.prop(option.url);
+    this.visible = m.prop(option.visible);
     this.state = m.prop(TimelineController.STATE_INITIALIZED);
     this.title = m.prop('');
     this.type = m.prop(TimelineController.TYPE_NONE);
@@ -14,7 +15,6 @@
     this.pixelsPerDay = m.prop(8);
     this.selectedIndex = selectedIndexProp();
     this.titleElement = m.prop(null);
-    this.visible = m.prop(false);
   };
 
   TimelineController.prototype.fetch = function() {

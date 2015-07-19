@@ -9,6 +9,7 @@
     var daysAgo = ctrl.daysAgo();
     var daysAfter = ctrl.daysAfter();
     var pixelsPerDay = ctrl.pixelsPerDay();
+    var timelineControllers = ctrl.timelineControllers();
 
     return m('div.header.unselectable', [
       m('div.time-span', [
@@ -152,6 +153,7 @@
               handle: '.popover-list-item-handle',
               tolerance: 'pointer',
               stop: function() {
+                var timelineControllers = ctrl.timelineControllers();
                 var sortedClassNames = $sortable.sortable('toArray', {attribute: 'class'});
                 var indices = sortedClassNames.map(function(className) {
                   return +className.match(/index-(\d+)/)[1];

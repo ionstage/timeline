@@ -32,7 +32,7 @@
     var daysAfter = util.loadData('days-after', 183);
     var pixelsPerDay = util.loadData('pixels-per-day' ,8);
 
-    loadDefaultTimelineControllers(this, {
+    loadTimelineControllers(this, {
       daysAgo: daysAgo,
       daysAfter: daysAfter,
       pixelsPerDay: pixelsPerDay
@@ -56,40 +56,48 @@
     ctrl.pixelsPerDay(pixelsPerDay);
   };
 
-  var loadDefaultTimelineControllers = function(ctrl, option) {
-    var urls = loadTimelineUrls();
+  var loadTimelineControllers = function(ctrl, option) {
+    util.getJSON('settings.json').done(function(data) {
+      var urls = data.timelines;
+      if (!Array.isArray(urls))
+        return;
 
-    if (urls === null) {
-      // load default timeline URLs from settings
-      util.getJSON('settings.json').done(function(data) {
-        var defaultTimelines = data.defaultTimelines;
-        if (Array.isArray(defaultTimelines)) {
-          util.saveData('timeline-urls', defaultTimelines);
-          loadDefaultTimelineControllers(ctrl, option);
-        }
+      var visibleTimelineUrls = loadVisibleTimelineUrls();
+
+      var invisibleTimelineUrls = urls.filter(function(url) {
+        return visibleTimelineUrls.indexOf(url) === -1;
       });
-      return;
-    }
 
-    var timelineControllers = urls.map(function(url) {
-      return new TimelineController({
-        url: url
+      var visibleTimelines = visibleTimelineUrls.map(function(url) {
+        return new TimelineController({
+          url: url,
+          visible: true
+        });
       });
-    });
 
-    m.sync(timelineControllers.map(function(timelineController) {
-      return timelineController.fetch();
-    })).then(function(timelineControllers) {
-      var timelineListController = ctrl.timelineListController();
-      var daysAgo = option.daysAgo;
-      var daysAfter = option.daysAfter;
-      var pixelsPerDay = option.pixelsPerDay;
+      var invisibleTimelines = invisibleTimelineUrls.map(function(url) {
+        return new TimelineController({
+          url: url,
+          visible: false
+        });
+      });
 
-      ctrl.timelineControllers(timelineControllers);
-      updateTimelineSettings(timelineListController, daysAgo, daysAfter, pixelsPerDay);
-      m.redraw();
+      var timelineControllers = visibleTimelines.concat(invisibleTimelines);
 
-      updateScrollLeftPosition(ctrl);
+      m.sync(timelineControllers.map(function(timelineController) {
+        return timelineController.fetch();
+      })).then(function(timelineControllers) {
+        var timelineListController = ctrl.timelineListController();
+        var daysAgo = option.daysAgo;
+        var daysAfter = option.daysAfter;
+        var pixelsPerDay = option.pixelsPerDay;
+
+        ctrl.timelineControllers(timelineControllers);
+        updateTimelineSettings(timelineListController, daysAgo, daysAfter, pixelsPerDay);
+        m.redraw();
+
+        updateScrollLeftPosition(ctrl);
+      });
     });
   };
 
@@ -110,6 +118,7 @@
     var timelineController = timelineControllers[index];
 
     timelineController.toggle();
+    saveVisibleTimelineUrls(timelineControllers);
     m.redraw();
 
     updateScrollLeftPosition(ctrl);
@@ -123,18 +132,20 @@
       timelineControllers[i] = clone[indices[i]];
     }
 
-    saveTimelineUrls(timelineControllers);
+    saveVisibleTimelineUrls(timelineControllers);
     m.redraw();
 
     updateScrollLeftPosition(ctrl);
   };
 
-  var loadTimelineUrls = function() {
-    return util.loadData('timeline-urls', null);
+  var loadVisibleTimelineUrls = function() {
+    return util.loadData('visible-timeline-urls', []);
   };
 
-  var saveTimelineUrls = function(timelineControllers) {
-    util.saveData('timeline-urls', timelineControllers.map(function(timelineController) {
+  var saveVisibleTimelineUrls = function(timelineControllers) {
+    util.saveData('visible-timeline-urls', timelineControllers.filter(function(timelineController) {
+      return timelineController.visible();
+    }).map(function(timelineController) {
       return timelineController.url();
     }));
   };

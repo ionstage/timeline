@@ -1,5 +1,5 @@
 {
-  "defaultTimelines": [
+  "timelines": [
     "timeline:sample/line-chart",
     "timeline:sample/bar-chart",
     "timeline:sample/schedule",
