@@ -132,7 +132,7 @@
           onclick: function() {
             ctrl.dispatchEvent({
               type: 'timelinereorder',
-              indeces: indecesOnEditTimelines(timelineControllers)
+              indices: indicesOnEditTimelines(timelineControllers)
             });
             ctrl.dispatchEvent({
               type: 'popovermodechange',
@@ -153,14 +153,14 @@
               tolerance: 'pointer',
               stop: function() {
                 var sortedClassNames = $sortable.sortable('toArray', {attribute: 'class'});
-                var indeces = sortedClassNames.map(function(className) {
+                var indices = sortedClassNames.map(function(className) {
                   return +className.match(/index-(\d+)/)[1];
                 });
 
-                // add indeces of invisible timelines
+                // add indices of invisible timelines
                 for (var i = 0, len = timelineControllers.length; i < len; i++) {
-                  if (indeces.indexOf(i) === -1)
-                    indeces.push(i);
+                  if (indices.indexOf(i) === -1)
+                    indices.push(i);
                 }
 
                 // cancel sort for using virtual DOM update
@@ -168,7 +168,7 @@
 
                 ctrl.dispatchEvent({
                   type: 'timelinereorder',
-                  indeces: indeces
+                  indices: indices
                 });
               }
             });
@@ -261,27 +261,27 @@
     });
   };
 
-  var indecesOnEditTimelines = function(timelineControllers) {
-    var visibleIndeces = [];
-    var invisibleIndeces = [];
+  var indicesOnEditTimelines = function(timelineControllers) {
+    var visibleIndices = [];
+    var invisibleIndices = [];
 
     // devide timelines into visible or not
     timelineControllers.forEach(function(controller, index) {
       if (controller.visible())
-        visibleIndeces.push(index);
+        visibleIndices.push(index);
       else
-        invisibleIndeces.push(index);
+        invisibleIndices.push(index);
     });
 
     // sort invisible timelines by title
-    invisibleIndeces.sort(function(i, j) {
+    invisibleIndices.sort(function(i, j) {
       if (timelineControllers[i].title() < timelineControllers[j].title())
         return -1;
       else
         return 1;
     });
 
-    return visibleIndeces.concat(invisibleIndeces);
+    return visibleIndices.concat(invisibleIndices);
   };
 
   if (typeof module !== 'undefined' && module.exports)
