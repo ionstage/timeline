@@ -129,6 +129,15 @@
   overflow-y: auto;
 }
 
+.header .popover .popover-list.empty {
+  text-align: center;
+}
+
+.header .popover .popover-list.empty:before {
+  color: gray;
+  content: "No Timelines";
+}
+
 .header .popover-list-item {
   background-color: white;
   border-bottom: 1px solid whitesmoke;

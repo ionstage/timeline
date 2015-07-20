@@ -92,14 +92,16 @@
     var showTimelinesPopover = ctrl.showTimelinesPopover();
     var timelinesPopoverMode = ctrl.timelinesPopoverMode();
 
-    var height, view;
+    var padding, height, view;
     var maxHeight = util.windowHeight() - 72;
 
     if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_SELECT) {
-      height = Math.min(timelineControllers.length * 41 + 90, maxHeight);
+      padding = timelineControllers.length > 0 ? 90 : 108;
+      height = Math.min(timelineControllers.length * 41 + padding, maxHeight);
       view = popoverSelectView;
     } else {
-      height = Math.min(visibleTimelineControllers.length * 41 + 90, maxHeight);
+      padding = visibleTimelineControllers.length > 0 ? 90 : 108;
+      height = Math.min(visibleTimelineControllers.length * 41 + padding, maxHeight);
       view = popoverInitialView;
     }
 
@@ -124,6 +126,10 @@
 
   var popoverInitialView = function(ctrl) {
     var timelineControllers = ctrl.timelineControllers();
+    var visibleTimelineControllers = timelineControllers.filter(function(controller) {
+      return controller.visible();
+    });
+
     return [
       m('div.popover-header', [
         m('a.button.invisible'),
@@ -144,6 +150,7 @@
       ]),
       m('div.popover-content', [
         m('div.popover-list', {
+          className: visibleTimelineControllers.length === 0 ? 'empty' : '',
           config: function(element, isInitialized) {
             if (isInitialized)
               return;
@@ -217,6 +224,7 @@
       ]),
       m('div.popover-content', [
         m('div.popover-list', {
+          className: timelineControllers.length === 0 ? 'empty' : '',
           onclick: function(event) {
             var target = util.closest(event.target, '.popover-list-item');
             if (!target)
