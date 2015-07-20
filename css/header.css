@@ -72,7 +72,7 @@
 }
 
 .header .button.invisible {
-  min-width: 60px;
+  min-width: 76px;
 }
 
 .header .button:active {
@@ -139,7 +139,7 @@
   width: 100%;
 }
 
-.header .popover-list-item.edit {
+.header .popover-list-item.select {
   cursor: pointer;
 }
 

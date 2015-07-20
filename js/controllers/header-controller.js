@@ -53,7 +53,7 @@
   };
 
   HeaderController.TIMELINES_POPOVER_MODE_INITIAL = 'initial';
-  HeaderController.TIMELINES_POPOVER_MODE_EDIT = 'edit';
+  HeaderController.TIMELINES_POPOVER_MODE_SELECT = 'select';
 
   if (typeof module !== 'undefined' && module.exports)
     module.exports = HeaderController;

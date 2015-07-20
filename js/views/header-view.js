@@ -95,9 +95,9 @@
     var height, view;
     var maxHeight = util.windowHeight() - 72;
 
-    if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_EDIT) {
+    if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_SELECT) {
       height = Math.min(timelineControllers.length * 41 + 90, maxHeight);
-      view = popoverEditView;
+      view = popoverSelectView;
     } else {
       height = Math.min(visibleTimelineControllers.length * 41 + 90, maxHeight);
       view = popoverInitialView;
@@ -133,14 +133,14 @@
           onclick: function() {
             ctrl.dispatchEvent({
               type: 'timelinereorder',
-              indices: indicesOnEditTimelines(timelineControllers)
+              indices: indicesOnSelectTimelines(timelineControllers)
             });
             ctrl.dispatchEvent({
               type: 'popovermodechange',
-              mode: HeaderController.TIMELINES_POPOVER_MODE_EDIT
+              mode: HeaderController.TIMELINES_POPOVER_MODE_SELECT
             });
           }
-        }, 'Edit')
+        }, 'Select')
       ]),
       m('div.popover-content', [
         m('div.popover-list', {
@@ -199,12 +199,12 @@
     ];
   };
 
-  var popoverEditView = function(ctrl) {
+  var popoverSelectView = function(ctrl) {
     var timelineControllers = ctrl.timelineControllers();
     return [
       m('div.popover-header', [
         m('a.button.invisible'),
-        m('div.spacer.antialias', 'Edit Timelines'),
+        m('div.spacer.antialias', 'Select Timelines'),
         m('a.button.done.antialias', {
           href: '#',
           onclick: function() {
@@ -240,7 +240,7 @@
             className = 'loading';
           else if (state === TimelineController.STATE_LOAD_ERROR)
             className = 'load-error';
-          return m('div.popover-list-item.edit', {
+          return m('div.popover-list-item.select', {
             className: className + ' index-' + index
           }, [
             m('div.popover-list-item-icon.antialias', visible ? '✓' : ''),
@@ -263,7 +263,7 @@
     });
   };
 
-  var indicesOnEditTimelines = function(timelineControllers) {
+  var indicesOnSelectTimelines = function(timelineControllers) {
     var visibleIndices = [];
     var invisibleIndices = [];
 
