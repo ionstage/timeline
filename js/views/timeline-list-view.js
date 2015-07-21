@@ -37,14 +37,14 @@
   };
 
   var timelineViews = function(ctrl) {
-    var visbleTimelineControllers = ctrl.timelineControllers().filter(function(controller) {
+    var visibleTimelineControllers = ctrl.timelineControllers().filter(function(controller) {
       return controller.visible();
     });
-    var someComplete = visbleTimelineControllers.some(function(controller) {
+    var someComplete = visibleTimelineControllers.some(function(controller) {
       return controller.state() === TimelineController.STATE_LOAD_COMPLETE;
     });
 
-    if (visbleTimelineControllers.length === 0 || !someComplete) {
+    if (visibleTimelineControllers.length === 0 || !someComplete) {
       var daysAgo = ctrl.daysAgo();
       var daysAfter = ctrl.daysAfter();
       var pixelsPerDay = ctrl.pixelsPerDay();
@@ -52,7 +52,7 @@
       return m('div.timeline.dummy', {style: 'width: ' + width + 'px;'});
     }
 
-    return visbleTimelineControllers.map(function(controller) {
+    return visibleTimelineControllers.map(function(controller) {
       switch (controller.type()) {
       case TimelineController.TYPE_LINE_CHART:
         return lineChartTimelineView(controller);
