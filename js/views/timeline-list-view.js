@@ -8,6 +8,10 @@
   var ganttChartTimelineView = app.ganttChartTimelineView || require('./gantt-chart-timeline-view.js');
 
   var timelineListView = function(ctrl) {
+    var visibleTimelineControllers = ctrl.timelineControllers().filter(function(controller) {
+      return controller.visible();
+    });
+
     return m('div.timeline-list', {
       onscroll: function(event) {
         var element = event.currentTarget;
@@ -26,7 +30,9 @@
       }
     }, [
       timelineViews(ctrl),
-      m('div.spacer')
+      m('div.spacer', {
+        className: visibleTimelineControllers.length === 0 ? 'empty' : ''
+      })
     ]);
   };
 

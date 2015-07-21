@@ -6,3 +6,7 @@
 .timeline-list .spacer {
   height: 100%;
 }
+
+.timeline-list .spacer.empty {
+  height: 0;
+}
