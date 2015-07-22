@@ -100,7 +100,7 @@
   content: "";
   right: 26px;
   position: absolute;
-  top: calc(0% - 14px);
+  top: -14px;
 }
 
 .header .popover .popover-header {
