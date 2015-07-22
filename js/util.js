@@ -104,19 +104,19 @@
     return jQuery(el).sortable(option);
   };
 
-  util.storageKey = function(key) {
-    return 'org.ionstage.timeline.' + key;
-  };
-
   util.loadData = function(key, defaultValue) {
-    var value = localStorage.getItem(util.storageKey(key));
+    var value = localStorage.getItem(storageKey(key));
     if (value === null && typeof defaultValue !== 'undefined')
       return defaultValue;
     return JSON.parse(value);
   };
 
   util.saveData = function(key, data) {
-    localStorage.setItem(util.storageKey(key), JSON.stringify(data));
+    localStorage.setItem(storageKey(key), JSON.stringify(data));
+  };
+
+  var storageKey = function(key) {
+    return 'org.ionstage.timeline.' + key;
   };
 
   if (typeof module !== 'undefined' && module.exports)
