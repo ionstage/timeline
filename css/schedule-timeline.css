@@ -1,7 +1,7 @@
 .timeline.schedule .graph line {
   stroke: gray;
   stroke-linecap: round;
-  stroke-width: 8;
+  stroke-width: 8px;
 }
 
 .timeline.schedule .graph text {
