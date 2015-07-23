@@ -8,8 +8,8 @@
   var ganttChartTimelineView = app.ganttChartTimelineView || require('./gantt-chart-timeline-view.js');
 
   var timelineListView = function(ctrl) {
-    var visibleTimelineControllers = ctrl.timelineControllers().filter(function(controller) {
-      return controller.visible();
+    var visibleTimelineControllers = ctrl.timelineControllers().filter(function(timelineController) {
+      return timelineController.visible();
     });
 
     return m('div.timeline-list', {
@@ -37,11 +37,11 @@
   };
 
   var timelineViews = function(ctrl) {
-    var visibleTimelineControllers = ctrl.timelineControllers().filter(function(controller) {
-      return controller.visible();
+    var visibleTimelineControllers = ctrl.timelineControllers().filter(function(timelineController) {
+      return timelineController.visible();
     });
-    var someComplete = visibleTimelineControllers.some(function(controller) {
-      return controller.state() === TimelineController.STATE_LOAD_COMPLETE;
+    var someComplete = visibleTimelineControllers.some(function(timelineController) {
+      return timelineController.state() === TimelineController.STATE_LOAD_COMPLETE;
     });
 
     if (visibleTimelineControllers.length === 0 || !someComplete) {
@@ -52,16 +52,16 @@
       return m('div.timeline.dummy', {style: {width: width + 'px'}});
     }
 
-    return visibleTimelineControllers.map(function(controller) {
-      switch (controller.type()) {
+    return visibleTimelineControllers.map(function(timelineController) {
+      switch (timelineController.type()) {
       case TimelineController.TYPE_LINE_CHART:
-        return lineChartTimelineView(controller);
+        return lineChartTimelineView(timelineController);
       case TimelineController.TYPE_BAR_CHART:
-        return barChartTimelineView(controller);
+        return barChartTimelineView(timelineController);
       case TimelineController.TYPE_SCHEDULE:
-        return scheduleTimelineView(controller);
+        return scheduleTimelineView(timelineController);
       case TimelineController.TYPE_GANTT_CHART:
-        return ganttChartTimelineView(controller);
+        return ganttChartTimelineView(timelineController);
       default:
         return;
       }

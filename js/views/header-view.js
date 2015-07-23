@@ -86,8 +86,8 @@
 
   var popoverView = function(ctrl) {
     var timelineControllers = ctrl.timelineControllers();
-    var visibleTimelineControllers = timelineControllers.filter(function(controller) {
-      return controller.visible();
+    var visibleTimelineControllers = timelineControllers.filter(function(timelineController) {
+      return timelineController.visible();
     });
     var showTimelinesPopover = ctrl.showTimelinesPopover();
     var timelinesPopoverMode = ctrl.timelinesPopoverMode();
@@ -126,8 +126,8 @@
 
   var popoverInitialView = function(ctrl) {
     var timelineControllers = ctrl.timelineControllers();
-    var visibleTimelineControllers = timelineControllers.filter(function(controller) {
-      return controller.visible();
+    var visibleTimelineControllers = timelineControllers.filter(function(timelineController) {
+      return timelineController.visible();
     });
 
     return [
@@ -182,12 +182,12 @@
               }
             });
           }
-        }, timelineControllers.map(function(controller, index) {
-          if (!controller.visible())
+        }, timelineControllers.map(function(timelineController, index) {
+          if (!timelineController.visible())
             return;
 
-          var state = controller.state();
-          var title = controller.title();
+          var state = timelineController.state();
+          var title = timelineController.title();
           var className = '';
           if (state === TimelineController.STATE_LOADING)
             className = 'loading';
@@ -239,10 +239,10 @@
               index: index
             });
           }
-        }, timelineControllers.map(function(controller, index) {
-          var state = controller.state();
-          var title = controller.title();
-          var visible = controller.visible();
+        }, timelineControllers.map(function(timelineController, index) {
+          var state = timelineController.state();
+          var title = timelineController.title();
+          var visible = timelineController.visible();
           var className = '';
           if (state === TimelineController.STATE_LOADING)
             className = 'loading';
@@ -276,8 +276,8 @@
     var invisibleIndices = [];
 
     // devide timelines into visible or not
-    timelineControllers.forEach(function(controller, index) {
-      if (controller.visible())
+    timelineControllers.forEach(function(timelineController, index) {
+      if (timelineController.visible())
         visibleIndices.push(index);
       else
         invisibleIndices.push(index);
