@@ -3,8 +3,6 @@
   var m = require('mithril');
   var util = app.util || require('../util.js');
 
-  var invoke = util.invoke;
-
   var TimelineListController = function() {
     var noop = function() {};
     this.daysAgo = daysAgoProp();
@@ -22,7 +20,7 @@
       if (typeof value === 'undefined')
         return cacheProp();
       cacheProp(value);
-      invoke(this.timelineControllers(), 'daysAgo', value);
+      util.invoke(this.timelineControllers(), 'daysAgo', value);
     };
   };
 
@@ -32,7 +30,7 @@
       if (typeof value === 'undefined')
         return cacheProp();
       cacheProp(value);
-      invoke(this.timelineControllers(), 'daysAfter', value);
+      util.invoke(this.timelineControllers(), 'daysAfter', value);
     };
   };
 
@@ -42,7 +40,7 @@
       if (typeof value === 'undefined')
         return cacheProp();
       cacheProp(value);
-      invoke(this.timelineControllers(), 'pixelsPerDay', value);
+      util.invoke(this.timelineControllers(), 'pixelsPerDay', value);
     };
   };
 
@@ -55,7 +53,7 @@
 
     var timelineControllers = this.timelineControllers();
     element.scrollLeft = value;
-    invoke(timelineControllers, 'scrollLeft', value);
+    util.invoke(timelineControllers, 'scrollLeft', value);
   };
 
   TimelineListController.prototype.dispatchEvent = function(event) {
@@ -68,7 +66,7 @@
       break;
     case 'scroll':
       m.redraw.strategy('none');
-      invoke(timelineControllers, 'scrollLeft', event.scrollLeft);
+      util.invoke(timelineControllers, 'scrollLeft', event.scrollLeft);
       this.onscroll(event);
       break;
     default:
