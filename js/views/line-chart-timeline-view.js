@@ -15,7 +15,7 @@
     var height = 160;
     var points = calcPoints(data, daysAgo, daysAfter, pixelsPerDay, height);
 
-    return m('div.timeline.line-chart', {style: 'width: ' + width + 'px;'}, [
+    return m('div.timeline.line-chart', {style: {width: width + 'px'}}, [
       m('div.title', {
         config: function(element, isInitialized) {
           if (isInitialized)

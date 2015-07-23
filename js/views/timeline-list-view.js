@@ -49,7 +49,7 @@
       var daysAfter = ctrl.daysAfter();
       var pixelsPerDay = ctrl.pixelsPerDay();
       var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
-      return m('div.timeline.dummy', {style: 'width: ' + width + 'px;'});
+      return m('div.timeline.dummy', {style: {width: width + 'px'}});
     }
 
     return visibleTimelineControllers.map(function(controller) {

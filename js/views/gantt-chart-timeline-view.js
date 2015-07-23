@@ -16,7 +16,7 @@
     var height = 36 + ganttChartItemsList.length * 24;
 
     return m('div.timeline.gantt-chart', {
-      style: 'width: ' + width + 'px;',
+      style: {width: width + 'px'},
       onclick: function(event) {
         var target = event.target;
         var className = target.getAttribute('class');

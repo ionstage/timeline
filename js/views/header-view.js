@@ -107,7 +107,7 @@
 
     return m('div.popover', {
       className: showTimelinesPopover ? '' : 'invisible',
-      style: 'height: ' + height +'px;',
+      style: {height: height + 'px'},
       config: function(element, isInitialized) {
         if (isInitialized)
           return;

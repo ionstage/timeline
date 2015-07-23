@@ -16,7 +16,7 @@
     var height = sheduleItemsLength > 0 ? util.sortBy(sheduleItems, 'y')[sheduleItemsLength - 1].y + 22 : 28;
 
     return m('div.timeline.schedule', {
-      style: 'width: ' + width + 'px;',
+      style: {width: width + 'px'},
       onclick: function(event) {
         var target = event.target;
         var className = target.getAttribute('class');
