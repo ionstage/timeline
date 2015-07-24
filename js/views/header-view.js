@@ -97,11 +97,11 @@
 
     if (timelinesPopoverMode === HeaderController.TIMELINES_POPOVER_MODE_SELECT) {
       padding = timelineControllers.length > 0 ? 90 : 108;
-      height = Math.min(timelineControllers.length * 41 + padding, maxHeight);
+      height = Math.min(timelineControllers.length * 42 + padding, maxHeight);
       view = popoverSelectView;
     } else {
       padding = visibleTimelineControllers.length > 0 ? 90 : 108;
-      height = Math.min(visibleTimelineControllers.length * 41 + padding, maxHeight);
+      height = Math.min(visibleTimelineControllers.length * 42 + padding, maxHeight);
       view = popoverInitialView;
     }
 

@@ -141,10 +141,8 @@
 .header .popover-list-item {
   background-color: white;
   border-bottom: 1px solid whitesmoke;
-  border-top: 1px solid whitesmoke;
   display: table;
   height: 42px;
-  margin-top: -1px;
   width: 100%;
 }
 
@@ -207,4 +205,11 @@
 
 .header .popover-list-item.load-error .popover-list-item-title .text {
   display: none;
+}
+
+.header .popover-list-item.ui-sortable-helper {
+  border-bottom: 1px solid whitesmoke;
+  border-top: 1px solid whitesmoke;
+  height: 43px !important;
+  margin-top: -1px;
 }
