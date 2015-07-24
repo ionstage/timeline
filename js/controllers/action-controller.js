@@ -30,7 +30,7 @@
 
     var daysAgo = util.loadData('days-ago', 183);
     var daysAfter = util.loadData('days-after', 183);
-    var pixelsPerDay = util.loadData('pixels-per-day' ,8);
+    var pixelsPerDay = util.loadData('pixels-per-day', 8);
 
     loadTimelineControllers(this, {
       daysAgo: daysAgo,
@@ -143,11 +143,13 @@
   };
 
   var saveVisibleTimelineUrls = function(timelineControllers) {
-    util.saveData('visible-timeline-urls', timelineControllers.filter(function(timelineController) {
+    var visibleTimelineUrls = timelineControllers.filter(function(timelineController) {
       return timelineController.visible();
     }).map(function(timelineController) {
       return timelineController.url();
-    }));
+    });
+
+    util.saveData('visible-timeline-urls', visibleTimelineUrls);
   };
 
   var onChangeHeaderController = function(event) {

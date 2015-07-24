@@ -58,11 +58,11 @@
     this.state(TimelineController.STATE_LOADING);
 
     util.getJSON(url)
-    .done(requestSuccessCallback.bind(this))
-    .fail(requestErrorCallback.bind(this))
-    .always(function() {
-      deferred.resolve(this);
-    }.bind(this));
+      .done(requestSuccessCallback.bind(this))
+      .fail(requestErrorCallback.bind(this))
+      .always(function() {
+        deferred.resolve(this);
+      }.bind(this));
 
     return deferred.promise;
   };
