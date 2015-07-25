@@ -10,6 +10,7 @@
     var daysAfter = ctrl.daysAfter();
     var pixelsPerDay = ctrl.pixelsPerDay();
     var selectedIndex = ctrl.selectedIndex();
+    var titleElement = ctrl.titleElement();
 
     var width = (daysAfter + daysAgo + 1) * pixelsPerDay + 1;
     var ganttChartItemsList = calcGanttChartItemsList(data, daysAgo, daysAfter, pixelsPerDay);
@@ -31,7 +32,7 @@
     }, [
       m('div.title', {
         config: function(element, isInitialized) {
-          if (isInitialized)
+          if (element === titleElement)
             return;
           ctrl.dispatchEvent({
             type: 'init',
