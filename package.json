@@ -3,10 +3,8 @@
   "version": "0.1.1",
   "scripts": {
     "bundle": "browserify js/module.js -r mithril -o js/bundle.js",
-    "desktop": "electron ./",
     "start": "browser-sync start --files='index.html, css/**/*.css, js/**/*.js' --server"
   },
-  "main": "js/main.js",
   "dependencies": {
     "jquery": "^2.1.4",
     "jquery-ui": "^1.10.5",
@@ -16,8 +14,7 @@
   "devDependencies": {
     "browser-sync": "^2.7.6",
     "browserify": "^10.2.3",
-    "browserify-shim": "^3.8.7",
-    "electron-prebuilt": "^0.30.1"
+    "browserify-shim": "^3.8.7"
   },
   "browser": {
     "jquery": "./node_modules/jquery/dist/jquery.js"
