@@ -45,6 +45,10 @@
   vertical-align: middle;
 }
 
+.header .pixels-per-day div {
+  height: 20px;
+}
+
 .header .pixels-per-day input {
   margin: 0 4px;
   padding: 0;
