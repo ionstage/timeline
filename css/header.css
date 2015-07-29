@@ -35,6 +35,10 @@
   padding: 4px;
 }
 
+.header .time-span .icon.range:before {
+  content: "I";
+}
+
 .header .pixels-per-day {
   padding: 0 16px;
   white-space: nowrap;
@@ -45,8 +49,16 @@
   vertical-align: middle;
 }
 
-.header .pixels-per-day div {
-  height: 20px;
+.header .pixels-per-day .icon {
+  margin-top: -2px;
+}
+
+.header .pixels-per-day .icon.small:before {
+  content: "||||";
+}
+
+.header .pixels-per-day .icon.large:before {
+  content: "| |";
 }
 
 .header .pixels-per-day input {
@@ -189,6 +201,10 @@
   text-align: center;
   vertical-align: middle;
   width: 42px;
+}
+
+.header .popover-list-item .popover-list-item-handle:before {
+  content: "|||";
 }
 
 .header .popover-list-item.loading {

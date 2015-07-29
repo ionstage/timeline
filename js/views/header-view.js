@@ -27,7 +27,7 @@
           m('option', {value: '365'}, ['1 year ago']),
           m('option', {value: '730'}, ['2 year ago'])
         ]),
-        m('div.icon.rotate-90', ['I']),
+        m('div.icon.range.rotate-90'),
         m('select', {
           onchange: m.withAttr('value', function(value) {
             ctrl.dispatchEvent({
@@ -44,7 +44,7 @@
         ])
       ]),
       m('div.pixels-per-day', [
-        m('div.icon.antialias', ['||||']),
+        m('div.icon.small.antialias'),
         m('input', {
           type: 'range',
           min: '1.5',
@@ -59,7 +59,7 @@
           }),
           value: pixelsPerDay.toString()
         }),
-        m('div.icon.antialias', ['| |'])
+        m('div.icon.large.antialias')
       ]),
       m('div.spacer'),
       m('a.button.antialias', {
@@ -201,7 +201,7 @@
             m('div.popover-list-item-title', [
               m('div.text.antialias', title)
             ]),
-            m('div.popover-list-item-handle.rotate-90', '|||')
+            m('div.popover-list-item-handle.rotate-90')
           ]);
         }))
       ])
