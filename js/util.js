@@ -75,6 +75,10 @@
     return document.querySelector(selector);
   };
 
+  util.hasClass = function(el, className) {
+    return el.classList.contains(className);
+  };
+
   util.closest = function(el, selector) {
     var indexOf = Array.prototype.indexOf;
     while (el) {

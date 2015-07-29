@@ -114,7 +114,9 @@
         element.addEventListener(util.supportsTouch() ? 'touchstart' : 'mousedown', function(event) {
           event.stopPropagation();
         });
-        util.rootElement().addEventListener(util.supportsTouch() ? 'touchstart' : 'mousedown', function() {
+        util.rootElement().addEventListener(util.supportsTouch() ? 'touchstart' : 'mousedown', function(event) {
+          if (util.supportsTouch() && util.hasClass(event.target, 'header'))
+            event.preventDefault();
           hidePopoverView(ctrl);
         });
         util.addResizeEvent(function() {
